@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Repositories from "./components/repositories";
+import Skills from "./components/skills";
 
 export default function Home() {
   return (
@@ -14,6 +16,10 @@ export default function Home() {
           height={200}
           priority
         />
+
+        <Skills />
+
+        <Repositories />
 
         <Image
           className="dark:invert"
