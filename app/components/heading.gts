@@ -2,6 +2,11 @@ import { t } from 'ember-intl';
 
 <template>
   <style>
+    @font-face {
+      font-family: Yesteryear;
+      src: url("/yesteryear.ttf");
+    }
+
     @keyframes color-foreground-rotate {
       0% {
         color: #3556e3;
