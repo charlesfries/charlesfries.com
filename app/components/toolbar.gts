@@ -73,21 +73,21 @@ export interface ToolbarSignature {
     </div>
     <div class="flex">
       <LinkTo
-        @query={{hash _type=undefined}}
+        @query={{hash type=undefined}}
         class="{{BUTTON_CLASS_NAME}} rounded-l-lg -mr-1"
         role="button"
       >
         {{t "type.all"}}
       </LinkTo>
       <LinkTo
-        @query={{hash _type="sources"}}
+        @query={{hash type="sources"}}
         class="{{BUTTON_CLASS_NAME}} -mr-1"
         role="button"
       >
         {{t "type.sources"}}
       </LinkTo>
       <LinkTo
-        @query={{hash _type="forks"}}
+        @query={{hash type="forks"}}
         class="{{BUTTON_CLASS_NAME}} rounded-r-lg"
         role="button"
       >
