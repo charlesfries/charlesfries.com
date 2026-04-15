@@ -21,7 +21,6 @@ export default class ApplicationRoute extends Route {
   constructor(...args: never[]) {
     super(...args);
 
-    /* eslint-disable @typescript-eslint/no-unsafe-argument */
     this.intl.addTranslations('en-us', translationsEnUs);
     this.intl.addTranslations('es-es', translationsEsEs);
     this.intl.addTranslations('fr-fr', translationsFrFr);
