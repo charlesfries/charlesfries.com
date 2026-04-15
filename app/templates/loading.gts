@@ -6,7 +6,7 @@ const range = (length: number) => new Array<void>(length);
 
 <template>
   <RateLimit @remaining={{null}} @max={{null}} @resetAt={{null}} />
-  <Grid class="fade-top-bottom">
+  <Grid class="vertical-fade">
     {{#each (range 32)}}
       <Placeholder />
     {{/each}}
