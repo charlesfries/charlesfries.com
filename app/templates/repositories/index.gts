@@ -13,9 +13,9 @@ import Grid from 'charlesfries/components/grid';
 import RateLimit from 'charlesfries/components/rate-limit';
 import RepositoryCard from 'charlesfries/components/repository';
 import { BUTTON_CLASS_NAME } from 'charlesfries/components/toolbar';
-import type IndexController from 'charlesfries/controllers/index';
-import type IndexRoute from 'charlesfries/routes/index';
-import type { Meta } from 'charlesfries/routes/index';
+import type RepositoriesIndexController from 'charlesfries/controllers/repositories/index';
+import type RepositoriesIndexRoute from 'charlesfries/routes/repositories/index';
+import type { Meta } from 'charlesfries/routes/repositories/index';
 import { t } from 'ember-intl';
 
 type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
@@ -62,14 +62,14 @@ const MoreButton = <template>
   </a>
 </template>;
 
-interface IndexSignature {
+interface RepositoriesIndexSignature {
   Args: {
-    model: ModelFrom<IndexRoute>;
-    controller: IndexController;
+    model: ModelFrom<RepositoriesIndexRoute>;
+    controller: RepositoriesIndexController;
   };
 }
 
-export default class Index extends Component<IndexSignature> {
+export default class Index extends Component<RepositoriesIndexSignature> {
   get repositories() {
     const { repositories } = this.args.model;
     return repositories.filter(({ isFork }) => {

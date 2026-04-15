@@ -19,13 +19,6 @@ export default class ApplicationRoute extends Route {
   @service declare intl: Intl;
   @service declare router: RouterService;
 
-  queryParams = {
-    sort: { refreshModel: true },
-    direction: { refreshModel: true },
-    after: { refreshModel: true },
-    before: { refreshModel: true },
-  };
-
   constructor(...args: never[]) {
     super(...args);
 
