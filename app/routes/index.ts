@@ -15,7 +15,7 @@ type Params = {
   before?: string;
 };
 
-export type PageInfo = {
+export type Meta = {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   startCursor: string | null;
@@ -46,12 +46,7 @@ export default class IndexRoute extends Route {
       remainingRequests: remainingRequests ? Number(remainingRequests) : null,
       maxRequests: maxRequests ? Number(maxRequests) : null,
       resetAt: resetAt ? new Date(Number(resetAt) * 1000) : null,
-      pageInfo: (content.meta?.pageInfo as PageInfo | undefined) ?? {
-        hasNextPage: false,
-        hasPreviousPage: false,
-        startCursor: null,
-        endCursor: null,
-      },
+      meta: content.meta,
     };
   }
 }

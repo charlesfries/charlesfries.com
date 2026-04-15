@@ -2,10 +2,6 @@
 type Sort = 'created' | 'updated' | 'pushed' | 'name';
 type Direction = 'asc' | 'desc';
 
-declare const process: {
-  env: Record<string, string | undefined>;
-};
-
 const SORT_MAP = {
   created: 'CREATED_AT',
   updated: 'UPDATED_AT',
@@ -102,12 +98,6 @@ export default async (request: Request) => {
     }
 
     const repositories = data.data.user.repositories.nodes as { id: string }[];
-    const pageInfo = data.data.user.repositories.pageInfo as {
-      hasNextPage: boolean;
-      hasPreviousPage: boolean;
-      startCursor: string | null;
-      endCursor: string | null;
-    };
 
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -131,9 +121,7 @@ export default async (request: Request) => {
         id,
         attributes,
       })),
-      meta: {
-        pageInfo,
-      },
+      meta: data.data.user.repositories.pageInfo,
     };
 
     return new Response(JSON.stringify(body), { headers });

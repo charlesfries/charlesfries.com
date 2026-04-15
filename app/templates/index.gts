@@ -13,16 +13,16 @@ import RateLimit from 'charlesfries/components/rate-limit';
 import RepositoryCard from 'charlesfries/components/repository';
 import { BUTTON_CLASS_NAME } from 'charlesfries/components/toolbar';
 import type IndexController from 'charlesfries/controllers/index';
-import type { PageInfo } from 'charlesfries/routes/index';
+import type { Meta } from 'charlesfries/routes/index';
 import type { Repository } from 'charlesfries/schemas/repository';
 import { t } from 'ember-intl';
 
 const Pagination: TOC<{
-  pageInfo: PageInfo;
+  meta: Meta;
 }> = <template>
-  {{#if @pageInfo.hasPreviousPage}}
+  {{#if @meta.hasPreviousPage}}
     <LinkTo
-      @query={{hash before=@pageInfo.startCursor after=undefined}}
+      @query={{hash before=@meta.startCursor after=undefined}}
       class="{{BUTTON_CLASS_NAME}} rounded-lg"
       aria-label={{t "pagination.previous"}}
     >
@@ -30,9 +30,9 @@ const Pagination: TOC<{
       {{t "pagination.previous"}}
     </LinkTo>
   {{/if}}
-  {{#if @pageInfo.hasNextPage}}
+  {{#if @meta.hasNextPage}}
     <LinkTo
-      @query={{hash after=@pageInfo.endCursor before=undefined}}
+      @query={{hash after=@meta.endCursor before=undefined}}
       class="{{BUTTON_CLASS_NAME}} rounded-lg"
       aria-label={{t "pagination.next"}}
     >
@@ -64,7 +64,7 @@ interface IndexSignature {
       remainingRequests: number | null;
       maxRequests: number | null;
       resetAt: Date | null;
-      pageInfo: PageInfo;
+      meta: Meta;
     };
     controller: IndexController;
   };
@@ -95,7 +95,7 @@ export default class Index extends Component<IndexSignature> {
       {{/each}}
     </Grid>
     <div class="flex justify-center gap-3 pt-10">
-      <Pagination @pageInfo={{@model.pageInfo}} />
+      <Pagination @meta={{@model.meta}} />
     </div>
     <div class="flex justify-center pt-10">
       <MoreButton />
