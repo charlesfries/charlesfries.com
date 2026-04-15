@@ -25,7 +25,7 @@ export default class RepositoriesIndexRoute extends Route {
   @service declare store: Store;
 
   async model() {
-    const params = this.paramsFor('application') as Params;
+    const params = this.paramsFor('repositories') as Params;
 
     const clean = Object.fromEntries(
       Object.entries(params).filter(([, value]) => value != null),
