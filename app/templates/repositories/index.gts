@@ -12,10 +12,10 @@ import Component from '@glimmer/component';
 import Grid from 'charlesfries/components/grid';
 import RateLimit from 'charlesfries/components/rate-limit';
 import RepositoryCard from 'charlesfries/components/repository';
-import { BUTTON_CLASS_NAME } from 'charlesfries/components/toolbar';
 import type RepositoriesIndexController from 'charlesfries/controllers/repositories/index';
 import type RepositoriesIndexRoute from 'charlesfries/routes/repositories/index';
 import type { Meta } from 'charlesfries/routes/repositories/index';
+import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
 type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
@@ -28,7 +28,7 @@ const Pagination: TOC<{
   {{#if (if @after true (if @before @meta.hasMore false))}}
     <LinkTo
       @query={{hash before=@meta.first after=undefined}}
-      class="{{BUTTON_CLASS_NAME}} rounded-lg"
+      class="{{BUTTON.secondary}} rounded-lg"
       aria-label={{t "pagination.previous"}}
     >
       <FaIcon @icon={{faArrowLeft}} class="mr-1" />
@@ -38,7 +38,7 @@ const Pagination: TOC<{
   {{#if (if @before true @meta.hasMore)}}
     <LinkTo
       @query={{hash after=@meta.last before=undefined}}
-      class="{{BUTTON_CLASS_NAME}} rounded-lg"
+      class="{{BUTTON.secondary}} rounded-lg"
       aria-label={{t "pagination.next"}}
     >
       {{t "pagination.next"}}
@@ -47,12 +47,9 @@ const Pagination: TOC<{
   {{/if}}
 </template>;
 
-export const PRIMARY_BUTTON_CLASS_NAME =
-  'bg-blue-700 hover:bg-blue-900 text-white font-semibold px-4 py-2 rounded-lg';
-
 const MoreButton = <template>
   <a
-    class="{{PRIMARY_BUTTON_CLASS_NAME}} block w-fit mx-auto mt-10"
+    class="{{BUTTON.primary}} block w-fit mx-auto mt-10"
     href="https://github.com/charlesfries"
     role="button"
   >
