@@ -76,10 +76,10 @@ interface RepositoriesIndexSignature {
 
 export default class Index extends Component<RepositoriesIndexSignature> {
   get repositories() {
-    const { repositories } = this.args.model;
-    return repositories.filter(({ isFork }) => {
-      if (this.args.controller.type) {
-        return isFork === ('forks' === this.args.controller.type);
+    const { model, controller } = this.args;
+    return model.repositories.filter(({ isFork }) => {
+      if (controller.type) {
+        return isFork === ('forks' === controller.type);
       }
       return true;
     });
@@ -93,9 +93,7 @@ export default class Index extends Component<RepositoriesIndexSignature> {
     />
     <Grid>
       {{#each this.repositories as |repository|}}
-        <div>
-          <RepositoryCard @repository={{repository}} />
-        </div>
+        <RepositoryCard @repository={{repository}} />
       {{/each}}
     </Grid>
     <div class="flex justify-center gap-3 pt-10">
