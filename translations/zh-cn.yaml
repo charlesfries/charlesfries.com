@@ -30,3 +30,7 @@ pagination:
   next: 下一页
 error: 无法获取 GitHub 存储库！
 copyright: © 2026 Charles Fries. 版权所有。
+notFound:
+  title: 页面未找到
+  message: 找不到该页面。
+  goHome: 返回首页
