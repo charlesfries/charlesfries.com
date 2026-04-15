@@ -67,7 +67,18 @@ export default async (request: Request) => {
 
     if (!response.ok || data.errors) {
       console.error(data);
-      return new Response(JSON.stringify(data.errors ?? data), {
+      let body;
+      if (data.errors) {
+        body = {
+          errors: data.errors.map((error: any) => ({
+            detail:
+              error.extensions?.problems?.[0]?.explanation ?? error.message,
+          })),
+        };
+      } else {
+        body = data;
+      }
+      return new Response(JSON.stringify(body), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
