@@ -21,7 +21,7 @@ export default class Application extends Component {
   <template>
     <div class="container mx-auto px-4 py-12">
       <header class="flex flex-col items-center gap-8 mb-12">
-        <div class="flex flex-col items-center gap-8 max-w-lg text-center">
+        <div class="flex flex-col items-center gap-8 max-w-lg">
           <Avatar />
           <Heading />
           <div class="flex gap-2">
