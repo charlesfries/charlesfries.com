@@ -30,6 +30,8 @@ export default class Application extends Component {
           </div>
           <Description />
           <Socials />
+        </div>
+        <div class="max-w-3xl mx-auto pt-8">
           <Technologies />
         </div>
       </header>
