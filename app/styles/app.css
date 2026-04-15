@@ -5,45 +5,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-.avatar {
-  transition: transform 1s ease-in-out;
-}
-
-.avatar:hover {
-  transform: rotateY(360deg);
-}
-
-@keyframes color-foreground-rotate {
-  0% {
-    color: #3556e3;
-  }
-
-  20% {
-    color: #1c9b40;
-  }
-
-  40% {
-    color: #ff9e29;
-  }
-
-  60% {
-    color: #e01e1e;
-  }
-
-  80% {
-    color: #ae2af4;
-  }
-
-  100% {
-    color: #3556e3;
-  }
-}
-
-.heading {
-  font-family: Yesteryear, cursive;
-  animation: color-foreground-rotate 2s linear infinite;
-}
-
 .vertical-fade {
   mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 }
