@@ -22,8 +22,8 @@ type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
 
 const Pagination: TOC<{
   meta: Meta;
-  after: string | undefined;
-  before: string | undefined;
+  after: boolean;
+  before: boolean;
 }> = <template>
   {{#if (if @after true (if @before @meta.hasMore false))}}
     <LinkTo
@@ -96,8 +96,8 @@ export default class Index extends Component<RepositoriesIndexSignature> {
     <div class="flex justify-center gap-3 pt-10">
       <Pagination
         @meta={{@model.meta}}
-        @after={{@model.after}}
-        @before={{@model.before}}
+        @after={{Boolean @model.after}}
+        @before={{Boolean @model.before}}
       />
     </div>
     <MoreButton />
