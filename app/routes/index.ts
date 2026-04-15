@@ -1,8 +1,8 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { query } from '@warp-drive/utilities/json-api';
+import type { Repository } from 'charlesfries/schemas/repository';
 import type Store from 'charlesfries/services/store';
-import type { Repository } from 'charlesfries/services/store';
 
 export type Sort = 'CREATED_AT' | 'UPDATED_AT' | 'PUSHED_AT' | 'NAME';
 export type Direction = 'ASC' | 'DESC';
