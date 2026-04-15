@@ -31,7 +31,7 @@ export interface PaginationSignature {
       {{t "pagination.previous"}}
     </LinkTo>
   {{/if}}
-  {{#if (if @isBackward true @meta.hasMore)}}
+  {{#if (or @isBackward @meta.hasMore)}}
     <LinkTo
       @query={{hash after=@meta.last before=undefined}}
       class="{{BUTTON.secondary}} rounded-lg"
