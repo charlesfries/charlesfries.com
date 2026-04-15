@@ -1,8 +1,18 @@
 import { t } from 'ember-intl';
 
 <template>
+  <style>
+    .avatar {
+      transition: transform 1s ease-in-out;
+    }
+
+    .avatar:hover {
+      transform: rotateY(360deg);
+    }
+  </style>
+
   <div
-    class="size-42 p-1 rounded-full bg-linear-to-tr from-yellow-400 via-pink-500 to-purple-600 mx-auto"
+    class="avatar size-42 p-1 rounded-full bg-linear-to-tr from-yellow-400 via-pink-500 to-purple-600"
   >
     <img
       src="avatar.png"
