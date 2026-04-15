@@ -4,6 +4,7 @@ import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import mixpanel from 'mixpanel-browser';
 import { BUTTON_CLASS_NAME } from './toolbar';
 
 type _Theme = 'light' | 'dark';
@@ -60,6 +61,8 @@ export default class Theme extends Component {
     localStorage.setItem(LOCAL_STORAGE_KEY, this.userTheme);
 
     this.apply();
+
+    mixpanel.track('Theme Changed', { theme: this.userTheme });
   };
 
   apply = () => {
