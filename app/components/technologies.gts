@@ -44,6 +44,16 @@ export default class Technologies extends Component {
   };
 
   <template>
+    <style>
+      .readme h3 {
+        display: none;
+      }
+
+      .readme img {
+        display: inline;
+      }
+    </style>
+
     {{#if (eq "loading" this.state.status)}}
       <div class="mx-auto">
         <svg

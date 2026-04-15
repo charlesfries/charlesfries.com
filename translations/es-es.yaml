@@ -1,6 +1,7 @@
 name: Charles Fries
 description: Me llamo {name}. Soy el <strong>Ingeniero de Software Líder</strong> en <strong>Trusted American Insurance</strong>. Anteriormente, fui <strong>Desarrollador de Aplicaciones Web</strong> en <strong>McMillan Study Guides</strong>. Me encanta trabajar en OSS y pensar en la experiencia del desarrollador. Puede encontrarme en GitHub, LinkedIn, Twitter, Instagram o comunicarse conmigo por correo electrónico.
 locale: Lugar
+toggleTheme: Alternar tema
 contact:
   github: GitHub
   linkedIn: LinkedIn
@@ -24,5 +25,12 @@ requests: "{remaining} de {max} solicitudes restantes (se restablece a las {rese
 noDescription: Sin Descripción
 updated: Actualizada
 more: Más en GitHub
+pagination:
+  previous: Anterior
+  next: Siguiente
 error: ¡No se pudieron obtener los repositorios de GitHub!
 copyright: © 2026 Charles Fries. Reservados todos los derechos.
+notFound:
+  title: Página no encontrada
+  message: Esta página no pudo ser encontrada.
+  goHome: Ir al inicio

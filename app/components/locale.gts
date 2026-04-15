@@ -4,6 +4,7 @@ import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { t, type IntlService } from 'ember-intl';
+import mixpanel from 'mixpanel-browser';
 import { BUTTON_CLASS_NAME } from './toolbar';
 
 const locales = ['en-us', 'zh-cn', 'es-es', 'fr-fr', 'it-it'];
@@ -23,6 +24,8 @@ export default class Locale extends Component {
   setLocale = (event: Event) => {
     const { value } = event.target as HTMLSelectElement;
     this.intl.setLocale(value);
+
+    mixpanel.track('Locale Changed', { locale: value });
   };
 
   <template>
@@ -30,6 +33,7 @@ export default class Locale extends Component {
       <select
         class="{{BUTTON_CLASS_NAME}}
           rounded-lg appearance-none outline-none pr-8"
+        name="locale"
         aria-label={{t "locale"}}
         {{on "change" this.setLocale}}
       >

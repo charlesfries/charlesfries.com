@@ -1,6 +1,7 @@
 name: Charles Fries
 description: 我的名字是 {name}。我是 <strong>Trusted American Insurance</strong> 的<strong>首席软件工程师</strong>。 之前，我是 <strong>McMillan Study Guides</strong> 的一名<strong>Web 应用程序开发人员</strong>。 我喜欢在 OSS 上工作并思考开发人员的体验。 你可以在 GitHub、LinkedIn、Twitter、Instagram 上找到我，或者通过电子邮件联系我。
 locale: 语言环境
+toggleTheme: 切换主题
 contact:
   github: GitHub
   linkedIn: LinkedIn
@@ -24,5 +25,12 @@ requests: "剩余 {remaining} / {max} 次请求（将于 {resetAt} 重置）"
 noDescription: 没有说明
 updated: 更新
 more: 更多关于 GitHub
+pagination:
+  previous: 上一页
+  next: 下一页
 error: 无法获取 GitHub 存储库！
 copyright: © 2026 Charles Fries. 版权所有。
+notFound:
+  title: 页面未找到
+  message: 找不到该页面。
+  goHome: 返回首页

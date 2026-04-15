@@ -1,11 +1,11 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'charlesfries/tests/helpers';
 
-module('Unit | Controller | index', function (hooks) {
+module('Unit | Route | repositories/index', function (hooks) {
   setupTest(hooks);
 
   test('it exists', function (assert) {
-    const controller = this.owner.lookup('controller:index');
-    assert.ok(controller);
+    const route = this.owner.lookup('route:repositories/index');
+    assert.ok(route);
   });
 });
