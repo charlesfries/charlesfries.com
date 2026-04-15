@@ -15,13 +15,6 @@ type Params = {
   before?: string;
 };
 
-export type Meta = {
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-  first: string | null;
-  last: string | null;
-};
-
 export default class IndexRoute extends Route {
   @service declare store: Store;
 

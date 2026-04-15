@@ -13,9 +13,15 @@ import RateLimit from 'charlesfries/components/rate-limit';
 import RepositoryCard from 'charlesfries/components/repository';
 import { BUTTON_CLASS_NAME } from 'charlesfries/components/toolbar';
 import type IndexController from 'charlesfries/controllers/index';
-import type { Meta } from 'charlesfries/routes/index';
 import type { Repository } from 'charlesfries/schemas/repository';
 import { t } from 'ember-intl';
+
+interface Meta {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  first: string | null;
+  last: string | null;
+}
 
 const Pagination: TOC<{
   meta: Meta;
