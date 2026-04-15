@@ -1,84 +1,77 @@
-/**
- * https://shields.io/
- * https://simpleicons.org/
- */
+import type Owner from '@ember/owner';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import MarkdownToHtml from 'ember-cli-showdown/components/markdown-to-html';
+import { eq } from 'ember-truth-helpers';
 
-interface Technology {
-  name: string;
-  color: string;
-  logo: string;
-  isDark?: boolean;
+type State =
+  | { status: 'loading' }
+  | { status: 'error'; error: unknown }
+  | { status: 'success'; data: string };
+
+export default class Technologies extends Component {
+  @tracked state: State = { status: 'loading' };
+
+  constructor(owner: Owner, args: never) {
+    super(owner, args);
+
+    void this.load();
+  }
+
+  load = async () => {
+    try {
+      // eslint-disable-next-line warp-drive/no-external-request-patterns
+      const response = await fetch(
+        'https://raw.githubusercontent.com/charlesfries/charlesfries/master/README.md',
+      );
+      if (!response.ok) {
+        throw new Error('not ok');
+      }
+      const data = await response.text();
+      this.state = { status: 'success', data };
+    } catch (error) {
+      this.state = { status: 'error', error };
+    }
+  };
+
+  <template>
+    {{! template-lint-disable no-forbidden-elements }}
+    <style>
+      .readme h3 {
+        display: none;
+      }
+      .readme img {
+        display: inline;
+      }
+    </style>
+
+    {{#if (eq "loading" this.state.status)}}
+      <div class="mx-auto">
+        <svg
+          class="size-5 animate-spin text-black"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+      </div>
+    {{else if (eq "error" this.state.status)}}
+      <span>Error</span>
+    {{else if (eq "success" this.state.status)}}
+      <MarkdownToHtml @markdown={{this.state.data}} class="readme" />
+    {{/if}}
+  </template>
 }
-
-const technologies: Technology[] = [
-  { name: 'Ember.js', color: 'e04e39', logo: 'emberdotjs' },
-  { name: 'React', color: '61dafb', logo: 'react', isDark: true },
-  { name: 'Next.js', color: '000000', logo: 'nextdotjs' },
-  { name: 'HTML5', color: 'e34f26', logo: 'html5' },
-  { name: 'Express', color: '000000', logo: 'express' },
-  { name: 'Node.js', color: '5fa04e', logo: 'nodedotjs' },
-  { name: 'JavaScript', color: 'f7df1e', logo: 'javascript', isDark: true },
-  { name: 'TypeScript', color: '3178c6', logo: 'typescript' },
-  { name: 'Go', color: '00add8', logo: 'go' },
-  { name: 'Swift', color: 'f05138', logo: 'swift' },
-  { name: 'TailwindCSS', color: '06b6d4', logo: 'tailwindcss' },
-  { name: 'CSS', color: '663399', logo: 'css' },
-  { name: 'Git', color: 'f05032', logo: 'git' },
-  { name: 'GitHub', color: '181717', logo: 'github' },
-  { name: 'GitHub Actions', color: '2088ff', logo: 'githubactions' },
-  { name: 'Netlify', color: '00c7b7', logo: 'netlify' },
-  { name: 'Vercel', color: '000000', logo: 'vercel' },
-  { name: 'Google Cloud', color: '4285f4', logo: 'googlecloud' },
-  { name: 'Firebase', color: 'dd2c00', logo: 'firebase' },
-  { name: 'Supabase', color: '3fcf8e', logo: 'supabase' },
-  { name: 'Terraform', color: '844fba', logo: 'terraform' },
-  { name: 'Cloudflare', color: 'f38020', logo: 'cloudflare' },
-  { name: 'Docker', color: '2496ed', logo: 'docker' },
-  { name: 'nvm', color: 'f4dd4b', logo: 'nvm', isDark: true },
-  { name: 'NGINX', color: '009639', logo: 'nginx' },
-  { name: 'Prisma', color: '2d3748', logo: 'prisma' },
-  { name: 'GraphQL', color: 'e10098', logo: 'graphql' },
-  { name: 'PostgreSQL', color: '4169e1', logo: 'postgresql' },
-  { name: 'Claude', color: 'd97757', logo: 'claude' },
-  { name: 'Vite', color: '9135ff', logo: 'vite' },
-  { name: 'Vitest', color: '00ff74', logo: 'vitest' },
-  { name: 'Babel', color: 'f9dc3e', logo: 'babel', isDark: true },
-  { name: 'ESLint', color: '4b32c3', logo: 'eslint' },
-  { name: 'Prettier', color: 'f7b93e', logo: 'prettier', isDark: true },
-  { name: 'Stylelint', color: '263238', logo: 'stylelint' },
-  { name: 'pnpm', color: 'f69220', logo: 'pnpm' },
-  { name: 'npm', color: 'cb3837', logo: 'npm' },
-  { name: 'Homebrew', color: 'fbb040', logo: 'homebrew' },
-  { name: 'Sentry', color: '362d59', logo: 'sentry' },
-  { name: 'Percy', color: '9e66bf', logo: 'percy' },
-  { name: 'Mixpanel', color: '7856ff', logo: 'mixpanel' },
-  { name: 'Algolia', color: '5468ff', logo: 'algolia' },
-  { name: 'Stripe', color: '645cff', logo: 'stripe' },
-  { name: 'Mailgun', color: 'f06b66', logo: 'mailgun' },
-  { name: 'Font Awesome', color: '538dd7', logo: 'fontawesome' },
-  { name: 'Neovim', color: '57a143', logo: 'neovim' },
-  { name: 'Xcode', color: '147efb', logo: 'xcode' },
-  { name: 'Insomnia', color: '4000bf', logo: 'insomnia' },
-  { name: 'Brave', color: 'fb542b', logo: 'brave' },
-  { name: 'iOS', color: '000000', logo: 'ios' },
-  { name: 'macOS', color: '000000', logo: 'macos' },
-  { name: 'Ubuntu', color: 'e95420', logo: 'ubuntu' },
-  { name: 'Raspberry Pi', color: 'a22846', logo: 'raspberrypi' },
-  { name: 'Arduino', color: '00878f', logo: 'arduino' },
-  { name: 'Ubiquiti', color: '0559c9', logo: 'ubiquiti' },
-];
-
-<template>
-  <div class="flex flex-wrap justify-center gap-2">
-    {{#each technologies as |technology|}}
-      <img
-        alt={{technology.name}}
-        src="https://img.shields.io/badge/{{technology.name}}-{{technology.color}}?style=flat-square&logo={{technology.logo}}&logoColor={{if
-          technology.isDark
-          'black'
-          'white'
-        }}"
-      />
-    {{/each}}
-  </div>
-</template>

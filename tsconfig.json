@@ -1,6 +1,16 @@
 {
   "extends": "@ember/app-tsconfig",
   "include": ["app", "tests", "types"],
+  "glint": {
+    "additionalSpecialForms": {
+      "globals": {
+        "eq": "===",
+        "notEq": "!==",
+        "and": "&&",
+        "or": "||"
+      }
+    }
+  },
   "compilerOptions": {
     "allowJs": true,
     "paths": {
