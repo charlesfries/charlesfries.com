@@ -23,6 +23,7 @@ type:
 requests: "{remaining} di {max} richieste rimanenti (si ripristina alle {resetAt})"
 noDescription: Nessuna descrizione
 updated: Aggiornata
+more: Altro su GitHub
 pagination:
   previous: Precedente
   next: Successivo
