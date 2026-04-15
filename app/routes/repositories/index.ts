@@ -21,7 +21,7 @@ export interface Meta {
   last: string | null;
 }
 
-export default class IndexRoute extends Route {
+export default class RepositoriesIndexRoute extends Route {
   @service declare store: Store;
 
   async model() {

@@ -1,11 +1,12 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'charlesfries/tests/helpers';
 
-module('Unit | Controller | application', function (hooks) {
+module('Unit | Controller | repositories', function (hooks) {
   setupTest(hooks);
 
+  // TODO: Replace this with your real tests.
   test('it exists', function (assert) {
-    const controller = this.owner.lookup('controller:application');
+    const controller = this.owner.lookup('controller:repositories');
     assert.ok(controller);
   });
 });
