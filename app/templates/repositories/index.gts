@@ -47,9 +47,12 @@ const Pagination: TOC<{
   {{/if}}
 </template>;
 
+export const PRIMARY_BUTTON_CLASS_NAME =
+  'bg-blue-700 hover:bg-blue-900 text-white font-semibold px-4 py-2 rounded-lg';
+
 const MoreButton = <template>
   <a
-    class="bg-blue-700 hover:bg-blue-900 text-white font-semibold px-4 py-2 rounded-lg"
+    class="{{PRIMARY_BUTTON_CLASS_NAME}} block w-fit mx-auto mt-10"
     href="https://github.com/charlesfries"
     role="button"
   >
@@ -100,8 +103,6 @@ export default class Index extends Component<RepositoriesIndexSignature> {
         @before={{@model.before}}
       />
     </div>
-    <div class="flex justify-center pt-10">
-      <MoreButton />
-    </div>
+    <MoreButton />
   </template>
 }
