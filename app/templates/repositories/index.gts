@@ -35,7 +35,7 @@ interface RepositoriesIndexSignature {
   };
 }
 
-export default class Index extends Component<RepositoriesIndexSignature> {
+export default class RepositoriesIndex extends Component<RepositoriesIndexSignature> {
   get repositories() {
     const { model, controller } = this.args;
     return model.repositories.filter(({ isFork }) => {
