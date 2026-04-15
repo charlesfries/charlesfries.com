@@ -1,7 +1,7 @@
 import type { TOC } from '@ember/component/template-only';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faCodeFork, faStar } from '@fortawesome/free-solid-svg-icons';
-import type { Repository } from 'charlesfries/services/store';
+import type { Repository } from 'charlesfries/schemas/repository';
 import { formatDate, t } from 'ember-intl';
 
 export const languageColors: Record<string, string> = {

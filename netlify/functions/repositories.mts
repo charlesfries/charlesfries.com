@@ -6,6 +6,12 @@ type Body = {
   data: {
     user: {
       repositories: {
+        pageInfo: {
+          hasNextPage: boolean;
+          hasPreviousPage: boolean;
+          first: string | null;
+          last: string | null;
+        };
         nodes: {
           id: string;
           name: string;
@@ -39,18 +45,47 @@ type ErrorBody = {
   }[];
 };
 
+// TODO: duplicated
+type Sort = 'created' | 'updated' | 'pushed' | 'name';
+type Direction = 'asc' | 'desc';
+
+const SORT_MAP = {
+  created: 'CREATED_AT',
+  updated: 'UPDATED_AT',
+  pushed: 'PUSHED_AT',
+  name: 'NAME',
+};
+
+const DIRECTION_MAP = {
+  asc: 'ASC',
+  desc: 'DESC',
+};
+
 export default async (request: Request) => {
   const gql = String.raw;
   const query = gql`
     query GetRepositories(
       $sort: RepositoryOrderField!
       $direction: OrderDirection!
+      $first: Int
+      $last: Int
+      $after: String
+      $before: String
     ) {
       user(login: "charlesfries") {
         repositories(
-          first: 30
+          first: $first
+          last: $last
+          after: $after
+          before: $before
           orderBy: { field: $sort, direction: $direction }
         ) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            first: startCursor
+            last: endCursor
+          }
           nodes {
             id
             name
@@ -71,10 +106,24 @@ export default async (request: Request) => {
 
   try {
     const url = new URL(request.url);
-    const sort = url.searchParams.get('sort') ?? 'PUSHED_AT';
-    const direction = url.searchParams.get('direction') ?? 'DESC';
+    const _sort = url.searchParams.get('sort') as Sort | null;
+    const _direction = url.searchParams.get('direction') as Direction | null;
+    const after = url.searchParams.get('after');
+    const before = url.searchParams.get('before');
 
-    const variables = { sort, direction };
+    const sort = SORT_MAP[_sort ?? 'pushed'];
+    const direction = DIRECTION_MAP[_direction ?? 'desc'];
+    const pageSize = 32;
+    const isBackwardPagination = Boolean(before);
+
+    const variables = {
+      sort,
+      direction,
+      first: isBackwardPagination ? null : pageSize,
+      last: isBackwardPagination ? pageSize : null,
+      after: isBackwardPagination ? null : after,
+      before: isBackwardPagination ? before : null,
+    };
 
     const response = await fetch('https://api.github.com/graphql', {
       method: 'POST',
@@ -107,6 +156,7 @@ export default async (request: Request) => {
     }
 
     const repositories = (data as Body).data.user.repositories.nodes;
+    const pageInfo = (data as Body).data.user.repositories.pageInfo;
 
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -130,6 +180,13 @@ export default async (request: Request) => {
         id,
         attributes,
       })),
+      meta: {
+        hasMore: isBackwardPagination
+          ? pageInfo.hasPreviousPage
+          : pageInfo.hasNextPage,
+        first: pageInfo.first,
+        last: pageInfo.last,
+      },
     };
 
     return new Response(JSON.stringify(body), { headers });

@@ -1,8 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'charlesfries/tests/helpers';
 import { render } from '@ember/test-helpers';
-import Repository from 'charlesfries/components/repository';
-import type { Repository as _Repository } from 'charlesfries/services/store';
+import RepositoryCard from 'charlesfries/components/repository';
+import type { Repository } from 'charlesfries/schemas/repository';
 
 module('Integration | Component | repository', function (hooks) {
   setupRenderingTest(hooks);
@@ -19,10 +19,10 @@ module('Integration | Component | repository', function (hooks) {
       primaryLanguage: {
         name: 'TypeScript',
       },
-    } as _Repository;
+    } as Repository;
 
     await render(
-      <template><Repository @repository={{repository}} /></template>,
+      <template><RepositoryCard @repository={{repository}} /></template>,
     );
 
     assert

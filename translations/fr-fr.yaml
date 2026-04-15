@@ -24,5 +24,8 @@ requests: "{remaining} sur {max} requêtes restantes (réinitialisation à {rese
 noDescription: Pas de description
 updated: Actualisé
 more: En savoir plus sur GitHub
+pagination:
+  previous: Précédent
+  next: Suivant
 error: Impossible de récupérer les dépôts GitHub!
 copyright: © 2026 Charles Fries. Tous droits réservés.

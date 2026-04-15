@@ -1,12 +1,51 @@
+import type { TOC } from '@ember/component/template-only';
+import { hash } from '@ember/helper';
+import { LinkTo } from '@ember/routing';
+import type Route from '@ember/routing/route';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faArrowRight,
+  faArrowUpRightFromSquare,
+} from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import Grid from 'charlesfries/components/grid';
 import RateLimit from 'charlesfries/components/rate-limit';
-import Repository from 'charlesfries/components/repository';
+import RepositoryCard from 'charlesfries/components/repository';
+import { BUTTON_CLASS_NAME } from 'charlesfries/components/toolbar';
 import type IndexController from 'charlesfries/controllers/index';
-import type { Repository as _Repository } from 'charlesfries/services/store';
+import type IndexRoute from 'charlesfries/routes/index';
+import type { Meta } from 'charlesfries/routes/index';
 import { t } from 'ember-intl';
+
+type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
+
+const Pagination: TOC<{
+  meta: Meta;
+  after: string | undefined;
+  before: string | undefined;
+}> = <template>
+  {{#if (if @after true (if @before @meta.hasMore false))}}
+    <LinkTo
+      @query={{hash before=@meta.first after=undefined}}
+      class="{{BUTTON_CLASS_NAME}} rounded-lg"
+      aria-label={{t "pagination.previous"}}
+    >
+      <FaIcon @icon={{faArrowLeft}} class="mr-1" />
+      {{t "pagination.previous"}}
+    </LinkTo>
+  {{/if}}
+  {{#if (if @before true @meta.hasMore)}}
+    <LinkTo
+      @query={{hash after=@meta.last before=undefined}}
+      class="{{BUTTON_CLASS_NAME}} rounded-lg"
+      aria-label={{t "pagination.next"}}
+    >
+      {{t "pagination.next"}}
+      <FaIcon @icon={{faArrowRight}} class="ml-1" />
+    </LinkTo>
+  {{/if}}
+</template>;
 
 const MoreButton = <template>
   <a
@@ -25,12 +64,7 @@ const MoreButton = <template>
 
 interface IndexSignature {
   Args: {
-    model: {
-      repositories: _Repository[];
-      remainingRequests: number | null;
-      maxRequests: number | null;
-      resetAt: Date | null;
-    };
+    model: ModelFrom<IndexRoute>;
     controller: IndexController;
   };
 }
@@ -39,8 +73,8 @@ export default class Index extends Component<IndexSignature> {
   get repositories() {
     const { repositories } = this.args.model;
     return repositories.filter(({ isFork }) => {
-      if (this.args.controller._type) {
-        return isFork === ('forks' === this.args.controller._type);
+      if (this.args.controller.type) {
+        return isFork === ('forks' === this.args.controller.type);
       }
       return true;
     });
@@ -55,10 +89,17 @@ export default class Index extends Component<IndexSignature> {
     <Grid>
       {{#each this.repositories as |repository|}}
         <div>
-          <Repository @repository={{repository}} />
+          <RepositoryCard @repository={{repository}} />
         </div>
       {{/each}}
     </Grid>
+    <div class="flex justify-center gap-3 pt-10">
+      <Pagination
+        @meta={{@model.meta}}
+        @after={{@model.after}}
+        @before={{@model.before}}
+      />
+    </div>
     <div class="flex justify-center pt-10">
       <MoreButton />
     </div>

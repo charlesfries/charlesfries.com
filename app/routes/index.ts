@@ -1,38 +1,40 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import { query, setBuildURLConfig } from '@warp-drive/utilities/json-api';
+import { query } from '@warp-drive/utilities/json-api';
+import type { Repository } from 'charlesfries/schemas/repository';
 import type Store from 'charlesfries/services/store';
-import type { Repository } from 'charlesfries/services/store';
 
-export type Sort = 'CREATED_AT' | 'UPDATED_AT' | 'PUSHED_AT' | 'NAME';
-export type Direction = 'ASC' | 'DESC';
+export type Sort = 'created' | 'updated' | 'pushed' | 'name';
+export type Direction = 'asc' | 'desc';
 export type Type = 'sources' | 'forks';
 
-setBuildURLConfig({
-  host: null,
-  namespace: 'api/v1',
-});
+type Params = {
+  sort: Sort;
+  direction: Direction;
+  after?: string;
+  before?: string;
+};
+
+export interface Meta {
+  hasMore: boolean;
+  first: string | null;
+  last: string | null;
+}
 
 export default class IndexRoute extends Route {
   @service declare store: Store;
 
   async model() {
-    const { sort, direction } = this.paramsFor('application') as {
-      sort: Sort;
-      direction: Direction;
-    };
+    const params = this.paramsFor('application') as Params;
 
-    const url = new URL('/api/v1/repositories', location.origin);
-    url.searchParams.append('sort', sort);
-    url.searchParams.append('direction', direction);
-
-    const { response, content } = await this.store.request(
-      query<Repository>(
-        'repository',
-        { sort, direction },
-        { backgroundReload: true },
-      ),
+    const clean = Object.fromEntries(
+      Object.entries(params).filter(([, value]) => value != null),
     );
+
+    const options = query<Repository>('repository', clean, {
+      backgroundReload: true,
+    });
+    const { response, content } = await this.store.request(options);
 
     const remainingRequests = response?.headers.get('X-RateLimit-Remaining');
     const maxRequests = response?.headers.get('X-RateLimit-Limit');
@@ -40,13 +42,12 @@ export default class IndexRoute extends Route {
 
     return {
       repositories: content.data,
-      remainingRequests:
-        typeof remainingRequests === 'string'
-          ? Number(remainingRequests)
-          : null,
-      maxRequests: typeof maxRequests === 'string' ? Number(maxRequests) : null,
-      resetAt:
-        typeof resetAt === 'string' ? new Date(Number(resetAt) * 1000) : null,
+      meta: content.meta as unknown as Meta, // TODO: fix this typing
+      after: params.after,
+      before: params.before,
+      remainingRequests: remainingRequests ? Number(remainingRequests) : null,
+      maxRequests: maxRequests ? Number(maxRequests) : null,
+      resetAt: resetAt ? new Date(Number(resetAt) * 1000) : null,
     };
   }
 }
