@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import { query, setBuildURLConfig } from '@warp-drive/utilities/json-api';
+import { query } from '@warp-drive/utilities/json-api';
 import type Store from 'charlesfries/services/store';
 import type { Repository } from 'charlesfries/services/store';
 
@@ -13,24 +13,18 @@ type Params = {
   direction: Direction;
 };
 
-setBuildURLConfig({
-  host: null,
-  namespace: 'api/v1',
-});
-
 export default class IndexRoute extends Route {
   @service declare store: Store;
 
   async model() {
     const { sort, direction } = this.paramsFor('application') as Params;
 
-    const { response, content } = await this.store.request(
-      query<Repository>(
-        'repository',
-        { sort, direction },
-        { backgroundReload: true },
-      ),
+    const options = query<Repository>(
+      'repository',
+      { sort, direction },
+      { backgroundReload: true },
     );
+    const { response, content } = await this.store.request(options);
 
     const remainingRequests = response?.headers.get('X-RateLimit-Remaining');
     const maxRequests = response?.headers.get('X-RateLimit-Limit');
@@ -38,13 +32,9 @@ export default class IndexRoute extends Route {
 
     return {
       repositories: content.data,
-      remainingRequests:
-        typeof remainingRequests === 'string'
-          ? Number(remainingRequests)
-          : null,
-      maxRequests: typeof maxRequests === 'string' ? Number(maxRequests) : null,
-      resetAt:
-        typeof resetAt === 'string' ? new Date(Number(resetAt) * 1000) : null,
+      remainingRequests: remainingRequests ? Number(remainingRequests) : null,
+      maxRequests: maxRequests ? Number(maxRequests) : null,
+      resetAt: resetAt ? new Date(Number(resetAt) * 1000) : null,
     };
   }
 }

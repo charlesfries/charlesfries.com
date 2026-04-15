@@ -1,8 +1,14 @@
 import Route from '@ember/routing/route';
 import type RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
+import { setBuildURLConfig } from '@warp-drive/utilities/json-api';
 import { type IntlService as Intl } from 'ember-intl';
 import mixpanel from 'mixpanel-browser';
+
+setBuildURLConfig({
+  host: null,
+  namespace: 'api/v1',
+});
 
 export default class ApplicationRoute extends Route {
   @service declare intl: Intl;
