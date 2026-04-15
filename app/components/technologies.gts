@@ -58,7 +58,7 @@ export default class Technologies extends Component {
     {{#if (eq "loading" this.state.status)}}
       <div class="mx-auto">
         <svg
-          class="size-5 animate-spin text-black"
+          class="size-5 animate-spin text-black dark:text-white"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
