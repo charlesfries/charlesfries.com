@@ -15,6 +15,12 @@ type Params = {
   before?: string;
 };
 
+export interface Meta {
+  hasMore: boolean;
+  first: string | null;
+  last: string | null;
+}
+
 export default class IndexRoute extends Route {
   @service declare store: Store;
 
@@ -36,7 +42,9 @@ export default class IndexRoute extends Route {
 
     return {
       repositories: content.data,
-      meta: content.meta,
+      meta: content.meta as unknown as Meta, // TODO: fix this typing
+      after: params.after,
+      before: params.before,
       remainingRequests: remainingRequests ? Number(remainingRequests) : null,
       maxRequests: maxRequests ? Number(maxRequests) : null,
       resetAt: resetAt ? new Date(Number(resetAt) * 1000) : null,

@@ -98,6 +98,12 @@ export default async (request: Request) => {
     }
 
     const repositories = data.data.user.repositories.nodes as { id: string }[];
+    const pageInfo = data.data.user.repositories.pageInfo as {
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+      first: string | null;
+      last: string | null;
+    };
 
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -121,7 +127,13 @@ export default async (request: Request) => {
         id,
         attributes,
       })),
-      meta: data.data.user.repositories.pageInfo,
+      meta: {
+        hasMore: isBackwardPagination
+          ? pageInfo.hasPreviousPage
+          : pageInfo.hasNextPage,
+        first: pageInfo.first,
+        last: pageInfo.last,
+      },
     };
 
     return new Response(JSON.stringify(body), { headers });
