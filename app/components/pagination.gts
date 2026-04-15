@@ -7,9 +7,11 @@ import type { Meta } from 'charlesfries/routes/repositories/index';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
+const eq = (a: unknown, b: unknown) => a === b;
+
 const and = (...args: unknown[]) => args.every(Boolean);
 
-const not = (value: unknown) => !value;
+const or = (a: unknown, b: unknown) => Boolean(a || b);
 
 export interface PaginationSignature {
   Args: {
@@ -19,36 +21,24 @@ export interface PaginationSignature {
 }
 
 <template>
-  <div class="flex justify-center pt-10">
+  {{#if (or (eq false @isBackward) (and @isBackward @meta.hasMore))}}
     <LinkTo
       @query={{hash before=@meta.first after=undefined}}
-      class="{{BUTTON.secondary}}
-        rounded-l-lg -mr-px
-        {{if
-          (and @isBackward (not @meta.hasMore))
-          'opacity-50 pointer-events-none cursor-not-allowed'
-        }}"
+      class="{{BUTTON.secondary}} rounded-lg"
       aria-label={{t "pagination.previous"}}
-      aria-disabled={{and @isBackward (not @meta.hasMore)}}
-      tabindex={{if (and @isBackward (not @meta.hasMore)) "-1"}}
     >
       <FaIcon @icon={{faArrowLeft}} class="mr-1" />
       {{t "pagination.previous"}}
     </LinkTo>
+  {{/if}}
+  {{#if (or @isBackward @meta.hasMore)}}
     <LinkTo
       @query={{hash after=@meta.last before=undefined}}
-      class="{{BUTTON.secondary}}
-        rounded-r-lg
-        {{if
-          (and (not @isBackward) (not @meta.hasMore))
-          'opacity-50 pointer-events-none cursor-not-allowed'
-        }}"
+      class="{{BUTTON.secondary}} rounded-lg"
       aria-label={{t "pagination.next"}}
-      aria-disabled={{and (not @isBackward) (not @meta.hasMore)}}
-      tabindex={{if (and (not @isBackward) (not @meta.hasMore)) "-1"}}
     >
       {{t "pagination.next"}}
       <FaIcon @icon={{faArrowRight}} class="ml-1" />
     </LinkTo>
-  </div>
+  {{/if}}
 </template> satisfies TOC<PaginationSignature>;
