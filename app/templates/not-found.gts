@@ -10,13 +10,15 @@ interface NotFoundSignature {
 }
 
 <template>
-  {{pageTitle "Not Found"}}
+  {{pageTitle "Not found"}}
 
   <div class="text-center mt-10">
-    <h1 class="text-4xl font-bold">404</h1>
-    <p class="mt-4">Page not found.</p>
-
-    <LinkTo @route="index" class="mt-6 inline-block text-blue-500 underline">
+    <h1 class="text-4xl font-bold">Page not found</h1>
+    <p class="mt-4">This page could not be found.</p>
+    <LinkTo
+      @route="repositories"
+      class="mt-6 inline-block text-blue-500 underline"
+    >
       Go home
     </LinkTo>
   </div>
