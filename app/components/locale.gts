@@ -33,6 +33,7 @@ export default class Locale extends Component {
       <select
         class="{{BUTTON_CLASS_NAME}}
           rounded-lg appearance-none outline-none pr-8"
+        name="locale"
         aria-label={{t "locale"}}
         {{on "change" this.setLocale}}
       >
