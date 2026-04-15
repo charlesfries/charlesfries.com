@@ -1,3 +1,44 @@
+import type { Document } from 'jsonapi-typescript';
+
+// success
+
+type Body = {
+  data: {
+    user: {
+      repositories: {
+        nodes: {
+          id: string;
+          name: string;
+          description: string | null;
+          url: string;
+          stargazerCount: number;
+          forkCount: number;
+          isFork: boolean;
+          pushedAt: string | null;
+          primaryLanguage: {
+            name: string;
+          } | null;
+        }[];
+      };
+    };
+  };
+};
+
+// error
+
+type ErrorBody = {
+  errors: {
+    message: string;
+    extensions?: {
+      value?: string;
+      problems?: {
+        path: (string | number)[];
+        explanation: string;
+      }[];
+    };
+  }[];
+};
+
 export default async (request: Request) => {
   const gql = String.raw;
   const query = gql`
@@ -44,20 +85,20 @@ export default async (request: Request) => {
       body: JSON.stringify({ query, variables }),
     });
 
-    const data = await response.json();
+    const data = (await response.json()) as Body | ErrorBody;
 
-    if (!response.ok || data.errors) {
+    if (!response.ok || (data as ErrorBody).errors) {
       console.error(data);
-      let body;
-      if (data.errors) {
+      let body: Document;
+      if ((data as ErrorBody).errors) {
         body = {
-          errors: data.errors.map((error: any) => ({
+          errors: (data as ErrorBody).errors.map((error) => ({
             detail:
               error.extensions?.problems?.[0]?.explanation ?? error.message,
           })),
         };
       } else {
-        body = data;
+        body = data as any;
       }
       return new Response(JSON.stringify(body), {
         status: 400,
@@ -65,7 +106,7 @@ export default async (request: Request) => {
       });
     }
 
-    const repositories = data.data.user.repositories.nodes as { id: string }[];
+    const repositories = (data as Body).data.user.repositories.nodes;
 
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -83,7 +124,7 @@ export default async (request: Request) => {
       }
     }
 
-    const body = {
+    const body: Document = {
       data: repositories.map(({ id, ...attributes }) => ({
         type: 'repository',
         id,
