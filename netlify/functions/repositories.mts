@@ -36,8 +36,8 @@ export default async (request: Request) => {
           pageInfo {
             hasNextPage
             hasPreviousPage
-            startCursor
-            endCursor
+            first: startCursor
+            last: endCursor
           }
           nodes {
             id

@@ -18,8 +18,8 @@ type Params = {
 export type Meta = {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
-  startCursor: string | null;
-  endCursor: string | null;
+  first: string | null;
+  last: string | null;
 };
 
 export default class IndexRoute extends Route {

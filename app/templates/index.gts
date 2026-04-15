@@ -22,7 +22,7 @@ const Pagination: TOC<{
 }> = <template>
   {{#if @meta.hasPreviousPage}}
     <LinkTo
-      @query={{hash before=@meta.startCursor after=undefined}}
+      @query={{hash before=@meta.first after=undefined}}
       class="{{BUTTON_CLASS_NAME}} rounded-lg"
       aria-label={{t "pagination.previous"}}
     >
@@ -32,7 +32,7 @@ const Pagination: TOC<{
   {{/if}}
   {{#if @meta.hasNextPage}}
     <LinkTo
-      @query={{hash after=@meta.endCursor before=undefined}}
+      @query={{hash after=@meta.last before=undefined}}
       class="{{BUTTON_CLASS_NAME}} rounded-lg"
       aria-label={{t "pagination.next"}}
     >
