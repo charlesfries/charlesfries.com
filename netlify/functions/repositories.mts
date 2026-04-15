@@ -20,12 +20,25 @@ export default async (request: Request) => {
     query GetRepositories(
       $sort: RepositoryOrderField!
       $direction: OrderDirection!
+      $first: Int
+      $last: Int
+      $after: String
+      $before: String
     ) {
       user(login: "charlesfries") {
         repositories(
-          first: 30
+          first: $first
+          last: $last
+          after: $after
+          before: $before
           orderBy: { field: $sort, direction: $direction }
         ) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            first: startCursor
+            last: endCursor
+          }
           nodes {
             id
             name
@@ -48,11 +61,22 @@ export default async (request: Request) => {
     const url = new URL(request.url);
     const _sort = url.searchParams.get('sort') as Sort | null;
     const _direction = url.searchParams.get('direction') as Direction | null;
+    const after = url.searchParams.get('after');
+    const before = url.searchParams.get('before');
 
     const sort = SORT_MAP[_sort ?? 'pushed'];
     const direction = DIRECTION_MAP[_direction ?? 'desc'];
+    const pageSize = 32;
+    const isBackwardPagination = Boolean(before);
 
-    const variables = { sort, direction };
+    const variables = {
+      sort,
+      direction,
+      first: isBackwardPagination ? null : pageSize,
+      last: isBackwardPagination ? pageSize : null,
+      after: isBackwardPagination ? null : after,
+      before: isBackwardPagination ? before : null,
+    };
 
     const response = await fetch('https://api.github.com/graphql', {
       method: 'POST',
@@ -74,6 +98,12 @@ export default async (request: Request) => {
     }
 
     const repositories = data.data.user.repositories.nodes as { id: string }[];
+    const pageInfo = data.data.user.repositories.pageInfo as {
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+      first: string | null;
+      last: string | null;
+    };
 
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -97,6 +127,13 @@ export default async (request: Request) => {
         id,
         attributes,
       })),
+      meta: {
+        hasMore: isBackwardPagination
+          ? pageInfo.hasPreviousPage
+          : pageInfo.hasNextPage,
+        first: pageInfo.first,
+        last: pageInfo.last,
+      },
     };
 
     return new Response(JSON.stringify(body), { headers });
