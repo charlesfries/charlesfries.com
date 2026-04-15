@@ -20,18 +20,18 @@ export default class Application extends Component {
 
   <template>
     <div class="container mx-auto px-4 py-12">
-      <header class="mb-12">
-        <div class="flex flex-col gap-8 max-w-lg mx-auto text-center">
+      <header class="flex flex-col items-center gap-8 mb-12">
+        <div class="flex flex-col items-center gap-8 max-w-lg text-center">
           <Avatar />
           <Heading />
-          <div class="flex gap-2 mx-auto">
+          <div class="flex gap-2">
             <Locale />
             <Theme />
           </div>
           <Description />
           <Socials />
         </div>
-        <div class="max-w-3xl mx-auto pt-8">
+        <div class="max-w-3xl">
           <Technologies />
         </div>
       </header>
