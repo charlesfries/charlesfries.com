@@ -27,7 +27,7 @@ export default class ApplicationRoute extends Route {
     this.router.on('routeDidChange', () => {
       const page = this.router.currentURL;
       const title = this.router.currentRouteName || 'unknown';
-      mixpanel.track('Page view', { page, title });
+      mixpanel.track('Page Viewed', { page, title });
     });
   }
 }
