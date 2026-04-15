@@ -6,6 +6,8 @@ import type { Meta } from 'charlesfries/routes/repositories/index';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
+const DISABLED_CLASS = 'opacity-50 pointer-events-none';
+
 export interface PaginationSignature {
   Args: {
     meta: Meta;
@@ -26,63 +28,35 @@ export default class Pagination extends Component<PaginationSignature> {
 
   // navigation conditions
 
-  get canGoPrev() {
+  get canPrevious() {
     return this.isBackward === false || (this.isBackward && this.meta.hasMore);
   }
 
-  get canGoNext() {
+  get canNext() {
     return this.isBackward || this.meta.hasMore;
   }
 
   // queries
 
-  get prevQuery() {
-    return this.canGoPrev ? { before: this.meta.first, after: undefined } : {};
+  get previousQuery() {
+    return this.canPrevious
+      ? { before: this.meta.first, after: undefined }
+      : {};
   }
 
   get nextQuery() {
-    return this.canGoNext ? { after: this.meta.last, before: undefined } : {};
-  }
-
-  // classes
-
-  get prevClasses() {
-    return [
-      BUTTON.secondary,
-      'rounded-l-lg -mr-px',
-      !this.canGoPrev && 'opacity-50 pointer-events-none',
-    ]
-      .filter(Boolean)
-      .join(' ');
-  }
-
-  get nextClasses() {
-    return [
-      BUTTON.secondary,
-      'rounded-r-lg',
-      !this.canGoNext && 'opacity-50 pointer-events-none',
-    ]
-      .filter(Boolean)
-      .join(' ');
-  }
-
-  // a11y
-
-  get prevAriaDisabled() {
-    return this.canGoPrev ? undefined : 'true';
-  }
-
-  get nextAriaDisabled() {
-    return this.canGoNext ? undefined : 'true';
+    return this.canNext ? { after: this.meta.last, before: undefined } : {};
   }
 
   <template>
     <div class="flex justify-center pt-10">
       <LinkTo
-        @query={{this.prevQuery}}
-        class={{this.prevClasses}}
+        @query={{this.previousQuery}}
+        class="{{BUTTON.secondary}}
+          rounded-l-lg -mr-px
+          {{unless this.canPrevious DISABLED_CLASS}}"
         aria-label={{t "pagination.previous"}}
-        aria-disabled={{this.prevAriaDisabled}}
+        aria-disabled={{unless this.canPrevious true}}
       >
         <FaIcon @icon={{faArrowLeft}} class="mr-1" />
         {{t "pagination.previous"}}
@@ -90,9 +64,11 @@ export default class Pagination extends Component<PaginationSignature> {
 
       <LinkTo
         @query={{this.nextQuery}}
-        class={{this.nextClasses}}
+        class="{{BUTTON.secondary}}
+          rounded-r-lg
+          {{unless this.canNext DISABLED_CLASS}}"
         aria-label={{t "pagination.next"}}
-        aria-disabled={{this.nextAriaDisabled}}
+        aria-disabled={{unless this.canNext true}}
       >
         {{t "pagination.next"}}
         <FaIcon @icon={{faArrowRight}} class="ml-1" />
