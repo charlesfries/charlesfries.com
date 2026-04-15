@@ -31,7 +31,7 @@
   }
 }
 
-.special {
+.heading {
   font-family: Yesteryear, cursive;
   animation: color-foreground-rotate 2s linear infinite;
 }
