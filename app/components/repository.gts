@@ -5,15 +5,15 @@ import type { Repository } from 'charlesfries/schemas/repository';
 import { formatDate, t } from 'ember-intl';
 
 export const languageColors: Record<string, string> = {
-  JavaScript: 'text-yellow-400',
-  TypeScript: 'text-blue-500',
+  JavaScript: 'text-yellow-700',
+  TypeScript: 'text-blue-600',
   Python: 'text-blue-400',
   Java: 'text-orange-500',
   C: 'text-gray-500',
   'C++': 'text-blue-600',
   'C#': 'text-green-600',
   'Objective-C': 'text-blue-500',
-  Go: 'text-cyan-500',
+  Go: 'text-cyan-700',
   Rust: 'text-orange-600',
   Ruby: 'text-red-600',
   PHP: 'text-indigo-400',
@@ -53,7 +53,7 @@ export interface RepositorySignature {
   >
     <a
       href={{@repository.url}}
-      class="text-blue-500 underline after:absolute after:inset-0"
+      class="text-blue-600 underline after:absolute after:inset-0"
     >
       {{@repository.name}}</a>
     {{#if @repository.isFork}}
@@ -84,7 +84,7 @@ export interface RepositorySignature {
         <span class="text-neutral-500">{{@repository.forkCount}}</span>
       </div>
     </div>
-    <div class="text-sm text-neutral-400 mt-2">
+    <div class="text-sm text-neutral-500 mt-2">
       {{t "updated"}}
       {{formatDate @repository.pushedAt year="numeric" month="long"}}
     </div>

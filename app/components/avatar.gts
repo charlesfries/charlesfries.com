@@ -12,7 +12,7 @@ import { t } from 'ember-intl';
   </style>
 
   <div
-    class="avatar w-42 p-1 rounded-full bg-linear-to-tr from-yellow-400 via-pink-500 to-purple-600"
+    class="avatar size-42 p-1 rounded-full bg-linear-to-tr from-yellow-400 via-pink-500 to-purple-600"
   >
     <img
       src="avatar.png"

@@ -10,7 +10,7 @@ import { t } from 'ember-intl';
         color: #1c9b40;
       }
       40% {
-        color: #ff9e29;
+        color: #d67a09;
       }
       60% {
         color: #e01e1e;

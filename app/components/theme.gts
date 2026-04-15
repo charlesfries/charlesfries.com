@@ -4,6 +4,7 @@ import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { t } from 'ember-intl';
 import mixpanel from 'mixpanel-browser';
 import { BUTTON_CLASS_NAME } from './toolbar';
 
@@ -80,6 +81,7 @@ export default class Theme extends Component {
     <button
       type="button"
       class="{{BUTTON_CLASS_NAME}} rounded-lg cursor-pointer"
+      aria-label={{t "toggleTheme"}}
       {{on "click" this.toggle}}
     >
       <FaIcon @icon={{if this.isDark faMoon faSun}} />
