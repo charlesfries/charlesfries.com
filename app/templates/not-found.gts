@@ -10,7 +10,7 @@ import { pageTitle } from 'ember-page-title';
     <p class="mt-4">{{t "notFound.message"}}</p>
     <LinkTo
       @route="repositories"
-      class="mt-6 inline-block text-blue-500 underline"
+      class="mt-4 inline-block text-blue-500 underline"
     >
       {{t "notFound.goHome"}}
     </LinkTo>
