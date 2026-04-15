@@ -5,6 +5,14 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+.avatar {
+  transition: transform 1s ease-in-out;
+}
+
+.avatar:hover {
+  transform: rotateY(360deg);
+}
+
 @keyframes color-foreground-rotate {
   0% {
     color: #3556e3;
