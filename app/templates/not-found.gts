@@ -1,14 +1,6 @@
-import type { TOC } from '@ember/component/template-only';
 import { LinkTo } from '@ember/routing';
 import { t } from 'ember-intl';
 import { pageTitle } from 'ember-page-title';
-
-interface NotFoundSignature {
-  Args: {
-    model: unknown;
-    controller: unknown;
-  };
-}
 
 <template>
   {{pageTitle (t "notFound.title")}}
@@ -23,4 +15,4 @@ interface NotFoundSignature {
       {{t "notFound.goHome"}}
     </LinkTo>
   </div>
-</template> satisfies TOC<NotFoundSignature>;
+</template>
