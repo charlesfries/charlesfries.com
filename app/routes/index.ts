@@ -4,8 +4,8 @@ import { query } from '@warp-drive/utilities/json-api';
 import type { Repository } from 'charlesfries/schemas/repository';
 import type Store from 'charlesfries/services/store';
 
-export type Sort = 'CREATED_AT' | 'UPDATED_AT' | 'PUSHED_AT' | 'NAME';
-export type Direction = 'ASC' | 'DESC';
+export type Sort = 'created' | 'updated' | 'pushed' | 'name';
+export type Direction = 'asc' | 'desc';
 export type Type = 'sources' | 'forks';
 
 type Params = {
