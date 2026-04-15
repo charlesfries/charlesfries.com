@@ -8,7 +8,8 @@ import { SkipCache } from '@warp-drive/core/types/request';
 import type { TextBody } from 'charlesfries/handlers/text';
 import type Store from 'charlesfries/services/store';
 import MarkdownToHtml from 'ember-cli-showdown/components/markdown-to-html';
-import { eq } from 'ember-truth-helpers';
+
+const eq = (a: unknown, b: unknown) => a === b;
 
 type State =
   | { status: 'loading' }
