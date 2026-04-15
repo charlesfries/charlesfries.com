@@ -21,24 +21,26 @@ export interface PaginationSignature {
 }
 
 <template>
-  {{#if (or (eq false @isBackward) (and @isBackward @meta.hasMore))}}
-    <LinkTo
-      @query={{hash before=@meta.first after=undefined}}
-      class="{{BUTTON.secondary}} rounded-lg"
-      aria-label={{t "pagination.previous"}}
-    >
-      <FaIcon @icon={{faArrowLeft}} class="mr-1" />
-      {{t "pagination.previous"}}
-    </LinkTo>
-  {{/if}}
-  {{#if (or @isBackward @meta.hasMore)}}
-    <LinkTo
-      @query={{hash after=@meta.last before=undefined}}
-      class="{{BUTTON.secondary}} rounded-lg"
-      aria-label={{t "pagination.next"}}
-    >
-      {{t "pagination.next"}}
-      <FaIcon @icon={{faArrowRight}} class="ml-1" />
-    </LinkTo>
-  {{/if}}
+  <div class="flex justify-center gap-3 pt-10">
+    {{#if (or (eq false @isBackward) (and @isBackward @meta.hasMore))}}
+      <LinkTo
+        @query={{hash before=@meta.first after=undefined}}
+        class="{{BUTTON.secondary}} rounded-lg"
+        aria-label={{t "pagination.previous"}}
+      >
+        <FaIcon @icon={{faArrowLeft}} class="mr-1" />
+        {{t "pagination.previous"}}
+      </LinkTo>
+    {{/if}}
+    {{#if (or @isBackward @meta.hasMore)}}
+      <LinkTo
+        @query={{hash after=@meta.last before=undefined}}
+        class="{{BUTTON.secondary}} rounded-lg"
+        aria-label={{t "pagination.next"}}
+      >
+        {{t "pagination.next"}}
+        <FaIcon @icon={{faArrowRight}} class="ml-1" />
+      </LinkTo>
+    {{/if}}
+  </div>
 </template> satisfies TOC<PaginationSignature>;
