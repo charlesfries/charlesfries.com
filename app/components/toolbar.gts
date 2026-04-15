@@ -28,19 +28,19 @@ export interface ToolbarSignature {
     <div class="flex">
       <LinkTo
         @query={{hash sort="created" after=undefined before=undefined}}
-        class="{{BUTTON.secondary}} rounded-l-lg -mr-1"
+        class="{{BUTTON.secondary}} rounded-l-lg -mr-px"
       >
         {{t "sort.created"}}
       </LinkTo>
       <LinkTo
         @query={{hash sort="updated" after=undefined before=undefined}}
-        class="{{BUTTON.secondary}} -mr-1"
+        class="{{BUTTON.secondary}} -mr-px"
       >
         {{t "sort.updated"}}
       </LinkTo>
       <LinkTo
         @query={{hash sort="pushed" after=undefined before=undefined}}
-        class="{{BUTTON.secondary}} -mr-1"
+        class="{{BUTTON.secondary}} -mr-px"
       >
         {{t "sort.pushed"}}
       </LinkTo>
@@ -54,7 +54,7 @@ export interface ToolbarSignature {
     <div class="flex">
       <LinkTo
         @query={{hash direction="desc" after=undefined before=undefined}}
-        class="{{BUTTON.secondary}} rounded-l-lg -mr-1"
+        class="{{BUTTON.secondary}} rounded-l-lg -mr-px"
         role="button"
         aria-label={{t "sortDescending"}}
       >
@@ -72,14 +72,14 @@ export interface ToolbarSignature {
     <div class="flex">
       <LinkTo
         @query={{hash type=undefined after=undefined before=undefined}}
-        class="{{BUTTON.secondary}} rounded-l-lg -mr-1"
+        class="{{BUTTON.secondary}} rounded-l-lg -mr-px"
         role="button"
       >
         {{t "type.all"}}
       </LinkTo>
       <LinkTo
         @query={{hash type="sources" after=undefined before=undefined}}
-        class="{{BUTTON.secondary}} -mr-1"
+        class="{{BUTTON.secondary}} -mr-px"
         role="button"
       >
         {{t "type.sources"}}
