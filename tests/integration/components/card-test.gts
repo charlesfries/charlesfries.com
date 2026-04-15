@@ -10,11 +10,11 @@ module('Integration | Component | card', function (hooks) {
     await render(
       <template>
         <Card>
-          template block text
+          <span></span>
         </Card>
       </template>,
     );
 
-    assert.dom().hasText('template block text');
+    assert.dom('div span').exists();
   });
 });

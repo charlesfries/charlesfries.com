@@ -7,12 +7,15 @@ module('Integration | Component | pagination', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    // Updating values is achieved using autotracking, just like in app code. For example:
-    // class State { @tracked myProperty = 0; }; const state = new State();
-    // and update using state.myProperty = 1; await rerender();
-    // Handle any actions with function myAction(val) { ... };
+    const meta = {
+      hasMore: false,
+      first: null,
+      last: null,
+    };
 
-    await render(<template><Pagination /></template>);
+    await render(
+      <template><Pagination @meta={{meta}} @isBackward={{null}} /></template>,
+    );
 
     assert.dom().hasText('');
   });
