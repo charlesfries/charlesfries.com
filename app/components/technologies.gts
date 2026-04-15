@@ -48,7 +48,7 @@ const technologies: Technology[] = [
   { name: 'Stylelint', color: '263238', logo: 'stylelint' },
   { name: 'pnpm', color: 'f69220', logo: 'pnpm' },
   { name: 'npm', color: 'cb3837', logo: 'npm' },
-  { name: 'Homebrew', color: 'fbb040', logo: 'homebrew' },
+  { name: 'Homebrew', color: 'fbb040', logo: 'homebrew', isDark: true },
   { name: 'Sentry', color: '362d59', logo: 'sentry' },
   { name: 'Percy', color: '9e66bf', logo: 'percy' },
   { name: 'Mixpanel', color: '7856ff', logo: 'mixpanel' },
