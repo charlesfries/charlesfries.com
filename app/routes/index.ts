@@ -11,7 +11,15 @@ export type Type = 'sources' | 'forks';
 type Params = {
   sort: Sort;
   direction: Direction;
+  after?: string;
+  before?: string;
 };
+
+export interface Meta {
+  hasMore: boolean;
+  first: string | null;
+  last: string | null;
+}
 
 export default class IndexRoute extends Route {
   @service declare store: Store;
@@ -19,7 +27,11 @@ export default class IndexRoute extends Route {
   async model() {
     const params = this.paramsFor('application') as Params;
 
-    const options = query<Repository>('repository', params, {
+    const clean = Object.fromEntries(
+      Object.entries(params).filter(([, value]) => value != null),
+    );
+
+    const options = query<Repository>('repository', clean, {
       backgroundReload: true,
     });
     const { response, content } = await this.store.request(options);
@@ -30,6 +42,9 @@ export default class IndexRoute extends Route {
 
     return {
       repositories: content.data,
+      meta: content.meta as unknown as Meta, // TODO: fix this typing
+      after: params.after,
+      before: params.before,
       remainingRequests: remainingRequests ? Number(remainingRequests) : null,
       maxRequests: maxRequests ? Number(maxRequests) : null,
       resetAt: resetAt ? new Date(Number(resetAt) * 1000) : null,

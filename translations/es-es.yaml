@@ -24,5 +24,8 @@ requests: "{remaining} de {max} solicitudes restantes (se restablece a las {rese
 noDescription: Sin Descripción
 updated: Actualizada
 more: Más en GitHub
+pagination:
+  previous: Anterior
+  next: Siguiente
 error: ¡No se pudieron obtener los repositorios de GitHub!
 copyright: © 2026 Charles Fries. Reservados todos los derechos.

@@ -24,5 +24,8 @@ requests: "{remaining} of {max} requests remaining (resets at {resetAt})"
 noDescription: No description
 updated: Updated on
 more: View more on GitHub
+pagination:
+  previous: Previous
+  next: Next
 error: Couldn't fetch GitHub repositories!
 copyright: © 2026 Charles Fries. All rights reserved.
