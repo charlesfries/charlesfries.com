@@ -70,7 +70,7 @@ export default async (request: Request) => {
 
     const sort = SORT_MAP[_sort ?? 'pushed'];
     const direction = DIRECTION_MAP[_direction ?? 'desc'];
-    const pageSize = 30;
+    const pageSize = 32;
     const isBackwardPagination = Boolean(before);
 
     const variables = {

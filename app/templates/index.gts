@@ -1,14 +1,46 @@
+import type { TOC } from '@ember/component/template-only';
 import { hash } from '@ember/helper';
 import { LinkTo } from '@ember/routing';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faArrowRight,
+  faArrowUpRightFromSquare,
+} from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import Grid from 'charlesfries/components/grid';
 import RateLimit from 'charlesfries/components/rate-limit';
 import RepositoryCard from 'charlesfries/components/repository';
+import { BUTTON_CLASS_NAME } from 'charlesfries/components/toolbar';
 import type IndexController from 'charlesfries/controllers/index';
+import type { PageInfo } from 'charlesfries/routes/index';
 import type { Repository } from 'charlesfries/schemas/repository';
 import { t } from 'ember-intl';
+
+const Pagination: TOC<{
+  pageInfo: PageInfo;
+}> = <template>
+  {{#if @pageInfo.hasPreviousPage}}
+    <LinkTo
+      @query={{hash before=@pageInfo.startCursor after=undefined}}
+      class="{{BUTTON_CLASS_NAME}} rounded-lg"
+      aria-label={{t "pagination.previous"}}
+    >
+      <FaIcon @icon={{faArrowLeft}} class="mr-1" />
+      {{t "pagination.previous"}}
+    </LinkTo>
+  {{/if}}
+  {{#if @pageInfo.hasNextPage}}
+    <LinkTo
+      @query={{hash after=@pageInfo.endCursor before=undefined}}
+      class="{{BUTTON_CLASS_NAME}} rounded-lg"
+      aria-label={{t "pagination.next"}}
+    >
+      {{t "pagination.next"}}
+      <FaIcon @icon={{faArrowRight}} class="ml-1" />
+    </LinkTo>
+  {{/if}}
+</template>;
 
 const MoreButton = <template>
   <a
@@ -32,12 +64,7 @@ interface IndexSignature {
       remainingRequests: number | null;
       maxRequests: number | null;
       resetAt: Date | null;
-      pageInfo: {
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-        startCursor: string | null;
-        endCursor: string | null;
-      };
+      pageInfo: PageInfo;
     };
     controller: IndexController;
   };
@@ -68,24 +95,7 @@ export default class Index extends Component<IndexSignature> {
       {{/each}}
     </Grid>
     <div class="flex justify-center gap-3 pt-10">
-      {{#if @model.pageInfo.hasPreviousPage}}
-        <LinkTo
-          @query={{hash before=@model.pageInfo.startCursor after=undefined}}
-          class="bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 font-semibold px-4 py-2 rounded-lg"
-          aria-label={{t "pagination.previous"}}
-        >
-          {{t "pagination.previous"}}
-        </LinkTo>
-      {{/if}}
-      {{#if @model.pageInfo.hasNextPage}}
-        <LinkTo
-          @query={{hash after=@model.pageInfo.endCursor before=undefined}}
-          class="bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 font-semibold px-4 py-2 rounded-lg"
-          aria-label={{t "pagination.next"}}
-        >
-          {{t "pagination.next"}}
-        </LinkTo>
-      {{/if}}
+      <Pagination @pageInfo={{@model.pageInfo}} />
     </div>
     <div class="flex justify-center pt-10">
       <MoreButton />

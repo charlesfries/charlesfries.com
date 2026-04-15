@@ -15,7 +15,7 @@ type Params = {
   before?: string;
 };
 
-type PageInfo = {
+export type PageInfo = {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   startCursor: string | null;
@@ -28,20 +28,11 @@ export default class IndexRoute extends Route {
   async model() {
     const params = this.paramsFor('application') as Params;
 
-    const cp = { ...params };
+    const clean = Object.fromEntries(
+      Object.entries(params).filter(([, value]) => value != null),
+    );
 
-    console.log(cp);
-
-    if (!cp.before) {
-      delete cp.before;
-    }
-    if (!cp.after) {
-      delete cp.after;
-    }
-
-    console.log(cp);
-
-    const options = query<Repository>('repository', cp, {
+    const options = query<Repository>('repository', clean, {
       backgroundReload: true,
     });
     const { response, content } = await this.store.request(options);
