@@ -10,7 +10,7 @@ import { t } from 'ember-intl';
 
 const MoreButton = <template>
   <a
-    class="bg-blue-700 hover:bg-blue-900 text-white font-semibold px-3 py-2 rounded-lg"
+    class="bg-blue-700 hover:bg-blue-900 text-white font-semibold px-4 py-2 rounded-lg"
     href="https://github.com/charlesfries"
     role="button"
   >
