@@ -38,7 +38,7 @@ export default class Application extends Component {
         {{outlet}}
       </main>
       <footer
-        class="border-t border-neutral-300 text-center text-neutral-400 mt-10 pt-4"
+        class="border-t border-neutral-300 text-center text-neutral-500 mt-10 pt-4"
       >
         {{t "copyright"}}
       </footer>
