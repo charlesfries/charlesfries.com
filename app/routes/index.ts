@@ -17,13 +17,11 @@ export default class IndexRoute extends Route {
   @service declare store: Store;
 
   async model() {
-    const { sort, direction } = this.paramsFor('application') as Params;
+    const params = this.paramsFor('application') as Params;
 
-    const options = query<Repository>(
-      'repository',
-      { sort, direction },
-      { backgroundReload: true },
-    );
+    const options = query<Repository>('repository', params, {
+      backgroundReload: true,
+    });
     const { response, content } = await this.store.request(options);
 
     const remainingRequests = response?.headers.get('X-RateLimit-Remaining');
