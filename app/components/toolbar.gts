@@ -29,25 +29,22 @@ export interface ToolbarSignature {
     </button>
     <div class="flex">
       <LinkTo
-        @query={{hash sort="CREATED_AT"}}
+        @query={{hash sort="created"}}
         class="{{BUTTON_CLASS_NAME}} rounded-l-lg -mr-1"
       >
         {{t "sort.created"}}
       </LinkTo>
       <LinkTo
-        @query={{hash sort="UPDATED_AT"}}
+        @query={{hash sort="updated"}}
         class="{{BUTTON_CLASS_NAME}} -mr-1"
       >
         {{t "sort.updated"}}
       </LinkTo>
-      <LinkTo
-        @query={{hash sort="PUSHED_AT"}}
-        class="{{BUTTON_CLASS_NAME}} -mr-1"
-      >
+      <LinkTo @query={{hash sort="pushed"}} class="{{BUTTON_CLASS_NAME}} -mr-1">
         {{t "sort.pushed"}}
       </LinkTo>
       <LinkTo
-        @query={{hash sort="NAME"}}
+        @query={{hash sort="name"}}
         class="{{BUTTON_CLASS_NAME}} rounded-r-lg"
       >
         {{t "sort.name"}}
@@ -55,7 +52,7 @@ export interface ToolbarSignature {
     </div>
     <div class="flex">
       <LinkTo
-        @query={{hash direction="DESC"}}
+        @query={{hash direction="desc"}}
         class="{{BUTTON_CLASS_NAME}} rounded-l-lg -mr-1"
         role="button"
         aria-label={{t "sortDescending"}}
@@ -63,7 +60,7 @@ export interface ToolbarSignature {
         <FaIcon @icon={{faSortAmountDown}} role="presentation" />
       </LinkTo>
       <LinkTo
-        @query={{hash direction="ASC"}}
+        @query={{hash direction="asc"}}
         class="{{BUTTON_CLASS_NAME}} rounded-r-lg"
         role="button"
         aria-label={{t "sortAscending"}}
@@ -73,21 +70,21 @@ export interface ToolbarSignature {
     </div>
     <div class="flex">
       <LinkTo
-        @query={{hash _type=undefined}}
+        @query={{hash type=undefined}}
         class="{{BUTTON_CLASS_NAME}} rounded-l-lg -mr-1"
         role="button"
       >
         {{t "type.all"}}
       </LinkTo>
       <LinkTo
-        @query={{hash _type="sources"}}
+        @query={{hash type="sources"}}
         class="{{BUTTON_CLASS_NAME}} -mr-1"
         role="button"
       >
         {{t "type.sources"}}
       </LinkTo>
       <LinkTo
-        @query={{hash _type="forks"}}
+        @query={{hash type="forks"}}
         class="{{BUTTON_CLASS_NAME}} rounded-r-lg"
         role="button"
       >

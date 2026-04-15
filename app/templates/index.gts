@@ -3,9 +3,9 @@ import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import Grid from 'charlesfries/components/grid';
 import RateLimit from 'charlesfries/components/rate-limit';
-import Repository from 'charlesfries/components/repository';
+import RepositoryCard from 'charlesfries/components/repository';
 import type IndexController from 'charlesfries/controllers/index';
-import type { Repository as _Repository } from 'charlesfries/services/store';
+import type { Repository } from 'charlesfries/schemas/repository';
 import { t } from 'ember-intl';
 
 const MoreButton = <template>
@@ -26,7 +26,7 @@ const MoreButton = <template>
 interface IndexSignature {
   Args: {
     model: {
-      repositories: _Repository[];
+      repositories: Repository[];
       remainingRequests: number | null;
       maxRequests: number | null;
       resetAt: Date | null;
@@ -39,8 +39,8 @@ export default class Index extends Component<IndexSignature> {
   get repositories() {
     const { repositories } = this.args.model;
     return repositories.filter(({ isFork }) => {
-      if (this.args.controller._type) {
-        return isFork === ('forks' === this.args.controller._type);
+      if (this.args.controller.type) {
+        return isFork === ('forks' === this.args.controller.type);
       }
       return true;
     });
@@ -55,7 +55,7 @@ export default class Index extends Component<IndexSignature> {
     <Grid>
       {{#each this.repositories as |repository|}}
         <div>
-          <Repository @repository={{repository}} />
+          <RepositoryCard @repository={{repository}} />
         </div>
       {{/each}}
     </Grid>
