@@ -22,11 +22,15 @@ type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
 
 const eq = (a: unknown, b: unknown) => a === b;
 
+const and = (...args: unknown[]) => args.every(Boolean);
+
+const or = (a: unknown, b: unknown) => Boolean(a || b);
+
 const Pagination: TOC<{
   meta: Meta;
   isBackward: boolean | null;
 }> = <template>
-  {{#if (if (eq false @isBackward) true (if @isBackward @meta.hasMore false))}}
+  {{#if (or (eq false @isBackward) (and @isBackward @meta.hasMore))}}
     <LinkTo
       @query={{hash before=@meta.first after=undefined}}
       class="{{BUTTON.secondary}} rounded-lg"
