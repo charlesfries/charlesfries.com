@@ -57,12 +57,10 @@ export default class Index extends Component<RepositoriesIndexSignature> {
         <RepositoryCard @repository={{repository}} />
       {{/each}}
     </Grid>
-    <div class="flex justify-center gap-3 pt-10">
-      <Pagination
-        @meta={{@model.meta}}
-        @isBackward={{if @model.before true (if @model.after false null)}}
-      />
-    </div>
+    <Pagination
+      @meta={{@model.meta}}
+      @isBackward={{if @model.before true (if @model.after false null)}}
+    />
     <MoreButton />
   </template>
 }
