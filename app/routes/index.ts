@@ -8,6 +8,11 @@ export type Sort = 'CREATED_AT' | 'UPDATED_AT' | 'PUSHED_AT' | 'NAME';
 export type Direction = 'ASC' | 'DESC';
 export type Type = 'sources' | 'forks';
 
+type Params = {
+  sort: Sort;
+  direction: Direction;
+};
+
 setBuildURLConfig({
   host: null,
   namespace: 'api/v1',
@@ -17,14 +22,7 @@ export default class IndexRoute extends Route {
   @service declare store: Store;
 
   async model() {
-    const { sort, direction } = this.paramsFor('application') as {
-      sort: Sort;
-      direction: Direction;
-    };
-
-    const url = new URL('/api/v1/repositories', location.origin);
-    url.searchParams.append('sort', sort);
-    url.searchParams.append('direction', direction);
+    const { sort, direction } = this.paramsFor('application') as Params;
 
     const { response, content } = await this.store.request(
       query<Repository>(
