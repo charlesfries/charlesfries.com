@@ -30,3 +30,7 @@ pagination:
   next: Suivant
 error: Impossible de récupérer les dépôts GitHub!
 copyright: © 2026 Charles Fries. Tous droits réservés.
+notFound:
+  title: Page introuvable
+  message: Cette page n'a pas pu être trouvée.
+  goHome: Retour à l'accueil

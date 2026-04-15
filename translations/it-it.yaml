@@ -30,3 +30,7 @@ pagination:
   next: Successivo
 error: Impossibile recuperare i repository GitHub!
 copyright: © 2026 Charles Fries. Tutti i diritti riservati.
+notFound:
+  title: Pagina non trovata
+  message: Questa pagina non è stata trovata.
+  goHome: Torna alla Home
