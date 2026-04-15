@@ -39,3 +39,11 @@
 .fade-top-bottom {
   mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 }
+
+.readme h3 {
+  display: none;
+}
+
+.readme img {
+  display: inline;
+}

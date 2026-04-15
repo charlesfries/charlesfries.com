@@ -1,6 +1,12 @@
 import type Owner from '@ember/owner';
+import { service } from '@ember/service';
+import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { SkipCache } from '@warp-drive/core/types/request';
+import type { TextBody } from 'charlesfries/handlers/text';
+import type Store from 'charlesfries/services/store';
 import MarkdownToHtml from 'ember-cli-showdown/components/markdown-to-html';
 import { eq } from 'ember-truth-helpers';
 
@@ -10,6 +16,8 @@ type State =
   | { status: 'success'; data: string };
 
 export default class Technologies extends Component {
+  @service declare store: Store;
+
   @tracked state: State = { status: 'loading' };
 
   constructor(owner: Owner, args: never) {
@@ -19,32 +27,23 @@ export default class Technologies extends Component {
   }
 
   load = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     try {
-      // eslint-disable-next-line warp-drive/no-external-request-patterns
-      const response = await fetch(
-        'https://raw.githubusercontent.com/charlesfries/charlesfries/master/README.md',
-      );
-      if (!response.ok) {
-        throw new Error('not ok');
-      }
-      const data = await response.text();
-      this.state = { status: 'success', data };
+      const { content } = await this.store.request<TextBody>({
+        url: 'https://raw.githubusercontent.com/charlesfries/charlesfries/master/README.md',
+        headers: new Headers({ Accept: 'text/plain' }),
+        cacheOptions: {
+          [SkipCache]: true,
+        },
+      });
+      this.state = { status: 'success', data: content.text };
     } catch (error) {
       this.state = { status: 'error', error };
     }
   };
 
   <template>
-    {{! template-lint-disable no-forbidden-elements }}
-    <style>
-      .readme h3 {
-        display: none;
-      }
-      .readme img {
-        display: inline;
-      }
-    </style>
-
     {{#if (eq "loading" this.state.status)}}
       <div class="mx-auto">
         <svg
@@ -69,7 +68,13 @@ export default class Technologies extends Component {
         </svg>
       </div>
     {{else if (eq "error" this.state.status)}}
-      <span>Error</span>
+      <div
+        class="self-center bg-red-500 text-white rounded-lg p-4"
+        role="alert"
+      >
+        <FaIcon @icon={{faTriangleExclamation}} class="mr-1" />
+        Couldn't fetch GitHub README!
+      </div>
     {{else if (eq "success" this.state.status)}}
       <MarkdownToHtml @markdown={{this.state.data}} class="readme" />
     {{/if}}

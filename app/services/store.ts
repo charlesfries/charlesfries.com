@@ -3,6 +3,7 @@ import type { Type } from '@warp-drive/core/types/symbols';
 import { JSONAPICache } from '@warp-drive/json-api';
 import { useLegacyStore } from '@warp-drive/legacy';
 import { type WithLegacy } from '@warp-drive/legacy/model/migration-support';
+import { Text } from 'charlesfries/handlers/text';
 
 const RepositorySchema = withDefaults({
   type: 'repository',
@@ -36,6 +37,7 @@ const Store = useLegacyStore({
   linksMode: false,
   cache: JSONAPICache,
   handlers: [
+    Text,
     // -- your handlers here
   ],
   schemas: [
