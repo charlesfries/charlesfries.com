@@ -1,7 +1,9 @@
 import { LinkTo } from '@ember/routing';
+import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
+import { faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 import { pageTitle } from 'ember-page-title';
-import { BUTTON } from 'charlesfries/utils/class-names';
 
 <template>
   {{pageTitle (t "notFound.title")}}
@@ -14,7 +16,8 @@ import { BUTTON } from 'charlesfries/utils/class-names';
     />
     <h2 class="text-4xl font-bold">{{t "notFound.title"}}</h2>
     <p class="text-neutral-500 mt-4">{{t "notFound.message"}}</p>
-    <LinkTo @route="repositories" class="{{BUTTON.primary}} inline-block mt-4">
+    <LinkTo @route="repositories" class="{{BUTTON.primary}} inline-block mt-6">
+      <FaIcon @icon={{faArrowRotateLeft}} class="mr-1" />
       {{t "notFound.goHome"}}
     </LinkTo>
   </div>
