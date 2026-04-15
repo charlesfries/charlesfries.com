@@ -20,12 +20,13 @@ import { t } from 'ember-intl';
 
 type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
 
+const eq = (a: unknown, b: unknown) => a === b;
+
 const Pagination: TOC<{
   meta: Meta;
-  after: boolean;
-  before: boolean;
+  isBackward: boolean | null;
 }> = <template>
-  {{#if (if @after true (if @before @meta.hasMore false))}}
+  {{#if (if (eq false @isBackward) true (if @isBackward @meta.hasMore false))}}
     <LinkTo
       @query={{hash before=@meta.first after=undefined}}
       class="{{BUTTON.secondary}} rounded-lg"
@@ -35,7 +36,7 @@ const Pagination: TOC<{
       {{t "pagination.previous"}}
     </LinkTo>
   {{/if}}
-  {{#if (if @before true @meta.hasMore)}}
+  {{#if (if @isBackward true @meta.hasMore)}}
     <LinkTo
       @query={{hash after=@meta.last before=undefined}}
       class="{{BUTTON.secondary}} rounded-lg"
@@ -96,8 +97,7 @@ export default class Index extends Component<RepositoriesIndexSignature> {
     <div class="flex justify-center gap-3 pt-10">
       <Pagination
         @meta={{@model.meta}}
-        @after={{Boolean @model.after}}
-        @before={{Boolean @model.before}}
+        @isBackward={{if @model.before true (if @model.after false null)}}
       />
     </div>
     <MoreButton />
