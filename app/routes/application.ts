@@ -22,6 +22,8 @@ export default class ApplicationRoute extends Route {
   queryParams = {
     sort: { refreshModel: true },
     direction: { refreshModel: true },
+    after: { refreshModel: true },
+    before: { refreshModel: true },
   };
 
   constructor(...args: never[]) {

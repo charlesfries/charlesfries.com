@@ -11,6 +11,15 @@ export type Type = 'sources' | 'forks';
 type Params = {
   sort: Sort;
   direction: Direction;
+  after?: string;
+  before?: string;
+};
+
+type PageInfo = {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  startCursor: string | null;
+  endCursor: string | null;
 };
 
 export default class IndexRoute extends Route {
@@ -19,7 +28,20 @@ export default class IndexRoute extends Route {
   async model() {
     const params = this.paramsFor('application') as Params;
 
-    const options = query<Repository>('repository', params, {
+    const cp = { ...params };
+
+    console.log(cp);
+
+    if (!cp.before) {
+      delete cp.before;
+    }
+    if (!cp.after) {
+      delete cp.after;
+    }
+
+    console.log(cp);
+
+    const options = query<Repository>('repository', cp, {
       backgroundReload: true,
     });
     const { response, content } = await this.store.request(options);
@@ -33,6 +55,12 @@ export default class IndexRoute extends Route {
       remainingRequests: remainingRequests ? Number(remainingRequests) : null,
       maxRequests: maxRequests ? Number(maxRequests) : null,
       resetAt: resetAt ? new Date(Number(resetAt) * 1000) : null,
+      pageInfo: (content.meta?.pageInfo as PageInfo | undefined) ?? {
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: null,
+        endCursor: null,
+      },
     };
   }
 }

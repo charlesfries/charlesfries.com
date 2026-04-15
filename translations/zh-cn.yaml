@@ -23,6 +23,8 @@ type:
 requests: "剩余 {remaining} / {max} 次请求（将于 {resetAt} 重置）"
 noDescription: 没有说明
 updated: 更新
-more: 更多关于 GitHub
+pagination:
+  previous: 上一页
+  next: 下一页
 error: 无法获取 GitHub 存储库！
 copyright: © 2026 Charles Fries. 版权所有。
