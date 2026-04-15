@@ -43,10 +43,10 @@ export default class IndexRoute extends Route {
 
     return {
       repositories: content.data,
+      meta: content.meta,
       remainingRequests: remainingRequests ? Number(remainingRequests) : null,
       maxRequests: maxRequests ? Number(maxRequests) : null,
       resetAt: resetAt ? new Date(Number(resetAt) * 1000) : null,
-      meta: content.meta,
     };
   }
 }

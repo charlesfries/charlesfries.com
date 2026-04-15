@@ -61,10 +61,10 @@ interface IndexSignature {
   Args: {
     model: {
       repositories: Repository[];
+      meta: Meta;
       remainingRequests: number | null;
       maxRequests: number | null;
       resetAt: Date | null;
-      meta: Meta;
     };
     controller: IndexController;
   };
