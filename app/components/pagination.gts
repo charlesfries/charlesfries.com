@@ -21,26 +21,45 @@ export interface PaginationSignature {
 }
 
 <template>
-  <div class="flex justify-center gap-3 pt-10">
-    {{#if (or (eq false @isBackward) (and @isBackward @meta.hasMore))}}
-      <LinkTo
-        @query={{hash before=@meta.first after=undefined}}
-        class="{{BUTTON.secondary}} rounded-lg"
-        aria-label={{t "pagination.previous"}}
-      >
-        <FaIcon @icon={{faArrowLeft}} class="mr-1" />
-        {{t "pagination.previous"}}
-      </LinkTo>
-    {{/if}}
-    {{#if (or @isBackward @meta.hasMore)}}
-      <LinkTo
-        @query={{hash after=@meta.last before=undefined}}
-        class="{{BUTTON.secondary}} rounded-lg"
-        aria-label={{t "pagination.next"}}
-      >
-        {{t "pagination.next"}}
-        <FaIcon @icon={{faArrowRight}} class="ml-1" />
-      </LinkTo>
-    {{/if}}
+  <div class="flex justify-center pt-10">
+    <LinkTo
+      @query={{if
+        (or (eq false @isBackward) (and @isBackward @meta.hasMore))
+        (hash before=@meta.first after=undefined)
+        (hash)
+      }}
+      class="{{BUTTON.secondary}}
+        rounded-l-lg -mr-px
+        {{unless
+          (or (eq false @isBackward) (and @isBackward @meta.hasMore))
+          'opacity-50 pointer-events-none'
+        }}"
+      aria-label={{t "pagination.previous"}}
+      aria-disabled={{unless
+        (or (eq false @isBackward) (and @isBackward @meta.hasMore))
+        "true"
+      }}
+    >
+      <FaIcon @icon={{faArrowLeft}} class="mr-1" />
+      {{t "pagination.previous"}}
+    </LinkTo>
+    <LinkTo
+      @query={{if
+        (or @isBackward @meta.hasMore)
+        (hash after=@meta.last before=undefined)
+        (hash)
+      }}
+      class="{{BUTTON.secondary}}
+        rounded-r-lg
+        {{unless
+          (or @isBackward @meta.hasMore)
+          'opacity-50 pointer-events-none'
+        }}"
+      aria-label={{t "pagination.next"}}
+      aria-disabled={{unless (or @isBackward @meta.hasMore) "true"}}
+    >
+      {{t "pagination.next"}}
+      <FaIcon @icon={{faArrowRight}} class="ml-1" />
+    </LinkTo>
   </div>
 </template> satisfies TOC<PaginationSignature>;
