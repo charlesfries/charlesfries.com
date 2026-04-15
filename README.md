@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/646cef0f-48b3-4857-8c27-8b16c22c56d8/deploy-status)](https://app.netlify.com/sites/heuristic-fermat-b27eca/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6dc94a82-a84c-4803-8570-22f2550deb2f/deploy-status)](https://app.netlify.com/projects/charlesfries/deploys)
 
 # charlesfries
 
