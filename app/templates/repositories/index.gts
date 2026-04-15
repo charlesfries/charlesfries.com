@@ -1,56 +1,17 @@
-import type { TOC } from '@ember/component/template-only';
-import { hash } from '@ember/helper';
-import { LinkTo } from '@ember/routing';
 import type Route from '@ember/routing/route';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
-import {
-  faArrowLeft,
-  faArrowRight,
-  faArrowUpRightFromSquare,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import Grid from 'charlesfries/components/grid';
+import Pagination from 'charlesfries/components/pagination';
 import RateLimit from 'charlesfries/components/rate-limit';
 import RepositoryCard from 'charlesfries/components/repository';
 import type RepositoriesIndexController from 'charlesfries/controllers/repositories/index';
 import type RepositoriesIndexRoute from 'charlesfries/routes/repositories/index';
-import type { Meta } from 'charlesfries/routes/repositories/index';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
 type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
-
-const eq = (a: unknown, b: unknown) => a === b;
-
-const and = (...args: unknown[]) => args.every(Boolean);
-
-const or = (a: unknown, b: unknown) => Boolean(a || b);
-
-const Pagination: TOC<{
-  meta: Meta;
-  isBackward: boolean | null;
-}> = <template>
-  {{#if (or (eq false @isBackward) (and @isBackward @meta.hasMore))}}
-    <LinkTo
-      @query={{hash before=@meta.first after=undefined}}
-      class="{{BUTTON.secondary}} rounded-lg"
-      aria-label={{t "pagination.previous"}}
-    >
-      <FaIcon @icon={{faArrowLeft}} class="mr-1" />
-      {{t "pagination.previous"}}
-    </LinkTo>
-  {{/if}}
-  {{#if (if @isBackward true @meta.hasMore)}}
-    <LinkTo
-      @query={{hash after=@meta.last before=undefined}}
-      class="{{BUTTON.secondary}} rounded-lg"
-      aria-label={{t "pagination.next"}}
-    >
-      {{t "pagination.next"}}
-      <FaIcon @icon={{faArrowRight}} class="ml-1" />
-    </LinkTo>
-  {{/if}}
-</template>;
 
 const MoreButton = <template>
   <a
