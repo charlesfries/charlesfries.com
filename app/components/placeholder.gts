@@ -1,9 +1,9 @@
-import { CARD_CLASS_NAME } from './repository';
+import Card from './card';
 
 const CLASS_NAME = 'bg-neutral-200 dark:bg-neutral-800';
 
 <template>
-  <div class={{CARD_CLASS_NAME}}>
+  <Card>
     <div class="flex animate-pulse space-x-4">
       <div class="size-10 rounded-full {{CLASS_NAME}}"></div>
       <div class="flex-1 space-y-6 py-1">
@@ -17,5 +17,5 @@ const CLASS_NAME = 'bg-neutral-200 dark:bg-neutral-800';
         </div>
       </div>
     </div>
-  </div>
+  </Card>
 </template>

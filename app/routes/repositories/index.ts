@@ -36,13 +36,15 @@ export default class RepositoriesIndexRoute extends Route {
     });
     const { response, content } = await this.store.request(options);
 
+    const meta = content.meta as Meta | undefined;
+
     const remainingRequests = response?.headers.get('X-RateLimit-Remaining');
     const maxRequests = response?.headers.get('X-RateLimit-Limit');
     const resetAt = response?.headers.get('X-RateLimit-Reset');
 
     return {
       repositories: content.data,
-      meta: content.meta as unknown as Meta, // TODO: fix this typing
+      meta: meta!,
       after: params.after,
       before: params.before,
       remainingRequests: remainingRequests ? Number(remainingRequests) : null,

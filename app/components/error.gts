@@ -4,6 +4,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 export interface ErrorSignature {
   Args: {
+    error: Error;
     message: string;
   };
   Element: HTMLDivElement;

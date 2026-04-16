@@ -8,10 +8,8 @@ import {
   faSortAmountDown,
   faSortAmountUp,
 } from '@fortawesome/free-solid-svg-icons';
+import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
-
-export const BUTTON_CLASS_NAME =
-  'bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 [&.active]:bg-neutral-200 active:bg-neutral-200 dark:[&.active]:bg-neutral-600 dark:active:bg-neutral-600 font-semibold px-4 py-2';
 
 export interface ToolbarSignature {
   onRefresh: () => void;
@@ -21,7 +19,7 @@ export interface ToolbarSignature {
   <div class="flex flex-wrap gap-2 mb-6">
     <button
       type="button"
-      class="{{BUTTON_CLASS_NAME}} rounded-lg cursor-pointer"
+      class="{{BUTTON.secondary}} rounded-lg cursor-pointer"
       aria-label={{t "refresh"}}
       {{on "click" @onRefresh}}
     >
@@ -30,25 +28,25 @@ export interface ToolbarSignature {
     <div class="flex">
       <LinkTo
         @query={{hash sort="created" after=undefined before=undefined}}
-        class="{{BUTTON_CLASS_NAME}} rounded-l-lg -mr-1"
+        class="{{BUTTON.secondary}} rounded-l-lg -mr-px"
       >
         {{t "sort.created"}}
       </LinkTo>
       <LinkTo
         @query={{hash sort="updated" after=undefined before=undefined}}
-        class="{{BUTTON_CLASS_NAME}} -mr-1"
+        class="{{BUTTON.secondary}} -mr-px"
       >
         {{t "sort.updated"}}
       </LinkTo>
       <LinkTo
         @query={{hash sort="pushed" after=undefined before=undefined}}
-        class="{{BUTTON_CLASS_NAME}} -mr-1"
+        class="{{BUTTON.secondary}} -mr-px"
       >
         {{t "sort.pushed"}}
       </LinkTo>
       <LinkTo
         @query={{hash sort="name" after=undefined before=undefined}}
-        class="{{BUTTON_CLASS_NAME}} rounded-r-lg"
+        class="{{BUTTON.secondary}} rounded-r-lg"
       >
         {{t "sort.name"}}
       </LinkTo>
@@ -56,7 +54,7 @@ export interface ToolbarSignature {
     <div class="flex">
       <LinkTo
         @query={{hash direction="desc" after=undefined before=undefined}}
-        class="{{BUTTON_CLASS_NAME}} rounded-l-lg -mr-1"
+        class="{{BUTTON.secondary}} rounded-l-lg -mr-px"
         role="button"
         aria-label={{t "sortDescending"}}
       >
@@ -64,7 +62,7 @@ export interface ToolbarSignature {
       </LinkTo>
       <LinkTo
         @query={{hash direction="asc" after=undefined before=undefined}}
-        class="{{BUTTON_CLASS_NAME}} rounded-r-lg"
+        class="{{BUTTON.secondary}} rounded-r-lg"
         role="button"
         aria-label={{t "sortAscending"}}
       >
@@ -74,21 +72,21 @@ export interface ToolbarSignature {
     <div class="flex">
       <LinkTo
         @query={{hash type=undefined after=undefined before=undefined}}
-        class="{{BUTTON_CLASS_NAME}} rounded-l-lg -mr-1"
+        class="{{BUTTON.secondary}} rounded-l-lg -mr-px"
         role="button"
       >
         {{t "type.all"}}
       </LinkTo>
       <LinkTo
         @query={{hash type="sources" after=undefined before=undefined}}
-        class="{{BUTTON_CLASS_NAME}} -mr-1"
+        class="{{BUTTON.secondary}} -mr-px"
         role="button"
       >
         {{t "type.sources"}}
       </LinkTo>
       <LinkTo
         @query={{hash type="forks" after=undefined before=undefined}}
-        class="{{BUTTON_CLASS_NAME}} rounded-r-lg"
+        class="{{BUTTON.secondary}} rounded-r-lg"
         role="button"
       >
         {{t "type.forks"}}

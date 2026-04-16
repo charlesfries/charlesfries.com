@@ -1,55 +1,21 @@
-import type { TOC } from '@ember/component/template-only';
-import { hash } from '@ember/helper';
-import { LinkTo } from '@ember/routing';
 import type Route from '@ember/routing/route';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
-import {
-  faArrowLeft,
-  faArrowRight,
-  faArrowUpRightFromSquare,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import Grid from 'charlesfries/components/grid';
+import Pagination from 'charlesfries/components/pagination';
 import RateLimit from 'charlesfries/components/rate-limit';
 import RepositoryCard from 'charlesfries/components/repository';
-import { BUTTON_CLASS_NAME } from 'charlesfries/components/toolbar';
 import type RepositoriesIndexController from 'charlesfries/controllers/repositories/index';
 import type RepositoriesIndexRoute from 'charlesfries/routes/repositories/index';
-import type { Meta } from 'charlesfries/routes/repositories/index';
+import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
 type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
 
-const Pagination: TOC<{
-  meta: Meta;
-  after: string | undefined;
-  before: string | undefined;
-}> = <template>
-  {{#if (if @after true (if @before @meta.hasMore false))}}
-    <LinkTo
-      @query={{hash before=@meta.first after=undefined}}
-      class="{{BUTTON_CLASS_NAME}} rounded-lg"
-      aria-label={{t "pagination.previous"}}
-    >
-      <FaIcon @icon={{faArrowLeft}} class="mr-1" />
-      {{t "pagination.previous"}}
-    </LinkTo>
-  {{/if}}
-  {{#if (if @before true @meta.hasMore)}}
-    <LinkTo
-      @query={{hash after=@meta.last before=undefined}}
-      class="{{BUTTON_CLASS_NAME}} rounded-lg"
-      aria-label={{t "pagination.next"}}
-    >
-      {{t "pagination.next"}}
-      <FaIcon @icon={{faArrowRight}} class="ml-1" />
-    </LinkTo>
-  {{/if}}
-</template>;
-
 const MoreButton = <template>
   <a
-    class="bg-blue-700 hover:bg-blue-900 text-white font-semibold px-4 py-2 rounded-lg"
+    class="{{BUTTON.primary}} block w-fit mx-auto mt-10"
     href="https://github.com/charlesfries"
     role="button"
   >
@@ -69,12 +35,12 @@ interface RepositoriesIndexSignature {
   };
 }
 
-export default class Index extends Component<RepositoriesIndexSignature> {
+export default class RepositoriesIndex extends Component<RepositoriesIndexSignature> {
   get repositories() {
-    const { repositories } = this.args.model;
-    return repositories.filter(({ isFork }) => {
-      if (this.args.controller.type) {
-        return isFork === ('forks' === this.args.controller.type);
+    const { model, controller } = this.args;
+    return model.repositories.filter(({ isFork }) => {
+      if (controller.type) {
+        return isFork === ('forks' === controller.type);
       }
       return true;
     });
@@ -88,20 +54,13 @@ export default class Index extends Component<RepositoriesIndexSignature> {
     />
     <Grid>
       {{#each this.repositories as |repository|}}
-        <div>
-          <RepositoryCard @repository={{repository}} />
-        </div>
+        <RepositoryCard @repository={{repository}} />
       {{/each}}
     </Grid>
-    <div class="flex justify-center gap-3 pt-10">
-      <Pagination
-        @meta={{@model.meta}}
-        @after={{@model.after}}
-        @before={{@model.before}}
-      />
-    </div>
-    <div class="flex justify-center pt-10">
-      <MoreButton />
-    </div>
+    <Pagination
+      @meta={{@model.meta}}
+      @isBackward={{if @model.before true (if @model.after false null)}}
+    />
+    <MoreButton />
   </template>
 }
