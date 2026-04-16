@@ -17,6 +17,10 @@ module('Integration | Component | pagination', function (hooks) {
       <template><Pagination @meta={{meta}} @isBackward={{null}} /></template>,
     );
 
-    assert.dom().hasText('');
+    const previousBtn = assert.dom('[aria-label="Previous"]');
+    const nextBtn = assert.dom('[aria-label="Next"]');
+
+    previousBtn.hasText('Previous');
+    nextBtn.hasText('Next');
   });
 });
