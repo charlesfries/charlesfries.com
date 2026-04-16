@@ -1,5 +1,7 @@
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
+import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
+import { faBan, faRedo } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { SkipCache } from '@warp-drive/core/types/request';
 import { Request } from '@warp-drive/ember';
@@ -7,6 +9,8 @@ import Error from 'charlesfries/components/error';
 import type { TextBody } from 'charlesfries/handlers/text';
 import type Store from 'charlesfries/services/store';
 import MarkdownToHtml from 'ember-cli-showdown/components/markdown-to-html';
+import { t } from 'ember-intl';
+import { BUTTON_CLASS_NAME } from './toolbar';
 
 const Spinner = <template>
   <svg
@@ -57,27 +61,46 @@ export default class Technologies extends Component {
       }
     </style>
 
-    <Request @request={{this.request}}>
-      <:loading as |state|>
-        <Spinner />
-        <button type="button" {{on "click" state.abort}}>Cancel</button>
-      </:loading>
+    <div class="flex flex-col items-center gap-4">
+      <Request @request={{this.request}}>
+        <:loading as |state|>
+          <Spinner />
+          <button
+            type="button"
+            class="{{BUTTON_CLASS_NAME}} rounded-lg cursor-pointer"
+            aria-label="Cancel"
+            {{on "click" state.abort}}
+          ><FaIcon @icon={{faBan}} /></button>
+        </:loading>
 
-      <:error as |error state|>
-        <Error @message="Couldn't fetch GitHub README!" />
-        <button type="button" {{on "click" state.retry}}>Retry</button>
-      </:error>
+        <:error as |error state|>
+          <Error @error={{error}} @message="Couldn't fetch GitHub README!" />
+          <button type="button" {{on "click" state.retry}}>Retry</button>
+        </:error>
 
-      <:content as |content state|>
-        <MarkdownToHtml @markdown={{content.text}} class="readme text-center" />
-        <button type="button" {{on "click" state.refresh}}>Refresh</button>
-        <button type="button" {{on "click" state.reload}}>Reload</button>
-      </:content>
+        <:cancelled as |error state|>
+          <Error @error={{error}} @message="The request was cancelled." />
+          <button
+            type="button"
+            class="{{BUTTON_CLASS_NAME}} rounded-lg cursor-pointer"
+            aria-label="Retry"
+            {{on "click" state.retry}}
+          ><FaIcon @icon={{faRedo}} /></button>
+        </:cancelled>
 
-      <:cancelled as |error state|>
-        <p>Cancelled</p>
-        <button type="button" {{on "click" state.retry}}>Retry</button>
-      </:cancelled>
-    </Request>
+        <:content as |content state|>
+          <MarkdownToHtml
+            @markdown={{content.text}}
+            class="readme text-center"
+          />
+          <button
+            type="button"
+            class="{{BUTTON_CLASS_NAME}} rounded-lg cursor-pointer"
+            aria-label={{t "refresh"}}
+            {{on "click" state.reload}}
+          ><FaIcon @icon={{faRedo}} /></button>
+        </:content>
+      </Request>
+    </div>
   </template>
 }
