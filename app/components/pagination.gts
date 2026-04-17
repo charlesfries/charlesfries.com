@@ -39,13 +39,11 @@ export default class Pagination extends Component<PaginationSignature> {
   // queries
 
   get previousQuery() {
-    return this.canPrevious
-      ? { before: this.meta.first, after: undefined }
-      : {};
+    return { before: this.meta.first, after: undefined };
   }
 
   get nextQuery() {
-    return this.canNext ? { after: this.meta.last, before: undefined } : {};
+    return { after: this.meta.last, before: undefined };
   }
 
   <template>
