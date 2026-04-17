@@ -3,7 +3,7 @@ import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import Grid from 'charlesfries/components/grid';
-import Pagination from 'charlesfries/components/pagination';
+// import Pagination from 'charlesfries/components/pagination';
 import RateLimit from 'charlesfries/components/rate-limit';
 import RepositoryCard from 'charlesfries/components/repository';
 import type RepositoriesIndexController from 'charlesfries/controllers/repositories/index';
@@ -57,10 +57,10 @@ export default class RepositoriesIndex extends Component<RepositoriesIndexSignat
         <RepositoryCard @repository={{repository}} />
       {{/each}}
     </Grid>
-    <Pagination
+    {{!-- <Pagination
       @meta={{@model.meta}}
       @isBackward={{if @model.before true (if @model.after false null)}}
-    />
+    /> --}}
     <MoreButton />
   </template>
 }
