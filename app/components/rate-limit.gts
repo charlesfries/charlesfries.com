@@ -23,7 +23,11 @@ export interface RateLimitSignature {
 <template>
   <div
     class="text-sm text-right mb-6
-      {{if (isRunningLow @remaining @max) 'text-red-500' 'text-neutral-500'}}"
+      {{if
+        (isRunningLow @remaining @max)
+        'text-red-500'
+        'text-neutral-500 dark:text-neutral-400'
+      }}"
   >
     <FaIcon @icon={{faInfoCircle}} class="mr-1" />
     {{#unless (eq null @remaining)}}
