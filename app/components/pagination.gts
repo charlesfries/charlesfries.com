@@ -1,3 +1,4 @@
+import { hash } from '@ember/helper';
 import { LinkTo } from '@ember/routing';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -16,40 +17,21 @@ export interface PaginationSignature {
 }
 
 export default class Pagination extends Component<PaginationSignature> {
-  // aliases
-
-  get isBackward() {
-    return this.args.isBackward;
-  }
-
-  get meta() {
-    return this.args.meta;
-  }
-
-  // navigation conditions
-
   get canPrevious() {
-    return this.isBackward === false || (this.isBackward && this.meta.hasMore);
+    return (
+      this.args.isBackward === false ||
+      (this.args.isBackward && this.args.meta.hasMore)
+    );
   }
 
   get canNext() {
-    return this.isBackward || this.meta.hasMore;
-  }
-
-  // queries
-
-  get previousQuery() {
-    return { before: this.meta.first, after: undefined };
-  }
-
-  get nextQuery() {
-    return { after: this.meta.last, before: undefined };
+    return this.args.isBackward || this.args.meta.hasMore;
   }
 
   <template>
     <div class="flex justify-center pt-10">
       <LinkTo
-        @query={{this.previousQuery}}
+        @query={{hash before=@meta.first after=undefined}}
         class="{{BUTTON.secondary}}
           rounded-l-lg -mr-px
           {{unless this.canPrevious DISABLED_CLASS}}"
@@ -61,7 +43,7 @@ export default class Pagination extends Component<PaginationSignature> {
       </LinkTo>
 
       <LinkTo
-        @query={{this.nextQuery}}
+        @query={{hash after=@meta.last before=undefined}}
         class="{{BUTTON.secondary}}
           rounded-r-lg
           {{unless this.canNext DISABLED_CLASS}}"
