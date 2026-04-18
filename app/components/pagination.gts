@@ -7,7 +7,7 @@ import type { Meta } from 'charlesfries/routes/repositories/index';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
-const DISABLED_CLASS = 'opacity-50 pointer-events-none';
+const DISABLED_CLASS = 'opacity-55 pointer-events-none';
 
 export interface PaginationSignature {
   Args: {
