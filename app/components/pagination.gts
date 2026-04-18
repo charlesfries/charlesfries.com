@@ -3,7 +3,7 @@ import { LinkTo } from '@ember/routing';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
-import type { Meta } from 'charlesfries/routes/repositories/index';
+import type { Meta } from 'charlesfries/handlers/github';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
