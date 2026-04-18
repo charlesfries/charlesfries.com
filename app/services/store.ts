@@ -1,11 +1,13 @@
 import { JSONAPICache } from '@warp-drive/json-api';
 import { useLegacyStore } from '@warp-drive/legacy';
+import { GitHub } from 'charlesfries/handlers/github';
 import { RepositorySchema } from 'charlesfries/schemas/repository';
 
 const Store = useLegacyStore({
   linksMode: false,
   cache: JSONAPICache,
   handlers: [
+    GitHub,
     // -- your handlers here
   ],
   schemas: [

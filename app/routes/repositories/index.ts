@@ -1,7 +1,9 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
+import type { ObjectValue } from '@warp-drive/core/types/json/raw';
+import type { QueryRequestOptions } from '@warp-drive/core/types/request';
 import { query } from '@warp-drive/utilities/json-api';
-import type { Repository } from 'charlesfries/schemas/repository';
+import type { Doc } from 'charlesfries/handlers/github';
 import type Store from 'charlesfries/services/store';
 
 export type Sort = 'created' | 'updated' | 'pushed' | 'name';
@@ -15,41 +17,32 @@ type Params = {
   before?: string;
 };
 
-export interface Meta {
+export interface Meta extends ObjectValue {
   hasMore: boolean;
   first: string | null;
   last: string | null;
+  remainingRequests: number | null;
+  maxRequests: number | null;
+  resetAt: Date | null;
 }
 
 export default class RepositoriesIndexRoute extends Route {
   @service declare store: Store;
 
-  async model() {
+  model() {
     const params = this.paramsFor('repositories') as Params;
 
     const clean = Object.fromEntries(
       Object.entries(params).filter(([, value]) => value != null),
     );
 
-    const options = query<Repository>('repository', clean, {
+    const options = query('repository', clean, {
       backgroundReload: true,
-    });
-    const { response, content } = await this.store.request(options);
-
-    const meta = content.meta as Meta | undefined;
-
-    const remainingRequests = response?.headers.get('X-RateLimit-Remaining');
-    const maxRequests = response?.headers.get('X-RateLimit-Limit');
-    const resetAt = response?.headers.get('X-RateLimit-Reset');
+    }) as QueryRequestOptions<Doc>;
 
     return {
-      repositories: content.data,
-      meta: meta!,
-      after: params.after,
-      before: params.before,
-      remainingRequests: remainingRequests ? Number(remainingRequests) : null,
-      maxRequests: maxRequests ? Number(maxRequests) : null,
-      resetAt: resetAt ? new Date(Number(resetAt) * 1000) : null,
+      request: this.store.request(options),
+      params,
     };
   }
 }
