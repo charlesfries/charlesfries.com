@@ -11,6 +11,9 @@ module('Integration | Component | pagination', function (hooks) {
       hasMore: false,
       first: null,
       last: null,
+      remainingRequests: null,
+      maxRequests: null,
+      resetAt: null,
     };
 
     await render(

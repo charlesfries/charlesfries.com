@@ -12,11 +12,13 @@ const isRunningLow = (remaining: number | null, max: number | null) => {
   return remaining <= max * 0.1;
 };
 
+const toDate = (dateStr: string | null) => new Date(Number(dateStr) * 1000);
+
 export interface RateLimitSignature {
   Args: {
     remaining: number | null;
     max: number | null;
-    resetAt: Date | null;
+    resetAt: string | null;
   };
 }
 
@@ -35,7 +37,7 @@ export interface RateLimitSignature {
         "requests"
         remaining=(formatNumber @remaining)
         max=(formatNumber @max)
-        resetAt=(formatTime @resetAt)
+        resetAt=(formatTime (toDate @resetAt))
       }}
     {{/unless}}
   </div>
