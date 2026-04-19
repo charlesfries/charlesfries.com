@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { query } from '@warp-drive/utilities/json-api';
-import type { Doc } from 'charlesfries/handlers/github';
+import type { Document } from 'charlesfries/handlers/github';
 import type Store from 'charlesfries/services/store';
 
 export type Sort = 'created' | 'updated' | 'pushed' | 'name';
@@ -36,7 +36,7 @@ export default class IndexRoute extends Route {
     });
 
     return {
-      request: this.store.request<Doc>(options),
+      request: this.store.request<Document>(options),
       params,
     };
   }
