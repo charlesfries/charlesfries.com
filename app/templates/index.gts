@@ -4,7 +4,7 @@ import { service } from '@ember/service';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
-import { Request } from '@warp-drive/ember';
+import { getRequestState, Request } from '@warp-drive/ember';
 import Description from 'charlesfries/components/description';
 import Error from 'charlesfries/components/error';
 import Grid from 'charlesfries/components/grid';
@@ -50,6 +50,11 @@ interface IndexSignature {
 export default class Index extends Component<IndexSignature> {
   @service declare router: RouterService;
 
+  get isLoading() {
+    const state = getRequestState(this.args.model.request);
+    return state.isLoading;
+  }
+
   repositories = (repositories: Document['data']) => {
     const { controller } = this.args;
     return repositories.filter(({ isFork }) => {
@@ -75,7 +80,7 @@ export default class Index extends Component<IndexSignature> {
       </div>
     </section>
 
-    <Toolbar @onRefresh={{this.refresh}} />
+    <Toolbar @isLoading={{this.isLoading}} @onRefresh={{this.refresh}} />
 
     <Request @request={{@model.request}}>
       <:loading>
