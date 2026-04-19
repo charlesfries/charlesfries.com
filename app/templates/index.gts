@@ -9,7 +9,7 @@ import Description from 'charlesfries/components/description';
 import Error from 'charlesfries/components/error';
 import Grid from 'charlesfries/components/grid';
 import Pagination from 'charlesfries/components/pagination';
-import RateLimit from 'charlesfries/components/rate-limit';
+import RateLimitAlert from 'charlesfries/components/rate-limit-alert';
 import RepositoryGridItem from 'charlesfries/components/repository-grid-item';
 import RepositoryPlaceholderGridItem from 'charlesfries/components/repository-placeholder-grid-item';
 import Socials from 'charlesfries/components/socials';
@@ -90,7 +90,7 @@ export default class Index extends Component<IndexSignature> {
           }
         </style>
 
-        <RateLimit @remaining={{null}} @max={{null}} @resetAt={{null}} />
+        <RateLimitAlert @remaining={{null}} @max={{null}} @resetAt={{null}} />
         <Grid class="vertical-fade">
           {{#each (range 32)}}
             <RepositoryPlaceholderGridItem />
@@ -103,7 +103,7 @@ export default class Index extends Component<IndexSignature> {
       </:error>
 
       <:content as |content|>
-        <RateLimit
+        <RateLimitAlert
           @remaining={{content.meta.remainingRequests}}
           @max={{content.meta.maxRequests}}
           @resetAt={{content.meta.resetAt}}
