@@ -25,9 +25,7 @@ export default class IndexRoute extends Route {
     before: { refreshModel: true },
   };
 
-  model() {
-    const params = this.paramsFor('repositories') as Params;
-
+  model(params: Params) {
     const clean = Object.fromEntries(
       Object.entries(params).filter(([, value]) => value != null),
     );
