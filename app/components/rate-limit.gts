@@ -2,7 +2,8 @@ import type { TOC } from '@ember/component/template-only';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { formatNumber, formatTime, t } from 'ember-intl';
-import { eq } from 'ember-truth-helpers';
+
+const eq = (a: unknown, b: unknown) => a === b;
 
 const isRunningLow = (remaining: number | null, max: number | null) => {
   if (remaining === null || max === null) {
@@ -11,19 +12,24 @@ const isRunningLow = (remaining: number | null, max: number | null) => {
   return remaining <= max * 0.1;
 };
 
+const toDate = (dateStr: string | null) => new Date(Number(dateStr) * 1000);
+
 export interface RateLimitSignature {
   Args: {
     remaining: number | null;
     max: number | null;
-    resetAt: Date | null;
+    resetAt: string | null;
   };
 }
 
 <template>
   <div
-    class="text-sm text-right text-neutral-400
-      {{if (isRunningLow @remaining @max) 'text-red-500' 'text-neutral-400'}}
-      mb-6"
+    class="text-sm text-right mb-6
+      {{if
+        (isRunningLow @remaining @max)
+        'text-red-500'
+        'text-neutral-500 dark:text-neutral-400'
+      }}"
   >
     <FaIcon @icon={{faInfoCircle}} class="mr-1" />
     {{#unless (eq null @remaining)}}
@@ -31,7 +37,7 @@ export interface RateLimitSignature {
         "requests"
         remaining=(formatNumber @remaining)
         max=(formatNumber @max)
-        resetAt=(formatTime @resetAt)
+        resetAt=(formatTime (toDate @resetAt))
       }}
     {{/unless}}
   </div>

@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { query } from '@warp-drive/utilities/json-api';
-import type { Repository } from 'charlesfries/schemas/repository';
+import type { Document } from 'charlesfries/handlers/github';
 import type Store from 'charlesfries/services/store';
 
 export type Sort = 'created' | 'updated' | 'pushed' | 'name';
@@ -15,39 +15,29 @@ type Params = {
   before?: string;
 };
 
-export interface Meta {
-  hasMore: boolean;
-  first: string | null;
-  last: string | null;
-}
+const removeUndefined = <T>(obj: { [key: string]: T }) =>
+  Object.fromEntries(Object.entries(obj).filter(([, value]) => value != null));
 
 export default class IndexRoute extends Route {
   @service declare store: Store;
 
-  async model() {
-    const params = this.paramsFor('application') as Params;
+  queryParams = {
+    sort: { refreshModel: true },
+    direction: { refreshModel: true },
+    after: { refreshModel: true },
+    before: { refreshModel: true },
+  };
 
-    const clean = Object.fromEntries(
-      Object.entries(params).filter(([, value]) => value != null),
-    );
+  model(params: Params) {
+    const clean = removeUndefined(params);
 
-    const options = query<Repository>('repository', clean, {
+    const options = query('repository', clean, {
       backgroundReload: true,
     });
-    const { response, content } = await this.store.request(options);
-
-    const remainingRequests = response?.headers.get('X-RateLimit-Remaining');
-    const maxRequests = response?.headers.get('X-RateLimit-Limit');
-    const resetAt = response?.headers.get('X-RateLimit-Reset');
 
     return {
-      repositories: content.data,
-      meta: content.meta as unknown as Meta, // TODO: fix this typing
-      after: params.after,
-      before: params.before,
-      remainingRequests: remainingRequests ? Number(remainingRequests) : null,
-      maxRequests: maxRequests ? Number(maxRequests) : null,
-      resetAt: resetAt ? new Date(Number(resetAt) * 1000) : null,
+      request: this.store.request<Document>(options),
+      params,
     };
   }
 }

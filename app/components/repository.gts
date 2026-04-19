@@ -3,17 +3,18 @@ import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faCodeFork, faStar } from '@fortawesome/free-solid-svg-icons';
 import type { Repository } from 'charlesfries/schemas/repository';
 import { formatDate, t } from 'ember-intl';
+import Card from './card';
 
 export const languageColors: Record<string, string> = {
-  JavaScript: 'text-yellow-400',
-  TypeScript: 'text-blue-500',
+  JavaScript: 'text-yellow-700 dark:text-yellow-300',
+  TypeScript: 'text-blue-600 dark:text-blue-400',
   Python: 'text-blue-400',
   Java: 'text-orange-500',
   C: 'text-gray-500',
   'C++': 'text-blue-600',
   'C#': 'text-green-600',
   'Objective-C': 'text-blue-500',
-  Go: 'text-cyan-500',
+  Go: 'text-cyan-700 dark:text-cyan-300',
   Rust: 'text-orange-600',
   Ruby: 'text-red-600',
   PHP: 'text-indigo-400',
@@ -39,23 +40,20 @@ export const languageColors: Record<string, string> = {
 const getLanguageColor = (language: string) =>
   languageColors[language] ?? 'text-neutral-400';
 
-export const CARD_CLASS_NAME =
-  'bg-white dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-700 rounded-xl p-4';
-
 export interface RepositorySignature {
   repository: Repository;
 }
 
 <template>
-  <div
-    class="{{CARD_CLASS_NAME}}
-      relative hover:border-blue-500 hover:shadow transition-shadow duration-300"
+  <Card
+    class="relative hover:border-blue-500 hover:shadow transition-shadow duration-300"
   >
     <a
       href={{@repository.url}}
-      class="text-blue-500 underline after:absolute after:inset-0"
+      class="text-blue-600 dark:text-blue-400 underline after:absolute after:inset-0"
     >
-      {{@repository.name}}</a>
+      {{@repository.name}}
+    </a>
     {{#if @repository.isFork}}
       <FaIcon @icon={{faCodeFork}} class="text-neutral-300" />
     {{/if}}
@@ -77,16 +75,20 @@ export interface RepositorySignature {
       {{/if}}
       <div>
         <FaIcon @icon={{faStar}} class="text-neutral-300" />
-        <span class="text-neutral-500">{{@repository.stargazerCount}}</span>
+        <span class="text-neutral-500 dark:text-neutral-400">
+          {{@repository.stargazerCount}}
+        </span>
       </div>
       <div>
         <FaIcon @icon={{faCodeFork}} class="text-neutral-300" />
-        <span class="text-neutral-500">{{@repository.forkCount}}</span>
+        <span class="text-neutral-500 dark:text-neutral-400">
+          {{@repository.forkCount}}
+        </span>
       </div>
     </div>
-    <div class="text-sm text-neutral-400 mt-2">
+    <div class="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
       {{t "updated"}}
       {{formatDate @repository.pushedAt year="numeric" month="long"}}
     </div>
-  </div>
+  </Card>
 </template> satisfies TOC<RepositorySignature>;
