@@ -1,13 +1,64 @@
+import type Route from '@ember/routing/route';
 import type RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
+import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
+import { Request } from '@warp-drive/ember';
 import Description from 'charlesfries/components/description';
+import Error from 'charlesfries/components/error';
+import Grid from 'charlesfries/components/grid';
+import Pagination from 'charlesfries/components/pagination';
+import Placeholder from 'charlesfries/components/placeholder';
+import RateLimit from 'charlesfries/components/rate-limit';
+import RepositoryCard from 'charlesfries/components/repository';
 import Socials from 'charlesfries/components/socials';
 import Technologies from 'charlesfries/components/technologies';
 import Toolbar from 'charlesfries/components/toolbar';
+import type RepositoriesController from 'charlesfries/controllers/repositories';
+import type { Doc } from 'charlesfries/handlers/github';
+import type RepositoriesRoute from 'charlesfries/routes/repositories';
+import { BUTTON } from 'charlesfries/utils/class-names';
+import { t } from 'ember-intl';
 
-export default class Repositories extends Component {
+type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
+
+const range = (length: number) => new Array<void>(length);
+
+const MoreButton = <template>
+  <a
+    class="{{BUTTON.primary}} block w-fit mx-auto mt-10"
+    href="https://github.com/charlesfries"
+    role="button"
+  >
+    <FaIcon
+      @icon={{faArrowUpRightFromSquare}}
+      class="mr-1"
+      role="presentation"
+    />
+    {{t "more"}}
+  </a>
+</template>;
+
+interface RepositoriesSignature {
+  Args: {
+    model: ModelFrom<RepositoriesRoute>;
+    controller: RepositoriesController;
+  };
+}
+
+export default class Repositories extends Component<RepositoriesSignature> {
   @service declare router: RouterService;
+
+  repositories = (repositories: Doc['data']) => {
+    const { controller } = this.args;
+    return repositories.filter(({ isFork }) => {
+      if (controller.type) {
+        return isFork === ('forks' === controller.type);
+      }
+      return true;
+    });
+  };
 
   refresh = () => {
     this.router.refresh();
@@ -23,7 +74,50 @@ export default class Repositories extends Component {
         <Technologies />
       </div>
     </section>
+
     <Toolbar @onRefresh={{this.refresh}} />
-    {{outlet}}
+
+    <Request @request={{@model.request}}>
+      <:loading>
+        <style>
+          .vertical-fade {
+            mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+          }
+        </style>
+
+        <RateLimit @remaining={{null}} @max={{null}} @resetAt={{null}} />
+        <Grid class="vertical-fade">
+          {{#each (range 32)}}
+            <Placeholder />
+          {{/each}}
+        </Grid>
+      </:loading>
+
+      <:error as |error|>
+        <Error @error={{error}} @message={{t "error"}} />
+      </:error>
+
+      <:content as |content|>
+        <RateLimit
+          @remaining={{content.meta.remainingRequests}}
+          @max={{content.meta.maxRequests}}
+          @resetAt={{content.meta.resetAt}}
+        />
+        <Grid>
+          {{#each (this.repositories content.data) as |repository|}}
+            <RepositoryCard @repository={{repository}} />
+          {{/each}}
+        </Grid>
+        <Pagination
+          @meta={{content.meta}}
+          @isBackward={{if
+            @model.params.before
+            true
+            (if @model.params.after false null)
+          }}
+        />
+        <MoreButton />
+      </:content>
+    </Request>
   </template>
 }
