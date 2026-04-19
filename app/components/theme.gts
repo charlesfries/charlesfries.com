@@ -40,12 +40,10 @@ export default class Theme extends Component {
   };
 
   handleStorageChange = (event: StorageEvent) => {
-    if (event.key !== LOCAL_STORAGE_KEY) {
-      return;
+    if (event.key === LOCAL_STORAGE_KEY) {
+      this.userTheme = event.newValue as _Theme | null;
+      this.apply();
     }
-
-    this.userTheme = event.newValue as _Theme | null;
-    this.apply();
   };
 
   get systemTheme() {
