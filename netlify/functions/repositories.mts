@@ -152,8 +152,7 @@ export default async (request: Request) => {
       });
     }
 
-    const repositories = data.data.user.repositories.nodes;
-    const pageInfo = data.data.user.repositories.pageInfo;
+    const { nodes, pageInfo } = data.data.user.repositories;
 
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -172,7 +171,7 @@ export default async (request: Request) => {
     }
 
     const body: Document = {
-      data: repositories.map(({ id, ...attributes }) => ({
+      data: nodes.map(({ id, ...attributes }) => ({
         type: 'repository',
         id,
         attributes,
