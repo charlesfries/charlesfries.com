@@ -1,3 +1,46 @@
+import type { Document } from 'jsonapi-typescript';
+
+type Body = {
+  data: {
+    user: {
+      repositories: {
+        pageInfo: {
+          hasNextPage: boolean;
+          hasPreviousPage: boolean;
+          first: string | null;
+          last: string | null;
+        };
+        nodes: {
+          id: string;
+          name: string;
+          description: string | null;
+          url: string;
+          stargazerCount: number;
+          forkCount: number;
+          isFork: boolean;
+          pushedAt: string | null;
+          primaryLanguage: {
+            name: string;
+          } | null;
+        }[];
+      };
+    };
+  };
+};
+
+type ErrorBody = {
+  errors: {
+    message: string;
+    extensions?: {
+      value?: string;
+      problems?: {
+        path: (string | number)[];
+        explanation: string;
+      }[];
+    };
+  }[];
+};
+
 // TODO: duplicated
 type Sort = 'created' | 'updated' | 'pushed' | 'name';
 type Direction = 'asc' | 'desc';
@@ -88,23 +131,28 @@ export default async (request: Request) => {
       body: JSON.stringify({ query, variables }),
     });
 
-    const data = await response.json();
+    const data = (await response.json()) as Body | ErrorBody;
 
-    if (!response.ok || data.errors) {
+    if (!response.ok || 'errors' in data) {
       console.error(data);
-      return new Response(JSON.stringify(data.errors ?? data), {
+      let body: Document;
+      if ('errors' in data) {
+        body = {
+          errors: data.errors.map((error) => ({
+            detail:
+              error.extensions?.problems?.[0]?.explanation ?? error.message,
+          })),
+        };
+      } else {
+        body = data as any;
+      }
+      return new Response(JSON.stringify(body), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    const repositories = data.data.user.repositories.nodes as { id: string }[];
-    const pageInfo = data.data.user.repositories.pageInfo as {
-      hasNextPage: boolean;
-      hasPreviousPage: boolean;
-      first: string | null;
-      last: string | null;
-    };
+    const { nodes, pageInfo } = data.data.user.repositories;
 
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -122,8 +170,8 @@ export default async (request: Request) => {
       }
     }
 
-    const body = {
-      data: repositories.map(({ id, ...attributes }) => ({
+    const body: Document = {
+      data: nodes.map(({ id, ...attributes }) => ({
         type: 'repository',
         id,
         attributes,

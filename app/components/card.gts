@@ -1,6 +1,6 @@
 import type { TOC } from '@ember/component/template-only';
 
-export interface GridSignature {
+export interface CardSignature {
   Blocks: {
     default: [];
   };
@@ -9,9 +9,9 @@ export interface GridSignature {
 
 <template>
   <div
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-start gap-4"
+    class="bg-white dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-700 rounded-xl p-4"
     ...attributes
   >
     {{yield}}
   </div>
-</template> satisfies TOC<GridSignature>;
+</template> satisfies TOC<CardSignature>;
