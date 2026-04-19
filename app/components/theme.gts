@@ -1,90 +1,23 @@
 import { on } from '@ember/modifier';
-import type Owner from '@ember/owner';
+import { service } from '@ember/service';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
+import ThemeService from 'charlesfries/services/theme';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
-import mixpanel from 'mixpanel-browser';
-
-type _Theme = 'light' | 'dark';
-
-const LOCAL_STORAGE_KEY = 'theme';
 
 export default class Theme extends Component {
-  mediaQuery = matchMedia('(prefers-color-scheme: dark)');
-
-  @tracked userTheme = localStorage.getItem(LOCAL_STORAGE_KEY) as _Theme | null;
-
-  constructor(owner: Owner, args: never) {
-    super(owner, args);
-
-    this.apply();
-
-    this.mediaQuery.addEventListener('change', this.handleMediaChange);
-    addEventListener('storage', this.handleStorageChange);
-  }
-
-  willDestroy() {
-    super.willDestroy();
-
-    this.mediaQuery.removeEventListener('change', this.handleMediaChange);
-    removeEventListener('storage', this.handleStorageChange);
-  }
-
-  handleMediaChange = () => {
-    if (!this.userTheme) {
-      this.apply();
-    }
-  };
-
-  handleStorageChange = (event: StorageEvent) => {
-    if (event.key === LOCAL_STORAGE_KEY) {
-      this.userTheme = event.newValue as _Theme | null;
-      this.apply();
-    }
-  };
-
-  get systemTheme() {
-    return (this.mediaQuery.matches ? 'dark' : 'light') as _Theme;
-  }
-
-  get isDark() {
-    if (this.userTheme) {
-      return this.userTheme === 'dark';
-    }
-    return this.systemTheme === 'dark';
-  }
-
-  toggle = () => {
-    this.userTheme = this.isDark ? 'light' : 'dark';
-    localStorage.setItem(LOCAL_STORAGE_KEY, this.userTheme);
-
-    this.apply();
-
-    mixpanel.track('Theme Changed', { theme: this.userTheme });
-  };
-
-  apply = () => {
-    const root = document.documentElement;
-    const isDark = this.isDark;
-
-    if (isDark === root.classList.contains('dark')) {
-      return;
-    }
-
-    root.classList.toggle('dark', isDark);
-  };
+  @service declare theme: ThemeService;
 
   <template>
     <button
       type="button"
       class="{{BUTTON.secondary}} rounded-lg cursor-pointer"
       aria-label={{t "toggleTheme"}}
-      {{on "click" this.toggle}}
+      {{on "click" this.theme.toggle}}
     >
-      <FaIcon @icon={{if this.isDark faMoon faSun}} />
+      <FaIcon @icon={{if this.theme.isDark faMoon faSun}} />
     </button>
   </template>
 }
