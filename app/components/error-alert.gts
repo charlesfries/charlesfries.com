@@ -12,7 +12,7 @@ export interface ErrorAlertSignature {
 
 <template>
   <div
-    id="error"
+    id="error-alert"
     class="bg-red-500 text-white rounded-lg p-4"
     role="alert"
     ...attributes

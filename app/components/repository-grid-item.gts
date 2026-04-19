@@ -46,7 +46,7 @@ export interface RepositoryGridItemSignature {
 
 <template>
   <Card
-    id="repository"
+    id="repository-grid-item"
     class="relative hover:border-blue-500 hover:shadow transition-shadow duration-300"
   >
     <a

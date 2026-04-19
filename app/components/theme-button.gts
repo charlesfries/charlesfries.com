@@ -12,6 +12,7 @@ export default class ThemeButton extends Component {
 
   <template>
     <button
+      id="theme-button"
       type="button"
       class="{{BUTTON.secondary}} rounded-lg cursor-pointer"
       aria-label={{t "toggleTheme"}}
