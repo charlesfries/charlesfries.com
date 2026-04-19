@@ -4,7 +4,7 @@ import { service } from '@ember/service';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
-import { Request } from '@warp-drive/ember';
+import { getRequestState, Request } from '@warp-drive/ember';
 import Description from 'charlesfries/components/description';
 import Error from 'charlesfries/components/error';
 import Grid from 'charlesfries/components/grid';
@@ -16,8 +16,8 @@ import Socials from 'charlesfries/components/socials';
 import Technologies from 'charlesfries/components/technologies';
 import Toolbar from 'charlesfries/components/toolbar';
 import type IndexController from 'charlesfries/controllers/index';
-import type { Document } from 'charlesfries/handlers/github';
 import type IndexRoute from 'charlesfries/routes/index';
+import type { Repository } from 'charlesfries/schemas/repository';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
@@ -50,11 +50,16 @@ interface IndexSignature {
 export default class Index extends Component<IndexSignature> {
   @service declare router: RouterService;
 
-  repositories = (repositories: Document['data']) => {
-    const { controller } = this.args;
+  get isLoading() {
+    const state = getRequestState(this.args.model.request);
+    return state.isLoading;
+  }
+
+  repositories = (repositories: Repository[]) => {
+    const { type } = this.args.controller;
     return repositories.filter(({ isFork }) => {
-      if (controller.type) {
-        return isFork === ('forks' === controller.type);
+      if (type) {
+        return isFork === ('forks' === type);
       }
       return true;
     });
@@ -75,7 +80,7 @@ export default class Index extends Component<IndexSignature> {
       </div>
     </section>
 
-    <Toolbar @onRefresh={{this.refresh}} />
+    <Toolbar @isLoading={{this.isLoading}} @onRefresh={{this.refresh}} />
 
     <Request @request={{@model.request}}>
       <:loading>

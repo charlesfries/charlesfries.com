@@ -9,7 +9,11 @@ module('Integration | Component | toolbar', function (hooks) {
   test('it renders', async function (assert) {
     const refresh = () => {};
 
-    await render(<template><Toolbar @onRefresh={{refresh}} /></template>);
+    await render(
+      <template>
+        <Toolbar @isLoading={{false}} @onRefresh={{refresh}} />
+      </template>,
+    );
 
     assert.dom().hasText('Created Updated Pushed Name All Sources Forks');
   });
