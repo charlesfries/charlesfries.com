@@ -9,6 +9,6 @@ module('Integration | Component | technologies', function (hooks) {
   test('it renders', async function (assert) {
     await render(<template><Technologies /></template>);
 
-    assert.dom('img').exists({ count: 55 });
+    assert.dom('img').exists({ count: 55 }, 'it shows badges');
   });
 });
