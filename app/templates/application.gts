@@ -1,7 +1,7 @@
 import Avatar from 'charlesfries/components/avatar';
 import Heading from 'charlesfries/components/heading';
 import Locale from 'charlesfries/components/locale';
-import Theme from 'charlesfries/components/theme';
+import ThemeButton from 'charlesfries/components/theme-button';
 import { t } from 'ember-intl';
 import { pageTitle } from 'ember-page-title';
 
@@ -15,7 +15,7 @@ import { pageTitle } from 'ember-page-title';
         <Heading />
         <div class="flex gap-2">
           <Locale />
-          <Theme />
+          <ThemeButton />
         </div>
       </div>
     </header>

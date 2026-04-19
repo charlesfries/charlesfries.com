@@ -7,7 +7,7 @@ import Theme from 'charlesfries/services/theme';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
-export default class _Theme extends Component {
+export default class ThemeButton extends Component {
   @service declare theme: Theme;
 
   <template>

@@ -1,13 +1,13 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'charlesfries/tests/helpers';
 import { render } from '@ember/test-helpers';
-import Theme from 'charlesfries/components/theme';
+import ThemeButton from 'charlesfries/components/theme-button';
 
-module('Integration | Component | theme', function (hooks) {
+module('Integration | Component | theme-button', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    await render(<template><Theme /></template>);
+    await render(<template><ThemeButton /></template>);
 
     assert.dom().hasText('');
   });
