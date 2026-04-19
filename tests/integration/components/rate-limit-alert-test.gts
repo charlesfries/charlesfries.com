@@ -36,7 +36,7 @@ module('Integration | Component | rate-limit-alert', function (hooks) {
     await rerender();
 
     assert
-      .dom('#rate-limit')
+      .dom('#rate-limit-alert')
       .hasClass(
         'text-red-500',
         'it changes color when remaining requests are low',

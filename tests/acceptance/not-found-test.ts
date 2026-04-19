@@ -12,8 +12,8 @@ module('Acceptance | not found', function (hooks) {
 
     assert.dom('header #avatar').exists();
     assert.dom('header #heading').exists();
-    assert.dom('header #locale').exists();
-    assert.dom('header #theme').exists();
+    assert.dom('header #locale-select').exists();
+    assert.dom('header #theme-select').exists();
 
     assert.dom('main img').exists();
     assert.dom('main h2').exists();
