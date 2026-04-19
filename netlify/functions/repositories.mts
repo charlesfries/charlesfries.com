@@ -1,7 +1,5 @@
 import type { Document } from 'jsonapi-typescript';
 
-// success
-
 type Body = {
   data: {
     user: {
@@ -29,8 +27,6 @@ type Body = {
     };
   };
 };
-
-// error
 
 type ErrorBody = {
   errors: {
@@ -137,12 +133,12 @@ export default async (request: Request) => {
 
     const data = (await response.json()) as Body | ErrorBody;
 
-    if (!response.ok || (data as ErrorBody).errors) {
+    if (!response.ok || 'errors' in data) {
       console.error(data);
       let body: Document;
-      if ((data as ErrorBody).errors) {
+      if ('errors' in data) {
         body = {
-          errors: (data as ErrorBody).errors.map((error) => ({
+          errors: data.errors.map((error) => ({
             detail:
               error.extensions?.problems?.[0]?.explanation ?? error.message,
           })),
@@ -156,8 +152,8 @@ export default async (request: Request) => {
       });
     }
 
-    const repositories = (data as Body).data.user.repositories.nodes;
-    const pageInfo = (data as Body).data.user.repositories.pageInfo;
+    const repositories = data.data.user.repositories.nodes;
+    const pageInfo = data.data.user.repositories.pageInfo;
 
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
