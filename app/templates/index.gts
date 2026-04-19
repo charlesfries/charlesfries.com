@@ -56,10 +56,10 @@ export default class Index extends Component<IndexSignature> {
   }
 
   repositories = (repositories: Repository[]) => {
-    const { controller } = this.args;
+    const { type } = this.args.controller;
     return repositories.filter(({ isFork }) => {
-      if (controller.type) {
-        return isFork === ('forks' === controller.type);
+      if (type) {
+        return isFork === ('forks' === type);
       }
       return true;
     });
