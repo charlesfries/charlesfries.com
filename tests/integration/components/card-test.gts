@@ -15,6 +15,6 @@ module('Integration | Component | card', function (hooks) {
       </template>,
     );
 
-    assert.dom('div span').exists();
+    assert.dom('#card span').exists('it yields content');
   });
 });

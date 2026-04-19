@@ -9,6 +9,9 @@ module('Integration | Component | avatar', function (hooks) {
   test('it renders', async function (assert) {
     await render(<template><Avatar /></template>);
 
-    assert.dom('img').exists();
+    assert.dom('#avatar img').exists('it shows image');
+    assert
+      .dom('#avatar img')
+      .hasAttribute('alt', 'Charles Fries', 'it has correct alt text');
   });
 });
