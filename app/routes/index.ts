@@ -15,7 +15,7 @@ type Params = {
   before?: string;
 };
 
-export default class RepositoriesRoute extends Route {
+export default class IndexRoute extends Route {
   @service declare store: Store;
 
   queryParams = {

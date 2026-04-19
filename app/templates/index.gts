@@ -15,9 +15,9 @@ import RepositoryCard from 'charlesfries/components/repository';
 import Socials from 'charlesfries/components/socials';
 import Technologies from 'charlesfries/components/technologies';
 import Toolbar from 'charlesfries/components/toolbar';
-import type RepositoriesController from 'charlesfries/controllers/repositories';
+import type IndexController from 'charlesfries/controllers/index';
 import type { Doc } from 'charlesfries/handlers/github';
-import type RepositoriesRoute from 'charlesfries/routes/repositories';
+import type IndexRoute from 'charlesfries/routes/index';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
@@ -40,14 +40,14 @@ const MoreButton = <template>
   </a>
 </template>;
 
-interface RepositoriesSignature {
+interface IndexSignature {
   Args: {
-    model: ModelFrom<RepositoriesRoute>;
-    controller: RepositoriesController;
+    model: ModelFrom<IndexRoute>;
+    controller: IndexController;
   };
 }
 
-export default class Repositories extends Component<RepositoriesSignature> {
+export default class Index extends Component<IndexSignature> {
   @service declare router: RouterService;
 
   repositories = (repositories: Doc['data']) => {
