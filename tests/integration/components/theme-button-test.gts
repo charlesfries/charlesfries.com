@@ -13,11 +13,11 @@ module('Integration | Component | theme-button', function (hooks) {
 
     assert.dom().hasText('');
 
-    assert.dom('#theme svg').hasClass('fa-sun', 'it shows light icon');
+    assert.dom('#theme-button svg').hasClass('fa-sun', 'it shows light icon');
 
-    await click('#theme');
+    await click('#theme-button');
 
-    assert.dom('#theme svg').hasClass('fa-moon', 'it shows dark icon');
+    assert.dom('#theme-button svg').hasClass('fa-moon', 'it shows dark icon');
     assert.strictEqual(
       localStorage.getItem('theme'),
       'dark',
@@ -38,11 +38,11 @@ module('Integration | Component | theme-button', function (hooks) {
 
     await render(<template><ThemeButton /></template>);
 
-    assert.dom('#theme svg').hasClass('fa-sun', 'it shows light icon');
+    assert.dom('#theme-button svg').hasClass('fa-sun', 'it shows light icon');
 
     simulateStorageEvent();
     await rerender();
 
-    assert.dom('#theme svg').hasClass('fa-moon', 'it shows dark icon');
+    assert.dom('#theme-button svg').hasClass('fa-moon', 'it shows dark icon');
   });
 });
