@@ -6,7 +6,7 @@ import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { getRequestState, Request } from '@warp-drive/ember';
 import Description from 'charlesfries/components/description';
-import Error from 'charlesfries/components/error';
+import ErrorAlert from 'charlesfries/components/error-alert';
 import Grid from 'charlesfries/components/grid';
 import Pagination from 'charlesfries/components/pagination';
 import RateLimitAlert from 'charlesfries/components/rate-limit-alert';
@@ -99,7 +99,7 @@ export default class Index extends Component<IndexSignature> {
       </:loading>
 
       <:error as |error|>
-        <Error @error={{error}} @message={{t "error"}} />
+        <ErrorAlert @error={{error}} @message={{t "error"}} />
       </:error>
 
       <:content as |content|>

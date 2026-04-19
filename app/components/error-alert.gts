@@ -2,7 +2,7 @@ import type { TOC } from '@ember/component/template-only';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
-export interface ErrorSignature {
+export interface ErrorAlertSignature {
   Args: {
     error: Error;
     message: string;
@@ -15,4 +15,4 @@ export interface ErrorSignature {
     <FaIcon @icon={{faTriangleExclamation}} class="mr-1" />
     {{@message}}
   </div>
-</template> satisfies TOC<ErrorSignature>;
+</template> satisfies TOC<ErrorAlertSignature>;
