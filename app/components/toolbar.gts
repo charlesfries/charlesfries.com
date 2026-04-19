@@ -8,9 +8,8 @@ import {
   faSortAmountDown,
   faSortAmountUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { BUTTON } from 'charlesfries/utils/class-names';
+import { BUTTON, DISABLED_CLASS } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
-import { DISABLED_CLASS } from './pagination';
 
 export interface ToolbarSignature {
   isLoading: boolean;

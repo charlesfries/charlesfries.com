@@ -4,10 +4,8 @@ import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import type { Meta } from 'charlesfries/handlers/github';
-import { BUTTON } from 'charlesfries/utils/class-names';
+import { BUTTON, DISABLED_CLASS } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
-
-export const DISABLED_CLASS = 'opacity-55 pointer-events-none';
 
 export interface PaginationSignature {
   Args: {

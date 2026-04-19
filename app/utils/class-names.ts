@@ -4,3 +4,5 @@ export const BUTTON = {
   secondary:
     'bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 [&.active]:bg-neutral-200 active:bg-neutral-200 dark:[&.active]:bg-neutral-600 dark:active:bg-neutral-600 font-semibold px-4 py-2',
 };
+
+export const DISABLED_CLASS = 'opacity-55 pointer-events-none';
