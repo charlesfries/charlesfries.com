@@ -46,6 +46,7 @@ export interface RepositorySignature {
 
 <template>
   <Card
+    id="repository"
     class="relative hover:border-blue-500 hover:shadow transition-shadow duration-300"
   >
     <a

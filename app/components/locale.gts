@@ -29,7 +29,7 @@ export default class Locale extends Component {
   };
 
   <template>
-    <div class="relative">
+    <div id="locale" class="relative">
       <select
         class="{{BUTTON.secondary}}
           rounded-lg appearance-none outline-none pr-8"

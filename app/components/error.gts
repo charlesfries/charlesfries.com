@@ -11,7 +11,12 @@ export interface ErrorSignature {
 }
 
 <template>
-  <div class="bg-red-500 text-white rounded-lg p-4" role="alert" ...attributes>
+  <div
+    id="error"
+    class="bg-red-500 text-white rounded-lg p-4"
+    role="alert"
+    ...attributes
+  >
     <FaIcon @icon={{faTriangleExclamation}} class="mr-1" />
     {{@message}}
   </div>

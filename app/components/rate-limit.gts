@@ -24,6 +24,7 @@ export interface RateLimitSignature {
 
 <template>
   <div
+    id="rate-limit"
     class="text-sm text-right mb-6
       {{if
         (isRunningLow @remaining @max)
