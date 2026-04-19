@@ -1,10 +1,10 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'charlesfries/tests/helpers';
 import { render } from '@ember/test-helpers';
-import RepositoryCard from 'charlesfries/components/repository';
+import RepositoryGridItem from 'charlesfries/components/repository-grid-item';
 import type { Repository } from 'charlesfries/schemas/repository';
 
-module('Integration | Component | repository', function (hooks) {
+module('Integration | Component | repository-grid-item', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
@@ -22,7 +22,7 @@ module('Integration | Component | repository', function (hooks) {
     } as Repository;
 
     await render(
-      <template><RepositoryCard @repository={{repository}} /></template>,
+      <template><RepositoryGridItem @repository={{repository}} /></template>,
     );
 
     assert

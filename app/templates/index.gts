@@ -11,7 +11,7 @@ import Grid from 'charlesfries/components/grid';
 import Pagination from 'charlesfries/components/pagination';
 import Placeholder from 'charlesfries/components/placeholder';
 import RateLimit from 'charlesfries/components/rate-limit';
-import RepositoryCard from 'charlesfries/components/repository';
+import RepositoryGridItem from 'charlesfries/components/repository-grid-item';
 import Socials from 'charlesfries/components/socials';
 import Technologies from 'charlesfries/components/technologies';
 import Toolbar from 'charlesfries/components/toolbar';
@@ -110,7 +110,7 @@ export default class Index extends Component<IndexSignature> {
         />
         <Grid>
           {{#each (this.repositories content.data) as |repository|}}
-            <RepositoryCard @repository={{repository}} />
+            <RepositoryGridItem @repository={{repository}} />
           {{/each}}
         </Grid>
         <Pagination
