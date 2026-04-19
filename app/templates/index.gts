@@ -1,17 +1,23 @@
 import type Route from '@ember/routing/route';
+import type RouterService from '@ember/routing/router-service';
+import { service } from '@ember/service';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { Request } from '@warp-drive/ember';
+import Description from 'charlesfries/components/description';
 import Error from 'charlesfries/components/error';
 import Grid from 'charlesfries/components/grid';
 import Pagination from 'charlesfries/components/pagination';
 import Placeholder from 'charlesfries/components/placeholder';
 import RateLimit from 'charlesfries/components/rate-limit';
 import RepositoryCard from 'charlesfries/components/repository';
-import type RepositoriesIndexController from 'charlesfries/controllers/repositories/index';
-import type { Doc } from 'charlesfries/handlers/github';
-import type RepositoriesIndexRoute from 'charlesfries/routes/repositories/index';
+import Socials from 'charlesfries/components/socials';
+import Technologies from 'charlesfries/components/technologies';
+import Toolbar from 'charlesfries/components/toolbar';
+import type IndexController from 'charlesfries/controllers/index';
+import type { Document } from 'charlesfries/handlers/github';
+import type IndexRoute from 'charlesfries/routes/index';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
@@ -34,15 +40,17 @@ const MoreButton = <template>
   </a>
 </template>;
 
-interface RepositoriesIndexSignature {
+interface IndexSignature {
   Args: {
-    model: ModelFrom<RepositoriesIndexRoute>;
-    controller: RepositoriesIndexController;
+    model: ModelFrom<IndexRoute>;
+    controller: IndexController;
   };
 }
 
-export default class RepositoriesIndex extends Component<RepositoriesIndexSignature> {
-  repositories = (repositories: Doc['data']) => {
+export default class Index extends Component<IndexSignature> {
+  @service declare router: RouterService;
+
+  repositories = (repositories: Document['data']) => {
     const { controller } = this.args;
     return repositories.filter(({ isFork }) => {
       if (controller.type) {
@@ -52,7 +60,23 @@ export default class RepositoriesIndex extends Component<RepositoriesIndexSignat
     });
   };
 
+  refresh = () => {
+    this.router.refresh();
+  };
+
   <template>
+    <section class="flex flex-col items-center gap-8 mb-12">
+      <div class="flex flex-col items-center gap-8 max-w-lg text-center">
+        <Description />
+        <Socials />
+      </div>
+      <div class="max-w-3xl">
+        <Technologies />
+      </div>
+    </section>
+
+    <Toolbar @onRefresh={{this.refresh}} />
+
     <Request @request={{@model.request}}>
       <:loading>
         <style>

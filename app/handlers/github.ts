@@ -16,7 +16,7 @@ export interface Meta extends ObjectValue {
   resetAt: string | null;
 }
 
-export interface Doc extends ReactiveDataDocument<Repository[]> {
+export interface Document extends ReactiveDataDocument<Repository[]> {
   meta: Meta;
 }
 
@@ -24,7 +24,7 @@ export const GitHub: Handler = {
   async request<T>(context: RequestContext, next: NextFn<T>) {
     const { request } = context;
 
-    const result = (await next(request)) as StructuredDataDocument<Doc>;
+    const result = (await next(request)) as StructuredDataDocument<Document>;
 
     const { response } = result;
 
