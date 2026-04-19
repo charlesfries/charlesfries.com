@@ -16,8 +16,8 @@ import Socials from 'charlesfries/components/socials';
 import Technologies from 'charlesfries/components/technologies';
 import Toolbar from 'charlesfries/components/toolbar';
 import type IndexController from 'charlesfries/controllers/index';
-import type { Document } from 'charlesfries/handlers/github';
 import type IndexRoute from 'charlesfries/routes/index';
+import type { Repository } from 'charlesfries/schemas/repository';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
@@ -55,7 +55,7 @@ export default class Index extends Component<IndexSignature> {
     return state.isLoading;
   }
 
-  repositories = (repositories: Document['data']) => {
+  repositories = (repositories: Repository[]) => {
     const { controller } = this.args;
     return repositories.filter(({ isFork }) => {
       if (controller.type) {
