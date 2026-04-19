@@ -1,15 +1,15 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'charlesfries/tests/helpers';
 import { click, render, rerender } from '@ember/test-helpers';
-import Theme from 'charlesfries/components/theme';
+import ThemeButton from 'charlesfries/components/theme-button';
 
-module('Integration | Component | theme', function (hooks) {
+module('Integration | Component | theme-button', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
     localStorage.setItem('theme', 'light');
 
-    await render(<template><Theme /></template>);
+    await render(<template><ThemeButton /></template>);
 
     assert.dom().hasText('');
 
@@ -36,7 +36,7 @@ module('Integration | Component | theme', function (hooks) {
       dispatchEvent(event);
     };
 
-    await render(<template><Theme /></template>);
+    await render(<template><ThemeButton /></template>);
 
     assert.dom('#theme svg').hasClass('fa-sun', 'it shows light icon');
 

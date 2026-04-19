@@ -1,10 +1,10 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'charlesfries/tests/helpers';
 import { render, rerender } from '@ember/test-helpers';
-import RateLimit from 'charlesfries/components/rate-limit';
+import RateLimitAlert from 'charlesfries/components/rate-limit-alert';
 import { tracked } from '@glimmer/tracking';
 
-module('Integration | Component | rate-limit', function (hooks) {
+module('Integration | Component | rate-limit-alert', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
@@ -17,7 +17,7 @@ module('Integration | Component | rate-limit', function (hooks) {
 
     await render(
       <template>
-        <RateLimit
+        <RateLimitAlert
           @remaining={{state.remaining}}
           @max={{state.max}}
           @resetAt={{state.resetAt}}

@@ -6,12 +6,12 @@ import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { getRequestState, Request } from '@warp-drive/ember';
 import Description from 'charlesfries/components/description';
-import Error from 'charlesfries/components/error';
+import ErrorAlert from 'charlesfries/components/error-alert';
 import Grid from 'charlesfries/components/grid';
 import Pagination from 'charlesfries/components/pagination';
-import Placeholder from 'charlesfries/components/placeholder';
-import RateLimit from 'charlesfries/components/rate-limit';
-import RepositoryCard from 'charlesfries/components/repository';
+import RateLimitAlert from 'charlesfries/components/rate-limit-alert';
+import RepositoryGridItem from 'charlesfries/components/repository-grid-item';
+import RepositorySkeletonGridItem from 'charlesfries/components/repository-skeleton-grid-item';
 import Socials from 'charlesfries/components/socials';
 import Technologies from 'charlesfries/components/technologies';
 import Toolbar from 'charlesfries/components/toolbar';
@@ -90,27 +90,27 @@ export default class Index extends Component<IndexSignature> {
           }
         </style>
 
-        <RateLimit @remaining={{null}} @max={{null}} @resetAt={{null}} />
+        <RateLimitAlert @remaining={{null}} @max={{null}} @resetAt={{null}} />
         <Grid class="vertical-fade">
           {{#each (range 32)}}
-            <Placeholder />
+            <RepositorySkeletonGridItem />
           {{/each}}
         </Grid>
       </:loading>
 
       <:error as |error|>
-        <Error @error={{error}} @message={{t "error"}} />
+        <ErrorAlert @error={{error}} @message={{t "error"}} />
       </:error>
 
       <:content as |content|>
-        <RateLimit
+        <RateLimitAlert
           @remaining={{content.meta.remainingRequests}}
           @max={{content.meta.maxRequests}}
           @resetAt={{content.meta.resetAt}}
         />
         <Grid>
           {{#each (this.repositories content.data) as |repository|}}
-            <RepositoryCard @repository={{repository}} />
+            <RepositoryGridItem @repository={{repository}} />
           {{/each}}
         </Grid>
         <Pagination

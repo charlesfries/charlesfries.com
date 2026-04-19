@@ -40,7 +40,7 @@ export const languageColors: Record<string, string> = {
 const getLanguageColor = (language: string) =>
   languageColors[language] ?? 'text-neutral-400';
 
-export interface RepositorySignature {
+export interface RepositoryGridItemSignature {
   repository: Repository;
 }
 
@@ -92,4 +92,4 @@ export interface RepositorySignature {
       {{formatDate @repository.pushedAt year="numeric" month="long"}}
     </div>
   </Card>
-</template> satisfies TOC<RepositorySignature>;
+</template> satisfies TOC<RepositoryGridItemSignature>;

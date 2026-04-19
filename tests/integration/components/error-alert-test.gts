@@ -1,9 +1,9 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'charlesfries/tests/helpers';
 import { render } from '@ember/test-helpers';
-import ErrorComponent from 'charlesfries/components/error';
+import ErrorAlert from 'charlesfries/components/error-alert';
 
-module('Integration | Component | error', function (hooks) {
+module('Integration | Component | error-alert', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
@@ -11,7 +11,7 @@ module('Integration | Component | error', function (hooks) {
 
     await render(
       <template>
-        <ErrorComponent @error={{error}} @message="This is a message." />
+        <ErrorAlert @error={{error}} @message="This is a message." />
       </template>,
     );
 
