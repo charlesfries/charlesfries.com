@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'charlesfries/tests/helpers';
 import { render } from '@ember/test-helpers';
-import RepositoryPlaceholderGridItem from 'charlesfries/components/repository-placeholder-grid-item';
+import RepositorySkeletonGridItem from 'charlesfries/components/repository-skeleton-grid-item';
 
 module(
   'Integration | Component | repository-placeholder-grid-item',
@@ -9,7 +9,7 @@ module(
     setupRenderingTest(hooks);
 
     test('it renders', async function (assert) {
-      await render(<template><RepositoryPlaceholderGridItem /></template>);
+      await render(<template><RepositorySkeletonGridItem /></template>);
 
       assert.dom('div').exists();
     });

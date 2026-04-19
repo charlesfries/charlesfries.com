@@ -11,7 +11,7 @@ import Grid from 'charlesfries/components/grid';
 import Pagination from 'charlesfries/components/pagination';
 import RateLimitAlert from 'charlesfries/components/rate-limit-alert';
 import RepositoryGridItem from 'charlesfries/components/repository-grid-item';
-import RepositoryPlaceholderGridItem from 'charlesfries/components/repository-placeholder-grid-item';
+import RepositorySkeletonGridItem from 'charlesfries/components/repository-skeleton-grid-item';
 import Socials from 'charlesfries/components/socials';
 import Technologies from 'charlesfries/components/technologies';
 import Toolbar from 'charlesfries/components/toolbar';
@@ -93,7 +93,7 @@ export default class Index extends Component<IndexSignature> {
         <RateLimitAlert @remaining={{null}} @max={{null}} @resetAt={{null}} />
         <Grid class="vertical-fade">
           {{#each (range 32)}}
-            <RepositoryPlaceholderGridItem />
+            <RepositorySkeletonGridItem />
           {{/each}}
         </Grid>
       </:loading>
