@@ -18,7 +18,7 @@ const options = locales.map((locale) => {
   return { value: locale, label: native };
 });
 
-export default class Locale extends Component {
+export default class LocaleSelect extends Component {
   @service declare intl: IntlService;
 
   setLocale = (event: Event) => {
