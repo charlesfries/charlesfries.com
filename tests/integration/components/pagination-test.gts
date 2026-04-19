@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'charlesfries/tests/helpers';
-import { render } from '@ember/test-helpers';
+import { render, rerender } from '@ember/test-helpers';
 import Pagination from 'charlesfries/components/pagination';
 import { tracked } from '@glimmer/tracking';
 
@@ -32,5 +32,51 @@ module('Integration | Component | pagination', function (hooks) {
 
     previousBtn.hasText('Previous');
     nextBtn.hasText('Next');
+
+    previousBtn.hasAria('disabled');
+    nextBtn.hasAria('disabled');
+
+    state.meta = {
+      ...state.meta,
+      hasMore: true,
+    };
+    await rerender();
+
+    previousBtn.hasAria('disabled');
+    nextBtn.doesNotHaveAria('disabled');
+
+    state.isBackward = false;
+    await rerender();
+
+    previousBtn.doesNotHaveAria('disabled');
+    nextBtn.doesNotHaveAria('disabled');
+
+    state.meta = {
+      ...state.meta,
+      hasMore: false,
+    };
+    await rerender();
+
+    previousBtn.doesNotHaveAria('disabled');
+    nextBtn.hasAria('disabled');
+
+    state.meta = {
+      ...state.meta,
+      hasMore: true,
+    };
+    state.isBackward = true;
+    await rerender();
+
+    previousBtn.doesNotHaveAria('disabled');
+    nextBtn.doesNotHaveAria('disabled');
+
+    state.meta = {
+      ...state.meta,
+      hasMore: false,
+    };
+    await rerender();
+
+    previousBtn.hasAria('disabled');
+    nextBtn.doesNotHaveAria('disabled');
   });
 });
