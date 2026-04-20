@@ -116,9 +116,9 @@ export default class Index extends Component<IndexSignature> {
         <Pagination
           @meta={{content.meta}}
           @isBackward={{if
-            @model.params.before
+            @controller.before
             true
-            (if @model.params.after false null)
+            (if @controller.after false null)
           }}
         />
         <MoreButton />

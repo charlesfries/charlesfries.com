@@ -37,7 +37,6 @@ export default class IndexRoute extends Route {
 
     return {
       request: this.store.request<Document>(options),
-      params,
     };
   }
 }
