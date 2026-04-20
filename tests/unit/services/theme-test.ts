@@ -36,6 +36,65 @@ module('Unit | Service | theme', function (hooks) {
     assert.strictEqual(themeValue, 'dark', 'it updates localStorage');
   });
 
+  test('it defaults to browser theme', function (assert) {
+    localStorage.removeItem('theme');
+
+    interface Obj {
+      matches: boolean;
+    }
+
+    interface MyMediaQueryList extends MediaQueryList {
+      setMatches: (value: boolean) => void;
+    }
+
+    const state = new Map<string, Obj>();
+
+    window.matchMedia = (query) => {
+      if (!state.has(query)) {
+        state.set(query, {
+          matches: false,
+        });
+      }
+
+      const entry = state.get(query)!;
+
+      return {
+        media: query,
+
+        get matches() {
+          return entry.matches;
+        },
+
+        setMatches(value: boolean) {
+          entry.matches = value;
+        },
+
+        onchange: null,
+        addListener() {},
+        removeListener() {},
+        addEventListener() {},
+        removeEventListener() {},
+        dispatchEvent() {
+          return false;
+        },
+      };
+    };
+
+    const service = this.owner.lookup('service:theme');
+
+    const mediaQuery = matchMedia(
+      '(prefers-color-scheme: dark)',
+    ) as MyMediaQueryList;
+
+    mediaQuery.setMatches(false);
+
+    assert.false(service.isDark, 'it uses light theme');
+
+    mediaQuery.setMatches(true);
+
+    assert.true(service.isDark, 'it uses dark theme');
+  });
+
   skip('it handles browser theme updates', function () {
     // TODO:
   });
