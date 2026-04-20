@@ -80,17 +80,20 @@ module('Unit | Service | theme', function (hooks) {
       };
     };
 
+    const simulateBrowserDarkTheme = (isDark: boolean) => {
+      const mediaQuery = matchMedia(
+        '(prefers-color-scheme: dark)',
+      ) as MyMediaQueryList;
+      mediaQuery.setMatches(isDark);
+    };
+
     const service = this.owner.lookup('service:theme');
 
-    const mediaQuery = matchMedia(
-      '(prefers-color-scheme: dark)',
-    ) as MyMediaQueryList;
-
-    mediaQuery.setMatches(false);
+    simulateBrowserDarkTheme(false);
 
     assert.false(service.isDark, 'it uses light theme');
 
-    mediaQuery.setMatches(true);
+    simulateBrowserDarkTheme(true);
 
     assert.true(service.isDark, 'it uses dark theme');
   });
