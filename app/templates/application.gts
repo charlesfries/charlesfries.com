@@ -1,8 +1,10 @@
 import type { TOC } from '@ember/component/template-only';
 import { LinkTo } from '@ember/routing';
 import Avatar from 'charlesfries/components/avatar';
+import Description from 'charlesfries/components/description';
 import Heading from 'charlesfries/components/heading';
 import LocaleSelect from 'charlesfries/components/locale-select';
+import Socials from 'charlesfries/components/socials';
 import ThemeButton from 'charlesfries/components/theme-button';
 import { t } from 'ember-intl';
 import { pageTitle } from 'ember-page-title';
@@ -30,6 +32,10 @@ const Tab: TOC<{ route: string; label: string }> = <template>
         <div class="flex gap-2">
           <LocaleSelect />
           <ThemeButton />
+        </div>
+        <div class="flex flex-col items-center gap-8 max-w-lg text-center">
+          <Description />
+          <Socials />
         </div>
         <ul
           class="flex justify-center border-b border-neutral-300 space-x-3 transition-all duration-300 -mb-px"
