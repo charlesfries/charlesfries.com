@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/6dc94a82-a84c-4803-8570-22f2550deb2f/deploy-status)](https://app.netlify.com/projects/charlesfries/deploys)
+[![GitHub Actions Status](https://github.com/charlesfries/charlesfries.com/actions/workflows/ci.yml/badge.svg)](https://github.com/charlesfries/charlesfries.com/actions/workflows/ci.yml) [![Netlify Status](https://api.netlify.com/api/v1/badges/6dc94a82-a84c-4803-8570-22f2550deb2f/deploy-status)](https://app.netlify.com/projects/charlesfries/deploys)
 
 # charlesfries
 
