@@ -19,7 +19,7 @@ import type { Repository } from 'charlesfries/schemas/repository';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
-type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
+export type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
 
 const range = (length: number) => new Array<void>(length);
 

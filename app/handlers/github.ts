@@ -24,6 +24,10 @@ export const GitHub: Handler = {
   async request<T>(context: RequestContext, next: NextFn<T>) {
     const { request } = context;
 
+    if (!request.url?.includes('charlesfries.com')) {
+      return next(request);
+    }
+
     const result = (await next(request)) as StructuredDataDocument<Document>;
 
     const { response } = result;
