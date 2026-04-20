@@ -1,9 +1,23 @@
+import type { TOC } from '@ember/component/template-only';
+import { LinkTo } from '@ember/routing';
 import Avatar from 'charlesfries/components/avatar';
 import Heading from 'charlesfries/components/heading';
 import LocaleSelect from 'charlesfries/components/locale-select';
 import ThemeButton from 'charlesfries/components/theme-button';
 import { t } from 'ember-intl';
 import { pageTitle } from 'ember-page-title';
+
+const Tab: TOC<{ route: string; label: string }> = <template>
+  <li>
+    <LinkTo
+      @route={{@route}}
+      class="inline-block py-4 px-6 text-gray-500 hover:text-gray-800 font-medium border-b-2 border-transparent [&.active]:border-b-indigo-600 [&.active]:text-indigo-600 whitespace-nowrap"
+    >
+      {{@label}}
+      {{! <span class="bg-indigo-50 py-1 px-2 rounded-full ml-2 text-xs">New</span> }}
+    </LinkTo>
+  </li>
+</template>;
 
 <template>
   {{pageTitle "Charles Fries"}}
@@ -17,6 +31,13 @@ import { pageTitle } from 'ember-page-title';
           <LocaleSelect />
           <ThemeButton />
         </div>
+        <ul
+          class="flex justify-center border-b border-neutral-300 space-x-3 transition-all duration-300 -mb-px"
+        >
+          <Tab @route="repositories" @label="Projects" />
+          <Tab @route="articles" @label="Articles" />
+          <Tab @route="about" @label="About" />
+        </ul>
       </div>
     </header>
     <main>
