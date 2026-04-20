@@ -58,11 +58,6 @@ const DIRECTION_MAP = {
 };
 
 export default async (request: Request) => {
-  return new Response(JSON.stringify({}), {
-    status: 400,
-    headers: { 'Content-Type': 'application/json' },
-  });
-
   const gql = String.raw;
 
   const query = gql`
