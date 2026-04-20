@@ -9,14 +9,12 @@ import { pageTitle } from 'ember-page-title';
   {{pageTitle "Charles Fries"}}
 
   <div class="container mx-auto px-4 py-12">
-    <header class="flex flex-col items-center mb-8">
-      <div class="flex flex-col items-center gap-8 max-w-lg">
-        <Avatar />
-        <Heading />
-        <div class="flex gap-2">
-          <LocaleSelect />
-          <ThemeButton />
-        </div>
+    <header class="flex flex-col items-center gap-8 max-w-lg mx-auto mb-8">
+      <Avatar />
+      <Heading />
+      <div class="flex gap-2">
+        <LocaleSelect />
+        <ThemeButton />
       </div>
     </header>
     <main>
