@@ -25,25 +25,21 @@ const Tab: TOC<{ route: string; label: string }> = <template>
   {{pageTitle "Charles Fries"}}
 
   <div class="container mx-auto px-4 py-12">
-    <header class="flex flex-col items-center mb-8">
-      <div class="flex flex-col items-center gap-8 max-w-lg">
-        <Avatar />
-        <Heading />
-        <div class="flex gap-2">
-          <LocaleSelect />
-          <ThemeButton />
-        </div>
-        <div class="flex flex-col items-center gap-8 max-w-lg text-center">
-          <Description />
-          <Socials />
-        </div>
-        <ul
-          class="flex justify-center border-b border-neutral-300 space-x-3 transition-all duration-300 -mb-px"
-        >
-          <Tab @route="index" @label="Repositories" />
-          <Tab @route="articles" @label="Articles" />
-        </ul>
+    <header class="flex flex-col items-center gap-8 max-w-lg mx-auto mb-8">
+      <Avatar />
+      <Heading />
+      <div class="flex gap-2">
+        <LocaleSelect />
+        <ThemeButton />
       </div>
+      <Description />
+      <Socials />
+      <ul
+        class="flex justify-center border-b border-neutral-300 space-x-3 transition-all duration-300 -mb-px"
+      >
+        <Tab @route="index" @label="Repositories" />
+        <Tab @route="articles" @label="Articles" />
+      </ul>
     </header>
     <main>
       {{outlet}}

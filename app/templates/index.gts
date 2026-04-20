@@ -68,11 +68,9 @@ export default class Index extends Component<IndexSignature> {
   };
 
   <template>
-    <section class="flex flex-col items-center gap-8 mb-12">
-      <div class="max-w-3xl">
-        <Technologies />
-      </div>
-    </section>
+    <div class="max-w-3xl mx-auto mb-12">
+      <Technologies />
+    </div>
 
     <Toolbar @isLoading={{this.isLoading}} @onRefresh={{this.refresh}} />
 

@@ -1,8 +1,5 @@
 import type { Handler, NextFn } from '@warp-drive/core/request';
-import type {
-  RequestContext,
-  StructuredDataDocument,
-} from '@warp-drive/core/types/request';
+import type { RequestContext } from '@warp-drive/core/types/request';
 
 export const DevCommunity: Handler = {
   async request<T>(context: RequestContext, next: NextFn<T>) {
@@ -12,7 +9,7 @@ export const DevCommunity: Handler = {
       return next(request);
     }
 
-    const result = (await next(request)) as StructuredDataDocument<Document>;
+    const result = await next(request);
 
     result.content = {
       data: result.content.map(({ id, ...attributes }) => ({

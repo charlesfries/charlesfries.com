@@ -24,7 +24,7 @@ export const GitHub: Handler = {
   async request<T>(context: RequestContext, next: NextFn<T>) {
     const { request } = context;
 
-    if (!request.url?.includes('charlesfries.com')) {
+    if (request.url?.includes('dev.to')) {
       return next(request);
     }
 

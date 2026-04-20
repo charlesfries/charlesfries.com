@@ -8,7 +8,7 @@ export default class ArticlesRoute extends Route {
 
   model() {
     return {
-      request: this.store.request<Article[]>({
+      request: this.store.request<{ data: Article[] }>({
         url: `https://dev.to/api/articles?username=charlesfries`,
       }),
     };

@@ -9,8 +9,8 @@ const Store = useLegacyStore({
   linksMode: false,
   cache: JSONAPICache,
   handlers: [
-    GitHub,
     DevCommunity,
+    GitHub,
     // -- your handlers here
   ],
   schemas: [
