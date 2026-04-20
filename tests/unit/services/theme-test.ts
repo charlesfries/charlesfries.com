@@ -32,11 +32,8 @@ module('Unit | Service | theme', function (hooks) {
 
     service.toggle();
 
-    assert.strictEqual(
-      localStorage.getItem('theme'),
-      'dark',
-      'it updates localStorage',
-    );
+    const themeValue = localStorage.getItem('theme');
+    assert.strictEqual(themeValue, 'dark', 'it updates localStorage');
   });
 
   skip('it handles browser theme updates', function () {
