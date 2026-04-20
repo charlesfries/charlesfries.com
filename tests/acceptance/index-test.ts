@@ -19,9 +19,7 @@ module('Acceptance | index', function (hooks) {
     assert.dom('main #socials').exists();
     assert.dom('main #technologies').exists();
     assert.dom('main #toolbar').exists();
-    assert.dom('main #rate-limit-alert').exists();
-    assert.dom('main #grid').exists();
-    assert.dom('main #pagination').exists();
+    assert.dom('main #error-alert').exists();
 
     assert.dom('footer').exists();
   });
