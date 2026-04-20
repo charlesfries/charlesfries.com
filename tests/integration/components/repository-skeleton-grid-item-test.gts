@@ -11,7 +11,7 @@ module(
     test('it renders', async function (assert) {
       await render(<template><RepositorySkeletonGridItem /></template>);
 
-      assert.dom('div').exists();
+      assert.dom('#repository-skeleton-grid-item').exists();
     });
   },
 );

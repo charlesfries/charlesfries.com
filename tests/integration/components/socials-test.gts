@@ -9,6 +9,6 @@ module('Integration | Component | socials', function (hooks) {
   test('it renders', async function (assert) {
     await render(<template><Socials /></template>);
 
-    assert.dom('a').exists({ count: 6 }, 'it shows links');
+    assert.dom('#socials a').exists({ count: 6 }, 'it shows links');
   });
 });
