@@ -8,10 +8,12 @@ module('Integration | Component | rate-limit-alert', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
+    const resetAt = (Date.UTC(2026, 3, 19) / 1000).toString();
+
     class State {
       @tracked remaining: number | null = 5;
       @tracked max: number | null = 10;
-      @tracked resetAt: string | null = '1776582000';
+      @tracked resetAt: string | null = resetAt;
     }
     const state = new State();
 
@@ -28,7 +30,7 @@ module('Integration | Component | rate-limit-alert', function (hooks) {
     assert
       .dom()
       .hasText(
-        '5 of 10 requests remaining (resets at 12:00 AM)',
+        '5 of 10 requests remaining (resets at 5:00 PM)',
         'it shows the correct text',
       );
 
