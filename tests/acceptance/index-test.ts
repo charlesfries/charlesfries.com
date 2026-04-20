@@ -19,7 +19,7 @@ module('Acceptance | index', function (hooks) {
     assert.dom('main #socials').exists();
     assert.dom('main #technologies').exists();
     assert.dom('main #toolbar').exists();
-    assert.dom('main #error-alert').exists();
+    assert.dom('main #error-alert').exists(); // TODO: enable netlify server in test
 
     assert.dom('footer').exists();
   });
