@@ -8,7 +8,9 @@ module('Integration | Component | rate-limit-alert', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    const resetAt = (Date.UTC(2026, 3, 19) / 1000).toString();
+    const resetAt = (
+      new Date(Date.UTC(2026, 3, 19)).getTime() / 1000
+    ).toString();
 
     class State {
       @tracked remaining: number | null = 5;
