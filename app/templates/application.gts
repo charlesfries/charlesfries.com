@@ -42,7 +42,6 @@ const Tab: TOC<{ route: string; label: string }> = <template>
         >
           <Tab @route="index" @label="Repositories" />
           <Tab @route="articles" @label="Articles" />
-          <Tab @route="about" @label="About" />
         </ul>
       </div>
     </header>
