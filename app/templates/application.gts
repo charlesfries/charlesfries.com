@@ -34,7 +34,7 @@ const Tab: TOC<{ route: string; label: string }> = <template>
         <ul
           class="flex justify-center border-b border-neutral-300 space-x-3 transition-all duration-300 -mb-px"
         >
-          <Tab @route="repositories" @label="Projects" />
+          <Tab @route="index" @label="Repositories" />
           <Tab @route="articles" @label="Articles" />
           <Tab @route="about" @label="About" />
         </ul>
