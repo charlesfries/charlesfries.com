@@ -20,7 +20,7 @@ interface ArticlesSignature {
 
   <Request @request={{@model.request}}>
     <:loading>
-      <Spinner />
+      <Spinner class="mx-auto" />
     </:loading>
 
     <:error as |error|>
