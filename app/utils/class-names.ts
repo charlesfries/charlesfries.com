@@ -6,3 +6,10 @@ export const BUTTON = {
 };
 
 export const DISABLED_CLASS = 'opacity-55 pointer-events-none';
+
+export const CARD = {
+  default:
+    'relative hover:border-blue-500 hover:shadow transition-shadow duration-300',
+  stretchedLink:
+    'text-blue-600 dark:text-blue-400 underline after:absolute after:inset-0',
+};
