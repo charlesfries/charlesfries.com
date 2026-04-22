@@ -38,8 +38,8 @@ const Tab: TOC<{ route: string; label: string }> = <template>
       <ul
         class="flex justify-center border-b border-neutral-300 dark:border-neutral-700 space-x-3 -mb-px"
       >
-        <Tab @route="index" @label="Repositories" />
-        <Tab @route="articles" @label="Articles" />
+        <Tab @route="index" @label={{t "tabs.repositories"}} />
+        <Tab @route="articles" @label={{t "tabs.articles"}} />
       </ul>
     </header>
     <main>

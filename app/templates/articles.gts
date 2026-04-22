@@ -17,7 +17,7 @@ interface ArticlesSignature {
 }
 
 <template>
-  {{pageTitle "Articles"}}
+  {{pageTitle (t "tabs.articles")}}
 
   <Request @request={{@model.request}}>
     <:loading>

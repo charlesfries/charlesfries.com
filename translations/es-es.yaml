@@ -9,6 +9,9 @@ contact:
   bluesky: Bluesky
   instagram: Instagram
   email: Email
+tabs:
+  repositories: Repositorios
+  articles: Artículos
 refresh: Refrescar
 sort:
   created: Fecha de Creación
