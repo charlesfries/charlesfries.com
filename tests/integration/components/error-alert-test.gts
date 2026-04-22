@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'charlesfries/tests/helpers';
-import { render } from '@ember/test-helpers';
+import { click, render } from '@ember/test-helpers';
 import ErrorAlert from 'charlesfries/components/error-alert';
 
 module('Integration | Component | error-alert', function (hooks) {
@@ -15,6 +15,13 @@ module('Integration | Component | error-alert', function (hooks) {
       </template>,
     );
 
-    assert.dom().hasText('This is a message.');
+    assert.dom('p').hasText('This is a message.', 'it shows message');
+    assert.dom('button').hasText('Show details', 'it shows button text');
+
+    await click('button');
+
+    assert
+      .dom('button + p')
+      .hasText('This is an error message.', 'it shows error message');
   });
 });

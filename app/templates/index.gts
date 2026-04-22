@@ -1,5 +1,5 @@
 import type Route from '@ember/routing/route';
-import type RouterService from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
@@ -46,7 +46,7 @@ interface IndexSignature {
 }
 
 export default class Index extends Component<IndexSignature> {
-  @service declare router: RouterService;
+  @service declare router: Router;
 
   get isLoading() {
     const state = getRequestState(this.args.model.request);
@@ -108,9 +108,9 @@ export default class Index extends Component<IndexSignature> {
         <Pagination
           @meta={{content.meta}}
           @isBackward={{if
-            @model.params.before
+            @controller.before
             true
-            (if @model.params.after false null)
+            (if @controller.after false null)
           }}
         />
         <MoreButton />
