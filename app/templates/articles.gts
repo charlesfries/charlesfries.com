@@ -31,23 +31,18 @@ interface ArticlesSignature {
       <div class="flex flex-col gap-4 max-w-lg mx-auto">
         {{#each content.data as |article|}}
           <Card
-            class="hover:border-blue-500 hover:shadow transition-shadow duration-300"
+            class="relative hover:border-blue-500 hover:shadow transition-shadow duration-300"
           >
-            <h2
-              class="text-blue-600 dark:text-blue-400 underline mb-2"
-            >{{article.title}}</h2>
-            <p class="text-neutral-500 dark:text-neutral-400 mb-2">
+            <a
+              href={{article.url}}
+              class="text-blue-600 dark:text-blue-400 underline after:absolute after:inset-0"
+            >
+              {{article.title}}
+            </a>
+            <p class="text-neutral-500 dark:text-neutral-400 my-2">
               {{formatDate article.published_at dateStyle="long"}}
             </p>
             <p class="mb-2">{{article.description}}</p>
-            <a
-              href={{article.url}}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-blue-600 dark:text-blue-400 underline"
-            >
-              Read article
-            </a>
           </Card>
         {{/each}}
       </div>
