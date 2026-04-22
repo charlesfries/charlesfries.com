@@ -21,6 +21,7 @@ export default class ErrorAlert extends Component<ErrorAlertSignature> {
 
   <template>
     <div
+      id="error-alert"
       class="flex gap-4 bg-red-500 text-white rounded-lg p-4"
       role="alert"
       ...attributes

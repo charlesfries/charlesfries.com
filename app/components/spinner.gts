@@ -6,6 +6,7 @@ export interface SpinnerSignature {
 
 <template>
   <svg
+    id="spinner"
     class="size-5 animate-spin text-black dark:text-white"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

@@ -9,6 +9,7 @@ export interface CardSignature {
 
 <template>
   <div
+    id="card"
     class="bg-white dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-700 rounded-xl p-4"
     ...attributes
   >

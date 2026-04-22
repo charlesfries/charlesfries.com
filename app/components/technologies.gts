@@ -69,7 +69,7 @@ const technologies: Technology[] = [
 ];
 
 <template>
-  <div class="flex flex-wrap justify-center gap-2">
+  <div id="technologies" class="flex flex-wrap justify-center gap-2">
     {{#each technologies as |technology|}}
       <img
         alt={{technology.name}}
