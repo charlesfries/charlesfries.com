@@ -22,7 +22,7 @@ module('Acceptance | not found', function (hooks) {
 
     assert.dom('footer').exists();
 
-    await click('a');
+    await click('main a');
 
     assert.strictEqual(currentURL(), '/');
   });
