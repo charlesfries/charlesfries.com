@@ -5,14 +5,12 @@ import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { getRequestState, Request } from '@warp-drive/ember';
-import Description from 'charlesfries/components/description';
 import ErrorAlert from 'charlesfries/components/error-alert';
 import Grid from 'charlesfries/components/grid';
 import Pagination from 'charlesfries/components/pagination';
 import RateLimitAlert from 'charlesfries/components/rate-limit-alert';
 import RepositoryGridItem from 'charlesfries/components/repository-grid-item';
 import RepositorySkeletonGridItem from 'charlesfries/components/repository-skeleton-grid-item';
-import Socials from 'charlesfries/components/socials';
 import Technologies from 'charlesfries/components/technologies';
 import Toolbar from 'charlesfries/components/toolbar';
 import type IndexController from 'charlesfries/controllers/index';
@@ -21,7 +19,7 @@ import type { Repository } from 'charlesfries/schemas/repository';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
-type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
+export type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
 
 const range = (length: number) => new Array<void>(length);
 
@@ -70,15 +68,9 @@ export default class Index extends Component<IndexSignature> {
   };
 
   <template>
-    <section class="flex flex-col items-center gap-8 mb-12">
-      <div class="flex flex-col items-center gap-8 max-w-lg text-center">
-        <Description />
-        <Socials />
-      </div>
-      <div class="max-w-3xl">
-        <Technologies />
-      </div>
-    </section>
+    <div class="max-w-3xl mx-auto mb-12">
+      <Technologies />
+    </div>
 
     <Toolbar @isLoading={{this.isLoading}} @onRefresh={{this.refresh}} />
 

@@ -9,6 +9,9 @@ contact:
   bluesky: Bluesky
   instagram: Instagram
   email: Email
+tabs:
+  repositories: 代码仓库
+  articles: 文章
 refresh: 刷新
 sort:
   created: 创建日期

@@ -14,9 +14,10 @@ module('Acceptance | index', function (hooks) {
     assert.dom('header #heading').exists();
     assert.dom('header #locale-select').exists();
     assert.dom('header #theme-button').exists();
+    assert.dom('header #description').exists();
+    assert.dom('header #socials').exists();
+    assert.dom('header #nav').exists();
 
-    assert.dom('main #description').exists();
-    assert.dom('main #socials').exists();
     assert.dom('main #technologies').exists();
     assert.dom('main #toolbar').exists();
     assert.dom('main #error-alert').exists(); // TODO: enable netlify server in test
