@@ -23,6 +23,7 @@ export default class LocaleSelect extends Component {
 
   setLocale = (event: Event) => {
     const { value } = event.target as HTMLSelectElement;
+
     this.intl.setLocale(value);
 
     mixpanel.track('Locale Changed', { locale: value });

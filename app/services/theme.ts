@@ -3,7 +3,7 @@ import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import mixpanel from 'mixpanel-browser';
 
-type _Theme = 'light' | 'dark';
+type ThemeValue = 'light' | 'dark';
 
 const LOCAL_STORAGE_KEY = 'theme';
 
@@ -12,7 +12,7 @@ export default class Theme extends Service {
 
   @tracked private userTheme = localStorage.getItem(
     LOCAL_STORAGE_KEY,
-  ) as _Theme | null;
+  ) as ThemeValue | null;
 
   constructor(owner: Owner) {
     super(owner);
@@ -38,13 +38,13 @@ export default class Theme extends Service {
 
   private handleStorageChange = (event: StorageEvent) => {
     if (event.key === LOCAL_STORAGE_KEY) {
-      this.userTheme = event.newValue as _Theme | null;
+      this.userTheme = event.newValue as ThemeValue | null;
       this.apply();
     }
   };
 
   private get systemTheme() {
-    return (this.mediaQuery.matches ? 'dark' : 'light') as _Theme;
+    return (this.mediaQuery.matches ? 'dark' : 'light') as ThemeValue;
   }
 
   get isDark() {
