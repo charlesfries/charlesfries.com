@@ -17,8 +17,9 @@ export interface ToolbarSignature {
 }
 
 <template>
-  <div class="flex flex-wrap gap-2 mb-6">
+  <div id="toolbar" class="flex flex-wrap gap-2 mb-6">
     <button
+      id="refresh"
       type="button"
       class="{{BUTTON.secondary}}
         {{if @isLoading DISABLED_CLASS}}

@@ -27,7 +27,7 @@ export default class Pagination extends Component<PaginationSignature> {
   }
 
   <template>
-    <div class="flex justify-center pt-10">
+    <div id="pagination" class="flex justify-center pt-10">
       <LinkTo
         @query={{hash before=@meta.first after=undefined}}
         class="{{BUTTON.secondary}}

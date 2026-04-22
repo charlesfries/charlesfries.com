@@ -9,6 +9,6 @@ module('Integration | Component | heading', function (hooks) {
   test('it renders', async function (assert) {
     await render(<template><Heading /></template>);
 
-    assert.dom('h1').exists();
+    assert.dom('#heading').exists();
   });
 });

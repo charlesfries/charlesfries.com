@@ -34,5 +34,5 @@ import { t } from 'ember-intl';
     }
   </style>
 
-  <h1 class="heading text-8xl font-bold italic">{{t "name"}}</h1>
+  <h1 id="heading" class="heading text-8xl font-bold italic">{{t "name"}}</h1>
 </template>

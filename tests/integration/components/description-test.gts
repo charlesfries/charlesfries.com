@@ -9,6 +9,6 @@ module('Integration | Component | description', function (hooks) {
   test('it renders', async function (assert) {
     await render(<template><Description /></template>);
 
-    assert.dom('p').exists();
+    assert.dom('#description').exists('it shows text');
   });
 });
