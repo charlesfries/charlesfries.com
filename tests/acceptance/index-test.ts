@@ -16,6 +16,7 @@ module('Acceptance | index', function (hooks) {
     assert.dom('header #theme-button').exists();
     assert.dom('header #description').exists();
     assert.dom('header #socials').exists();
+    assert.dom('header #nav').exists();
 
     assert.dom('main #technologies').exists();
     assert.dom('main #toolbar').exists();

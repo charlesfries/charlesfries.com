@@ -1,33 +1,12 @@
-import type { TOC } from '@ember/component/template-only';
-import { LinkTo } from '@ember/routing';
 import Avatar from 'charlesfries/components/avatar';
 import Description from 'charlesfries/components/description';
 import Heading from 'charlesfries/components/heading';
 import LocaleSelect from 'charlesfries/components/locale-select';
+import Nav from 'charlesfries/components/nav';
 import Socials from 'charlesfries/components/socials';
 import ThemeButton from 'charlesfries/components/theme-button';
 import { t } from 'ember-intl';
 import { pageTitle } from 'ember-page-title';
-
-const Tab: TOC<{ route: string; label: string }> = <template>
-  <li>
-    <LinkTo
-      @route={{@route}}
-      class="inline-block py-4 px-6 text-neutral-500 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-100 font-medium border-b-2 border-transparent [&.active]:border-b-blue-600 dark:[&.active]:border-b-blue-400 [&.active]:text-blue-600 dark:[&.active]:text-blue-400 whitespace-nowrap"
-    >
-      {{@label}}
-    </LinkTo>
-  </li>
-</template>;
-
-const Tabs = <template>
-  <ul
-    class="flex justify-center border-b border-neutral-300 dark:border-neutral-700 space-x-3 -mb-px"
-  >
-    <Tab @route="index" @label={{t "tabs.repositories"}} />
-    <Tab @route="articles" @label={{t "tabs.articles"}} />
-  </ul>
-</template>;
 
 <template>
   {{pageTitle "Charles Fries"}}
@@ -44,7 +23,7 @@ const Tabs = <template>
       </div>
       <Description />
       <Socials />
-      <Tabs />
+      <Nav />
     </header>
     <main>
       {{outlet}}
