@@ -24,7 +24,9 @@ const Tab: TOC<{ route: string; label: string }> = <template>
   {{pageTitle "Charles Fries"}}
 
   <div class="container mx-auto px-4 py-12">
-    <header class="flex flex-col items-center gap-8 max-w-lg mx-auto mb-8">
+    <header
+      class="flex flex-col items-center gap-8 max-w-lg mx-auto text-center mb-8"
+    >
       <Avatar />
       <Heading />
       <div class="flex gap-2">
