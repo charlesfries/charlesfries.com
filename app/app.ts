@@ -22,7 +22,9 @@ export default class App extends Application {
 loadInitializers(App, config.modulePrefix, compatModules);
 
 const isDevelopment = 'development' === config.environment;
+const isProduction = 'production' === config.environment;
+
 mixpanel.init('f537ea51ddb0c79c7e5f339f832e5267', { debug: isDevelopment });
-if (isDevelopment) {
+if (!isProduction) {
   mixpanel.disable();
 }
