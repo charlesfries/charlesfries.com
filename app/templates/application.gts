@@ -13,10 +13,9 @@ const Tab: TOC<{ route: string; label: string }> = <template>
   <li>
     <LinkTo
       @route={{@route}}
-      class="inline-block py-4 px-6 text-gray-500 hover:text-gray-800 font-medium border-b-2 border-transparent [&.active]:border-b-indigo-600 [&.active]:text-indigo-600 whitespace-nowrap"
+      class="inline-block py-4 px-6 text-neutral-500 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-100 font-medium border-b-2 border-transparent [&.active]:border-b-blue-600 dark:[&.active]:border-b-blue-400 [&.active]:text-blue-600 dark:[&.active]:text-blue-400 whitespace-nowrap"
     >
       {{@label}}
-      {{! <span class="bg-indigo-50 py-1 px-2 rounded-full ml-2 text-xs">New</span> }}
     </LinkTo>
   </li>
 </template>;
@@ -35,7 +34,7 @@ const Tab: TOC<{ route: string; label: string }> = <template>
       <Description />
       <Socials />
       <ul
-        class="flex justify-center border-b border-neutral-300 space-x-3 transition-all duration-300 -mb-px"
+        class="flex justify-center border-b border-neutral-300 dark:border-neutral-700 space-x-3 -mb-px"
       >
         <Tab @route="index" @label="Repositories" />
         <Tab @route="articles" @label="Articles" />
