@@ -5,12 +5,12 @@ import { faBan, faRedo } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { SkipCache } from '@warp-drive/core/types/request';
 import { Request } from '@warp-drive/ember';
-import Error from 'charlesfries/components/error';
+import ErrorAlert from 'charlesfries/components/error-alert';
 import type { TextBody } from 'charlesfries/handlers/text';
 import type Store from 'charlesfries/services/store';
+import { BUTTON } from 'charlesfries/utils/class-names';
 import MarkdownToHtml from 'ember-cli-showdown/components/markdown-to-html';
 import { t } from 'ember-intl';
-import { BUTTON_CLASS_NAME } from './toolbar';
 
 const Spinner = <template>
   <svg
@@ -67,22 +67,25 @@ export default class Technologies extends Component {
           <Spinner />
           <button
             type="button"
-            class="{{BUTTON_CLASS_NAME}} rounded-lg cursor-pointer"
+            class="{{BUTTON.secondary}} rounded-lg cursor-pointer"
             aria-label="Cancel"
             {{on "click" state.abort}}
           ><FaIcon @icon={{faBan}} /></button>
         </:loading>
 
         <:error as |error state|>
-          <Error @error={{error}} @message="Couldn't fetch GitHub README!" />
+          <ErrorAlert
+            @error={{error}}
+            @message="Couldn't fetch GitHub README!"
+          />
           <button type="button" {{on "click" state.retry}}>Retry</button>
         </:error>
 
         <:cancelled as |error state|>
-          <Error @error={{error}} @message="The request was cancelled." />
+          <ErrorAlert @error={{error}} @message="The request was cancelled." />
           <button
             type="button"
-            class="{{BUTTON_CLASS_NAME}} rounded-lg cursor-pointer"
+            class="{{BUTTON.secondary}} rounded-lg cursor-pointer"
             aria-label="Retry"
             {{on "click" state.retry}}
           ><FaIcon @icon={{faRedo}} /></button>
@@ -95,7 +98,7 @@ export default class Technologies extends Component {
           />
           <button
             type="button"
-            class="{{BUTTON_CLASS_NAME}} rounded-lg cursor-pointer"
+            class="{{BUTTON.secondary}} rounded-lg cursor-pointer"
             aria-label={{t "refresh"}}
             {{on "click" state.reload}}
           ><FaIcon @icon={{faRedo}} /></button>
