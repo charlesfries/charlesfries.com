@@ -9,6 +9,6 @@ module('Integration | Component | spinner', function (hooks) {
   test('it renders', async function (assert) {
     await render(<template><Spinner /></template>);
 
-    assert.dom().hasText('');
+    assert.dom('svg').exists('it shows svg');
   });
 });

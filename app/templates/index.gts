@@ -1,27 +1,25 @@
 import type Route from '@ember/routing/route';
-import type RouterService from '@ember/routing/router-service';
+import type Router from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
-import { Request } from '@warp-drive/ember';
-import Description from 'charlesfries/components/description';
-import Error from 'charlesfries/components/error';
+import { getRequestState, Request } from '@warp-drive/ember';
+import ErrorAlert from 'charlesfries/components/error-alert';
 import Grid from 'charlesfries/components/grid';
 import Pagination from 'charlesfries/components/pagination';
-import Placeholder from 'charlesfries/components/placeholder';
-import RateLimit from 'charlesfries/components/rate-limit';
-import RepositoryCard from 'charlesfries/components/repository';
-import Socials from 'charlesfries/components/socials';
+import RateLimitAlert from 'charlesfries/components/rate-limit-alert';
+import RepositoryGridItem from 'charlesfries/components/repository-grid-item';
+import RepositorySkeletonGridItem from 'charlesfries/components/repository-skeleton-grid-item';
 import Technologies from 'charlesfries/components/technologies';
 import Toolbar from 'charlesfries/components/toolbar';
 import type IndexController from 'charlesfries/controllers/index';
-import type { Document } from 'charlesfries/handlers/github';
 import type IndexRoute from 'charlesfries/routes/index';
+import type { Repository } from 'charlesfries/schemas/repository';
 import { BUTTON } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
-type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
+export type ModelFrom<R extends Route> = Awaited<ReturnType<R['model']>>;
 
 const range = (length: number) => new Array<void>(length);
 
@@ -48,13 +46,18 @@ interface IndexSignature {
 }
 
 export default class Index extends Component<IndexSignature> {
-  @service declare router: RouterService;
+  @service declare router: Router;
 
-  repositories = (repositories: Document['data']) => {
-    const { controller } = this.args;
+  get isLoading() {
+    const state = getRequestState(this.args.model.request);
+    return state.isLoading;
+  }
+
+  repositories = (repositories: Repository[]) => {
+    const { type } = this.args.controller;
     return repositories.filter(({ isFork }) => {
-      if (controller.type) {
-        return isFork === ('forks' === controller.type);
+      if (type) {
+        return isFork === ('forks' === type);
       }
       return true;
     });
@@ -65,17 +68,11 @@ export default class Index extends Component<IndexSignature> {
   };
 
   <template>
-    <section class="flex flex-col items-center gap-8 mb-12">
-      <div class="flex flex-col items-center gap-8 max-w-lg text-center">
-        <Description />
-        <Socials />
-      </div>
-      <div class="max-w-3xl">
-        <Technologies />
-      </div>
-    </section>
+    <div class="max-w-3xl mx-auto mb-12">
+      <Technologies />
+    </div>
 
-    <Toolbar @onRefresh={{this.refresh}} />
+    <Toolbar @isLoading={{this.isLoading}} @onRefresh={{this.refresh}} />
 
     <Request @request={{@model.request}}>
       <:loading>
@@ -85,35 +82,35 @@ export default class Index extends Component<IndexSignature> {
           }
         </style>
 
-        <RateLimit @remaining={{null}} @max={{null}} @resetAt={{null}} />
+        <RateLimitAlert @remaining={{null}} @max={{null}} @resetAt={{null}} />
         <Grid class="vertical-fade">
           {{#each (range 32)}}
-            <Placeholder />
+            <RepositorySkeletonGridItem />
           {{/each}}
         </Grid>
       </:loading>
 
       <:error as |error|>
-        <Error @error={{error}} @message={{t "error"}} />
+        <ErrorAlert @error={{error}} @message={{t "error"}} />
       </:error>
 
       <:content as |content|>
-        <RateLimit
+        <RateLimitAlert
           @remaining={{content.meta.remainingRequests}}
           @max={{content.meta.maxRequests}}
           @resetAt={{content.meta.resetAt}}
         />
         <Grid>
           {{#each (this.repositories content.data) as |repository|}}
-            <RepositoryCard @repository={{repository}} />
+            <RepositoryGridItem @repository={{repository}} />
           {{/each}}
         </Grid>
         <Pagination
           @meta={{content.meta}}
           @isBackward={{if
-            @model.params.before
+            @controller.before
             true
-            (if @model.params.after false null)
+            (if @controller.after false null)
           }}
         />
         <MoreButton />

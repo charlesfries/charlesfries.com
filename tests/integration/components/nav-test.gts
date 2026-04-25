@@ -1,14 +1,14 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'charlesfries/tests/helpers';
 import { render } from '@ember/test-helpers';
-import Theme from 'charlesfries/components/theme';
+import Nav from 'charlesfries/components/nav';
 
-module('Integration | Component | theme', function (hooks) {
+module('Integration | Component | nav', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    await render(<template><Theme /></template>);
+    await render(<template><Nav /></template>);
 
-    assert.dom().hasText('');
+    assert.dom().hasText('Repositories Articles');
   });
 });

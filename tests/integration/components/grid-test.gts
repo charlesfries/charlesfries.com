@@ -7,8 +7,14 @@ module('Integration | Component | grid', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    await render(<template><Grid /></template>);
+    await render(
+      <template>
+        <Grid>
+          <span></span>
+        </Grid>
+      </template>,
+    );
 
-    assert.dom().hasText('');
+    assert.dom('#grid span').exists('it yields content');
   });
 });

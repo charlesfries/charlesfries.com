@@ -2,6 +2,7 @@ import type { TOC } from '@ember/component/template-only';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faCodeFork, faStar } from '@fortawesome/free-solid-svg-icons';
 import type { Repository } from 'charlesfries/schemas/repository';
+import { CARD } from 'charlesfries/utils/class-names';
 import { formatDate, t } from 'ember-intl';
 import Card from './card';
 
@@ -40,18 +41,13 @@ export const languageColors: Record<string, string> = {
 const getLanguageColor = (language: string) =>
   languageColors[language] ?? 'text-neutral-400';
 
-export interface RepositorySignature {
+export interface RepositoryGridItemSignature {
   repository: Repository;
 }
 
 <template>
-  <Card
-    class="relative hover:border-blue-500 hover:shadow transition-shadow duration-300"
-  >
-    <a
-      href={{@repository.url}}
-      class="text-blue-600 dark:text-blue-400 underline after:absolute after:inset-0"
-    >
+  <Card id="repository-grid-item" class={{CARD.default}}>
+    <a href={{@repository.url}} class={{CARD.stretchedLink}}>
       {{@repository.name}}
     </a>
     {{#if @repository.isFork}}
@@ -91,4 +87,4 @@ export interface RepositorySignature {
       {{formatDate @repository.pushedAt year="numeric" month="long"}}
     </div>
   </Card>
-</template> satisfies TOC<RepositorySignature>;
+</template> satisfies TOC<RepositoryGridItemSignature>;

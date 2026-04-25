@@ -1,24 +1,21 @@
-import { on } from '@ember/modifier';
+import Service from '@ember/service';
 import type Owner from '@ember/owner';
-import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
-import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
-import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { BUTTON } from 'charlesfries/utils/class-names';
-import { t } from 'ember-intl';
 import mixpanel from 'mixpanel-browser';
 
-type _Theme = 'light' | 'dark';
+type ThemeValue = 'light' | 'dark';
 
 const LOCAL_STORAGE_KEY = 'theme';
 
-export default class Theme extends Component {
-  mediaQuery = matchMedia('(prefers-color-scheme: dark)');
+export default class Theme extends Service {
+  private mediaQuery = matchMedia('(prefers-color-scheme: dark)');
 
-  @tracked userTheme = localStorage.getItem(LOCAL_STORAGE_KEY) as _Theme | null;
+  @tracked private userTheme = localStorage.getItem(
+    LOCAL_STORAGE_KEY,
+  ) as ThemeValue | null;
 
-  constructor(owner: Owner, args: never) {
-    super(owner, args);
+  constructor(owner: Owner) {
+    super(owner);
 
     this.apply();
 
@@ -26,28 +23,28 @@ export default class Theme extends Component {
     addEventListener('storage', this.handleStorageChange);
   }
 
-  willDestroy() {
+  override willDestroy() {
     super.willDestroy();
 
     this.mediaQuery.removeEventListener('change', this.handleMediaChange);
     removeEventListener('storage', this.handleStorageChange);
   }
 
-  handleMediaChange = () => {
+  private handleMediaChange = () => {
     if (!this.userTheme) {
       this.apply();
     }
   };
 
-  handleStorageChange = (event: StorageEvent) => {
+  private handleStorageChange = (event: StorageEvent) => {
     if (event.key === LOCAL_STORAGE_KEY) {
-      this.userTheme = event.newValue as _Theme | null;
+      this.userTheme = event.newValue as ThemeValue | null;
       this.apply();
     }
   };
 
-  get systemTheme() {
-    return (this.mediaQuery.matches ? 'dark' : 'light') as _Theme;
+  private get systemTheme() {
+    return (this.mediaQuery.matches ? 'dark' : 'light') as ThemeValue;
   }
 
   get isDark() {
@@ -66,7 +63,7 @@ export default class Theme extends Component {
     mixpanel.track('Theme Changed', { theme: this.userTheme });
   };
 
-  apply = () => {
+  private apply = () => {
     const root = document.documentElement;
     const isDark = this.isDark;
 
@@ -76,15 +73,14 @@ export default class Theme extends Component {
 
     root.classList.toggle('dark', isDark);
   };
+}
 
-  <template>
-    <button
-      type="button"
-      class="{{BUTTON.secondary}} rounded-lg cursor-pointer"
-      aria-label={{t "toggleTheme"}}
-      {{on "click" this.toggle}}
-    >
-      <FaIcon @icon={{if this.isDark faMoon faSun}} />
-    </button>
-  </template>
+// Don't remove this declaration: this is what enables TypeScript to resolve
+// this service using `Owner.lookup('service:theme')`, as well
+// as to check when you pass the service name as an argument to the decorator,
+// like `@service('theme') declare altName: ThemeService;`.
+declare module '@ember/service' {
+  interface Registry {
+    theme: Theme;
+  }
 }

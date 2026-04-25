@@ -8,19 +8,24 @@ import {
   faSortAmountDown,
   faSortAmountUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { BUTTON } from 'charlesfries/utils/class-names';
+import { BUTTON, DISABLED_CLASS } from 'charlesfries/utils/class-names';
 import { t } from 'ember-intl';
 
 export interface ToolbarSignature {
+  isLoading: boolean;
   onRefresh: () => void;
 }
 
 <template>
-  <div class="flex flex-wrap gap-2 mb-6">
+  <div id="toolbar" class="flex flex-wrap gap-2 mb-6">
     <button
+      id="refresh"
       type="button"
-      class="{{BUTTON.secondary}} rounded-lg cursor-pointer"
+      class="{{BUTTON.secondary}}
+        {{if @isLoading DISABLED_CLASS}}
+        rounded-lg cursor-pointer"
       aria-label={{t "refresh"}}
+      disabled={{@isLoading}}
       {{on "click" @onRefresh}}
     >
       <FaIcon @icon={{faRedo}} />

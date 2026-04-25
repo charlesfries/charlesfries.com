@@ -18,7 +18,7 @@ import { pageTitle } from 'ember-page-title';
     <p class="text-neutral-500 dark:text-neutral-400 mt-4">
       {{t "notFound.message"}}
     </p>
-    <LinkTo @route="repositories" class="{{BUTTON.primary}} inline-block mt-6">
+    <LinkTo @route="index" class="{{BUTTON.primary}} inline-block mt-6">
       <FaIcon @icon={{faArrowRotateLeft}} class="mr-1" />
       {{t "notFound.goHome"}}
     </LinkTo>

@@ -9,6 +9,9 @@ contact:
   bluesky: Bluesky
   instagram: Instagram
   email: Email
+tabs:
+  repositories: Repositories
+  articles: Articles
 refresh: Refresh
 sort:
   created: Created
@@ -29,6 +32,10 @@ pagination:
   previous: Previous
   next: Next
 error: Couldn't fetch GitHub repositories!
+errorAlert:
+  show: Show
+  hide: Hide
+  details: details
 copyright: © 2026 Charles Fries. All rights reserved.
 notFound:
   title: Page not found

@@ -18,18 +18,19 @@ const options = locales.map((locale) => {
   return { value: locale, label: native };
 });
 
-export default class Locale extends Component {
+export default class LocaleSelect extends Component {
   @service declare intl: IntlService;
 
   setLocale = (event: Event) => {
     const { value } = event.target as HTMLSelectElement;
+
     this.intl.setLocale(value);
 
     mixpanel.track('Locale Changed', { locale: value });
   };
 
   <template>
-    <div class="relative">
+    <div id="locale-select" class="relative">
       <select
         class="{{BUTTON.secondary}}
           rounded-lg appearance-none outline-none pr-8"

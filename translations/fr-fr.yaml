@@ -9,6 +9,9 @@ contact:
   bluesky: Bluesky
   instagram: Instagram
   email: Email
+tabs:
+  repositories: Dépôts
+  articles: Articles
 refresh: Rafraîchir
 sort:
   created: Date de création
@@ -29,6 +32,10 @@ pagination:
   previous: Précédent
   next: Suivant
 error: Impossible de récupérer les dépôts GitHub!
+errorAlert:
+  show: Montrer
+  hide: Cacher
+  details: détails
 copyright: © 2026 Charles Fries. Tous droits réservés.
 notFound:
   title: Page introuvable

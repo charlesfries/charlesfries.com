@@ -14,7 +14,7 @@ const isRunningLow = (remaining: number | null, max: number | null) => {
 
 const toDate = (dateStr: string | null) => new Date(Number(dateStr) * 1000);
 
-export interface RateLimitSignature {
+export interface RateLimitAlertSignature {
   Args: {
     remaining: number | null;
     max: number | null;
@@ -24,6 +24,7 @@ export interface RateLimitSignature {
 
 <template>
   <div
+    id="rate-limit-alert"
     class="text-sm text-right mb-6
       {{if
         (isRunningLow @remaining @max)
@@ -41,4 +42,4 @@ export interface RateLimitSignature {
       }}
     {{/unless}}
   </div>
-</template> satisfies TOC<RateLimitSignature>;
+</template> satisfies TOC<RateLimitAlertSignature>;
