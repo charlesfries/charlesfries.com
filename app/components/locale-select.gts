@@ -1,4 +1,3 @@
-import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
