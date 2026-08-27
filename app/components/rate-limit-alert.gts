@@ -3,8 +3,6 @@ import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { formatNumber, formatTime, t } from 'ember-intl';
 
-const eq = (a: unknown, b: unknown) => a === b;
-
 const isRunningLow = (remaining: number | null, max: number | null) => {
   if (remaining === null || max === null) {
     return false;

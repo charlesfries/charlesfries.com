@@ -1,12 +1,8 @@
-import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { t } from 'ember-intl';
-
-const not = (value: unknown) => !value;
 
 export interface ErrorAlertSignature {
   Args: {

@@ -1,6 +1,4 @@
 import type { TOC } from '@ember/component/template-only';
-import { hash } from '@ember/helper';
-import { on } from '@ember/modifier';
 import { LinkTo } from '@ember/routing';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import {
