@@ -11,8 +11,7 @@
           "options": [
             "--no-welcome",
             "--ci-provider=github",
-            "--typescript",
-            "--no-warp-drive"
+            "--typescript"
           ]
         }
       ]
