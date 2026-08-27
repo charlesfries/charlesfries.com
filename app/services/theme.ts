@@ -44,7 +44,7 @@ export default class Theme extends Service {
   };
 
   private get systemTheme() {
-    return (this.mediaQuery.matches ? 'dark' : 'light') as ThemeValue;
+    return this.mediaQuery.matches ? 'dark' : 'light';
   }
 
   get isDark() {
