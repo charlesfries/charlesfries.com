@@ -2,7 +2,7 @@
 
 # charlesfries
 
-This is the source for the portfolio website [charlesfries.com](https://charlesfries.com). The client is an Ember application, and the server is comprised of Netlify Functions. The client and server are both hosted by the same origin.
+This is the source for the portfolio website [charlesfries.com](https://charlesfries.com). The client is an Ember application, and the server is comprised of Netlify Functions. The client and server are both hosted on the same origin.
 
 ## Prerequisites
 
