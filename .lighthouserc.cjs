@@ -1,7 +1,7 @@
 module.exports = {
   ci: {
     collect: {
-      startServerCommand: 'npm run dev',
+      startServerCommand: 'pnpm dev',
       url: ['http://localhost:8888/'],
       startServerReadyPattern: 'Build successful',
     },
