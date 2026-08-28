@@ -1,4 +1,3 @@
-import { hash } from '@ember/helper';
 import { LinkTo } from '@ember/routing';
 import FaIcon from '@fortawesome/ember-fontawesome/components/fa-icon';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
