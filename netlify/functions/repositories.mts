@@ -41,7 +41,6 @@ type ErrorBody = {
   }[];
 };
 
-// TODO: duplicated
 type Sort = 'created' | 'updated' | 'pushed' | 'name';
 type Direction = 'asc' | 'desc';
 
@@ -57,50 +56,50 @@ const DIRECTION_MAP = {
   desc: 'DESC',
 };
 
-export default async (request: Request) => {
-  const gql = String.raw;
+const gql = String.raw;
 
-  const query = gql`
-    query GetRepositories(
-      $sort: RepositoryOrderField!
-      $direction: OrderDirection!
-      $first: Int
-      $last: Int
-      $after: String
-      $before: String
-    ) {
-      user(login: "charlesfries") {
-        repositories(
-          first: $first
-          last: $last
-          after: $after
-          before: $before
-          orderBy: { field: $sort, direction: $direction }
-        ) {
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-            first: startCursor
-            last: endCursor
-          }
-          nodes {
-            id
+const query = gql`
+  query GetRepositories(
+    $sort: RepositoryOrderField!
+    $direction: OrderDirection!
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+  ) {
+    user(login: "charlesfries") {
+      repositories(
+        first: $first
+        last: $last
+        after: $after
+        before: $before
+        orderBy: { field: $sort, direction: $direction }
+      ) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          first: startCursor
+          last: endCursor
+        }
+        nodes {
+          id
+          name
+          description
+          url
+          stargazerCount
+          forkCount
+          isFork
+          pushedAt
+          primaryLanguage {
             name
-            description
-            url
-            stargazerCount
-            forkCount
-            isFork
-            pushedAt
-            primaryLanguage {
-              name
-            }
           }
         }
       }
     }
-  `;
+  }
+`;
 
+export default async (request: Request) => {
   try {
     const url = new URL(request.url);
     const _sort = url.searchParams.get('sort') as Sort | null;
