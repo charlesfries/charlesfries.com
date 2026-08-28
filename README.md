@@ -2,8 +2,7 @@
 
 # charlesfries
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is the source for the portfolio website [charlesfries.com](https://charlesfries.com). The client is an Ember application, and the server is comprised of Netlify Functions. The client and server are both hosted by the same origin.
 
 ## Prerequisites
 
@@ -19,11 +18,18 @@ You will need the following things properly installed on your computer.
 - `cd charlesfries`
 - `npm install`
 
+## Configure Netlify Locally
+
+Netlify must be linked on the local server to pull in environment variables.
+
+- `npm install --global netlify-cli`
+- `netlify link`
+
 ## Running / Development
 
-- `npm run start`
-- Visit your app at [http://localhost:4200](http://localhost:4200).
-- Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+- `npm run dev`
+- Visit your app at [http://localhost:8888](http://localhost:8888).
+- Visit your tests at [http://localhost:8888/tests](http://localhost:8888/tests).
 
 ### Code Generators
 
