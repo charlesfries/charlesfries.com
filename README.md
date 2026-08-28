@@ -23,8 +23,7 @@ You will need the following things properly installed on your computer.
 
 Netlify must be linked on the local server to pull in environment variables.
 
-- `pnpm add --global netlify-cli`
-- `netlify link --name charlesfries`
+- `pnpm dev:link`
 
 ## Running / Development
 

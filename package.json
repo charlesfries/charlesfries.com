@@ -17,6 +17,7 @@
   "scripts": {
     "build": "vite build",
     "dev": "netlify dev --framework ember --no-open",
+    "dev:link": "netlify link --name charlesfries",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
     "lint:css": "stylelint \"**/*.css\"",
