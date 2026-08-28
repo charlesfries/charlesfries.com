@@ -15,7 +15,7 @@ type Params = {
   before?: string;
 };
 
-const removeUndefined = <T>(obj: { [key: string]: T }) =>
+const removeNullish = <T>(obj: { [key: string]: T }) =>
   Object.fromEntries(Object.entries(obj).filter(([, value]) => value != null));
 
 export default class IndexRoute extends Route {
@@ -29,14 +29,14 @@ export default class IndexRoute extends Route {
   };
 
   model(params: Params) {
-    const clean = removeUndefined(params);
+    const cleanParams = removeNullish(params);
 
-    const options = query('repository', clean, {
+    const requestOptions = query('repository', cleanParams, {
       backgroundReload: true,
     });
 
     return {
-      request: this.store.request<Document>(options),
+      request: this.store.request<Document>(requestOptions),
     };
   }
 }
