@@ -9,14 +9,15 @@ This is the source for the portfolio website [charlesfries.com](https://charlesf
 You will need the following things properly installed on your computer.
 
 - [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/) (with npm)
+- [Node.js](https://nodejs.org/)
+- [pnpm](https://pnpm.io/)
 - [Google Chrome](https://google.com/chrome/)
 
 ## Installation
 
 - `git clone <repository-url>` this repository
 - `cd charlesfries`
-- `npm install`
+- `pnpm install`
 
 ## Configure Netlify Locally
 
@@ -27,27 +28,27 @@ Netlify must be linked on the local server to pull in environment variables.
 
 ## Running / Development
 
-- `npm run dev`
+- `pnpm dev`
 - Visit your app at [http://localhost:8888](http://localhost:8888).
 - Visit your tests at [http://localhost:8888/tests](http://localhost:8888/tests).
 
 ### Code Generators
 
-Make use of the many generators for code, try `npm exec ember help generate` for more details
+Make use of the many generators for code, try `pnpm ember help generate` for more details
 
 ### Running Tests
 
-- `npm run test`
+- `pnpm test`
 
 ### Linting
 
-- `npm run lint`
-- `npm run lint:fix`
+- `pnpm lint`
+- `pnpm lint:fix`
 
 ### Building
 
-- `npm exec vite build --mode development` (development)
-- `npm run build` (production)
+- `pnpm vite build --mode development` (development)
+- `pnpm build` (production)
 
 ### Deploying
 

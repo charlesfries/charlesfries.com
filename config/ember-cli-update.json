@@ -10,6 +10,7 @@
           "isBaseBlueprint": true,
           "options": [
             "--no-welcome",
+            "--pnpm",
             "--ci-provider=github",
             "--typescript"
           ]
