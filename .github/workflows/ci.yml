@@ -73,4 +73,4 @@ jobs:
         run: pnpm add -g @lhci/cli@0.15.x
       - run: pnpm build
       - name: Run Lighthouse
-        run: run: lhci autorun
+        run: lhci autorun
