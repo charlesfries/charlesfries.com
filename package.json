@@ -30,7 +30,7 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "lint:types": "ember-tsc --noEmit",
-    "start": "vite",
+    "start": "pnpm build && vite preview",
     "test": "vite build --mode development && ember test --path dist"
   },
   "devDependencies": {
