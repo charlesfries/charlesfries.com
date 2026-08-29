@@ -69,6 +69,8 @@ jobs:
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      - run: pnpm add -g @lhci/cli@0.15.x
+      - name: Install Lighthouse
+        run: pnpm add -g @lhci/cli@0.15.x
       - run: pnpm build
-      - run: lhci autorun
+      - name: Run Lighthouse
+        run: run: lhci autorun
