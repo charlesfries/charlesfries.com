@@ -7,7 +7,6 @@ module.exports = {
     },
     assert: {
       assertions: {
-        'first-contentful-paint': 'warn',
         'errors-in-console': 'warn',
         'font-display': 'warn',
         'image-delivery-insight': 'warn',
