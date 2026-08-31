@@ -36,6 +36,11 @@ module('Integration | Component | pagination', function (hooks) {
     previousBtn.hasAria('disabled');
     nextBtn.hasAria('disabled');
 
+    assert
+      .dom('[aria-label="Previous"] svg')
+      .exists('it shows a previous icon');
+    assert.dom('[aria-label="Next"] svg').exists('it shows a next icon');
+
     state.meta = {
       ...state.meta,
       hasMore: true,

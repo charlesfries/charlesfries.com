@@ -10,5 +10,12 @@ module('Integration | Component | nav', function (hooks) {
     await render(<template><Nav /></template>);
 
     assert.dom().hasText('Repositories Articles');
+    assert.dom('#nav li').exists({ count: 2 }, 'it shows two tabs');
+    assert
+      .dom('#nav li:first-child a')
+      .hasText('Repositories', 'it lists repositories first');
+    assert
+      .dom('#nav li:last-child a')
+      .hasText('Articles', 'it lists articles second');
   });
 });
