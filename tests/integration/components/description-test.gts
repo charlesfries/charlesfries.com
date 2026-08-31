@@ -10,5 +10,14 @@ module('Integration | Component | description', function (hooks) {
     await render(<template><Description /></template>);
 
     assert.dom('#description').exists('it shows text');
+    assert
+      .dom('#description')
+      .includesText('My name is Charles Fries.', 'it interpolates the name');
+    assert
+      .dom('#description strong')
+      .exists(
+        { count: 4 },
+        'it renders the html-safe markup instead of escaping it',
+      );
   });
 });

@@ -12,6 +12,12 @@ module(
       await render(<template><RepositorySkeletonGridItem /></template>);
 
       assert.dom('#repository-skeleton-grid-item').exists();
+      assert
+        .dom('#card #repository-skeleton-grid-item')
+        .exists('it is wrapped in a card');
+      assert
+        .dom('#repository-skeleton-grid-item')
+        .hasClass('animate-pulse', 'it animates the placeholder');
     });
   },
 );

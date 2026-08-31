@@ -16,5 +16,21 @@ module('Integration | Component | grid', function (hooks) {
     );
 
     assert.dom('#grid span').exists('it yields content');
+    assert.dom('#grid').hasClass('grid', 'it applies default grid styling');
+  });
+
+  test('it forwards attributes to the element', async function (assert) {
+    await render(
+      <template>
+        <Grid data-test-grid class="extra-class">
+          <span></span>
+        </Grid>
+      </template>,
+    );
+
+    assert
+      .dom('#grid')
+      .hasAttribute('data-test-grid', '', 'it forwards arbitrary attributes');
+    assert.dom('#grid').hasClass('extra-class', 'it merges passed-in class');
   });
 });

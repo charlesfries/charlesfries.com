@@ -12,6 +12,9 @@ module('Integration | Component | avatar', function (hooks) {
     assert.dom('#avatar img').exists('it shows image');
     assert
       .dom('#avatar img')
+      .hasAttribute('src', 'avatar.png', 'it has correct image source');
+    assert
+      .dom('#avatar img')
       .hasAttribute('alt', 'Charles Fries', 'it has correct alt text');
   });
 });

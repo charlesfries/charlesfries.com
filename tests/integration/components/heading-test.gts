@@ -10,5 +10,7 @@ module('Integration | Component | heading', function (hooks) {
     await render(<template><Heading /></template>);
 
     assert.dom('#heading').exists();
+    assert.dom('#heading').hasTagName('h1', 'it renders as a heading');
+    assert.dom('#heading').hasText('Charles Fries', 'it shows the name');
   });
 });
