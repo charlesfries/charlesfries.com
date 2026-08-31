@@ -50,13 +50,11 @@ module('Unit | Service | theme', function (hooks) {
     const state = new Map<string, Obj>();
 
     window.matchMedia = (query) => {
-      if (!state.has(query)) {
-        state.set(query, {
-          matches: false,
-        });
+      let entry = state.get(query);
+      if (!entry) {
+        entry = { matches: false };
+        state.set(query, entry);
       }
-
-      const entry = state.get(query)!;
 
       return {
         media: query,

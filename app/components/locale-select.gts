@@ -9,9 +9,9 @@ import mixpanel from 'mixpanel-browser';
 const locales = ['en-us', 'zh-cn', 'es-es', 'fr-fr', 'it-it'];
 
 const options = locales.map((locale) => {
-  const [lang] = locale.split('-');
+  const [lang = locale] = locale.split('-');
 
-  let native = new Intl.DisplayNames([lang!], { type: 'language' }).of(lang!)!;
+  let native = new Intl.DisplayNames([lang], { type: 'language' }).of(lang) ?? lang;
   native = native.charAt(0).toUpperCase() + native.slice(1);
 
   return { value: locale, label: native };

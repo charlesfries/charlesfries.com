@@ -50,7 +50,7 @@ export default class Index extends Component<IndexSignature> {
 
   get isLoading() {
     const state = getRequestState(this.args.model.request);
-    return state.isLoading;
+    return state.isPending;
   }
 
   repositories = (repositories: Repository[]) => {

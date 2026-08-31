@@ -16,6 +16,7 @@ export default class App extends Application {
   modulePrefix = config.modulePrefix;
   podModulePrefix = config.podModulePrefix;
   Resolver = Resolver.withModules(compatModules);
+  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression -- documented @embroider/legacy-inspector-support usage; must run as a field initializer, not a constructor statement
   inspector = setupInspector(this);
 }
 
