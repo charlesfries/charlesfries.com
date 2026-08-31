@@ -75,7 +75,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['**/*.{ts,gts}'],
+    files: ['**/*.{ts,gts,mts}'],
     languageOptions: {
       parser: ember.parser,
       parserOptions: parserOptions.esm.ts,
@@ -92,6 +92,14 @@ export default defineConfig([
       },
       ember.configs.gts,
     ],
+  },
+  {
+    files: ['netlify/**/*.{ts,mts}'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
   },
   {
     ...qunit.configs.recommended,

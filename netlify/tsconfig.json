@@ -1,0 +1,7 @@
+{
+  "extends": "@ember/app-tsconfig",
+  "include": ["."],
+  "compilerOptions": {
+    "types": ["node"]
+  }
+}

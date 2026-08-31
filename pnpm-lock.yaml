@@ -107,6 +107,9 @@ importers:
       '@types/mixpanel-browser':
         specifier: ^2.38.1
         version: 2.66.0
+      '@types/node':
+        specifier: ^26.4.0
+        version: 26.4.0
       '@types/qunit':
         specifier: ^2.19.14
         version: 2.19.14
