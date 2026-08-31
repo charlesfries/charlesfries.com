@@ -30,6 +30,12 @@ import n from 'eslint-plugin-n';
 
 import babelParser from '@babel/eslint-parser/experimental-worker';
 
+// Ember/WarpDrive rules assume an Ember app and don't apply to plain
+// server-side code, so they're disabled for netlify/ below.
+const warpDriveRuleNames = Object.keys(
+  WarpDrive.find((config) => config.rules)?.rules ?? {},
+);
+
 const parserOptions = {
   esm: {
     js: {
@@ -75,7 +81,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['**/*.{ts,gts,mts}'],
+    files: ['**/*.{ts,gts}'],
     languageOptions: {
       parser: ember.parser,
       parserOptions: parserOptions.esm.ts,
@@ -96,10 +102,17 @@ export default defineConfig([
   {
     files: ['netlify/**/*.{ts,mts}'],
     languageOptions: {
+      sourceType: 'module',
+      ecmaVersion: 'latest',
+      parserOptions: parserOptions.esm.ts,
       globals: {
         ...globals.node,
       },
     },
+    extends: [...ts.configs.recommendedTypeChecked],
+    rules: Object.fromEntries(
+      warpDriveRuleNames.map((name) => [name, 'off']),
+    ),
   },
   {
     ...qunit.configs.recommended,
