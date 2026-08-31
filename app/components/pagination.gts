@@ -22,6 +22,7 @@ export default class Pagination extends Component<PaginationSignature> {
   }
 
   get canNext() {
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- `isBackward === false` must also fall through to `hasMore`, not just null/undefined
     return this.args.isBackward || this.args.meta.hasMore;
   }
 

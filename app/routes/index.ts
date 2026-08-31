@@ -8,6 +8,7 @@ export type Sort = 'created' | 'updated' | 'pushed' | 'name';
 export type Direction = 'asc' | 'desc';
 export type Type = 'sources' | 'forks';
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- must stay a type alias: interfaces don't get TS's implicit string index signature, which `removeUndefined` relies on for assignability
 type Params = {
   sort: Sort;
   direction: Direction;
@@ -15,7 +16,7 @@ type Params = {
   before?: string;
 };
 
-const removeUndefined = <T>(obj: { [key: string]: T }) =>
+const removeUndefined = <T>(obj: Record<string, T>) =>
   Object.fromEntries(Object.entries(obj).filter(([, value]) => value != null));
 
 export default class IndexRoute extends Route {

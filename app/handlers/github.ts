@@ -40,7 +40,7 @@ export const GitHub: Handler = {
       ? Number(remainingRequests)
       : null;
     result.content.meta.maxRequests = maxRequests ? Number(maxRequests) : null;
-    result.content.meta.resetAt = resetAt ? resetAt : null;
+    result.content.meta.resetAt = resetAt ?? null;
 
     return result as T;
   },

@@ -68,10 +68,12 @@ module('Unit | Service | theme', function (hooks) {
         },
 
         onchange: null,
+        /* eslint-disable @typescript-eslint/no-empty-function -- stubbing the unused parts of the MediaQueryList interface */
         addListener() {},
         removeListener() {},
         addEventListener() {},
         removeEventListener() {},
+        /* eslint-enable @typescript-eslint/no-empty-function */
         dispatchEvent() {
           return false;
         },

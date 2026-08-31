@@ -18,7 +18,9 @@ module('Integration | Component | theme-button', function (hooks) {
   test('it shows light state', async function (assert) {
     class MockTheme extends Service {
       isDark = false;
-      toggle() {}
+      toggle() {
+        // noop
+      }
     }
 
     this.owner.register('service:theme', MockTheme);
@@ -31,7 +33,9 @@ module('Integration | Component | theme-button', function (hooks) {
   test('it shows dark state', async function (assert) {
     class MockTheme extends Service {
       isDark = true;
-      toggle() {}
+      toggle() {
+        // noop
+      }
     }
 
     this.owner.register('service:theme', MockTheme);

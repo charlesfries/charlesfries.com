@@ -85,6 +85,7 @@ export default defineConfig([
     },
     extends: [
       ...ts.configs.strictTypeChecked,
+      ...ts.configs.stylisticTypeChecked,
       // https://github.com/ember-cli/ember-addon-blueprint/issues/119
       {
         ...ts.configs.eslintRecommended,
